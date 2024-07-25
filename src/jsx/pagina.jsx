@@ -21,9 +21,7 @@ function SubEnvolventeSeccion(props) {
     }
     return <EnvolventeSeccion
         {...props}
-    >
-        {children}
-    </EnvolventeSeccion>;
+    />;
 }
 
 function EnvolventeSeccion({ children, style, className = "", elevacion = 1 }) {
