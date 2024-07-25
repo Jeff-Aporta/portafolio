@@ -3,17 +3,6 @@ crearEstilo({
     "li": {
       marginBottom: "20px",
     },
-  },
-  ".titilar_anim": {
-    animation: "titilar 1s infinite",
-  },
-  "@keyframes titilar": {
-    "0%, 49%": {
-      color: 'dodgerblue',
-    },
-    "50%, 100%": {
-      color: 'rgba(30, 144, 255, 0.5)',
-    },
   }
 })
 
