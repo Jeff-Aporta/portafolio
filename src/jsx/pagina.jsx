@@ -1,4 +1,4 @@
-function envolventePagina({ children, style, className = "" }) {
+function EnvolventePagina({ children, style, className = "" }) {
     return (
         <ThemeProvider theme={themeSelected}>
             <CssBaseline />
@@ -15,7 +15,7 @@ function envolventePagina({ children, style, className = "" }) {
     );
 }
 
-function envolventeSeccion({ children, style, className = "", elevacion = 1 }) {
+function EnvolventeSeccion({ children, style, className = "", elevacion = 1 }) {
     return (
         <Paper
             elevation={elevacion}
