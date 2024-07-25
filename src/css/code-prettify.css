@@ -9,6 +9,18 @@ pre {
 
     white-space: pre-wrap;
     z-index: 0;
+
+    &.mini {
+      padding: 10px;
+      display: inline-block;
+
+      & li{
+        list-style-type: none;
+      }
+      & ol{
+        padding: 0px;
+      }
+    }
   }
 
   .nocode {
