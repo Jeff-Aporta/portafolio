@@ -25,7 +25,7 @@ function SubEnvolventeSeccion(props) {
 }
 
 function Nbsp(r = 1) {
-    return Array(r).fill(
+    return Array.from({ length: r }).map(() =>
         <React.Fragment>&nbsp;</React.Fragment>
     );
 }
