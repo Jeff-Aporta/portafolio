@@ -24,12 +24,6 @@ function SubEnvolventeSeccion(props) {
     />;
 }
 
-function Nbsp(r = 1) {
-    return Array.from({ length: r }).map(() =>
-        <React.Fragment>&nbsp;</React.Fragment>
-    );
-}
-
 function EnvolventeSeccion({ children, style, className = "", elevacion = 1 }) {
     return (
         <Paper
