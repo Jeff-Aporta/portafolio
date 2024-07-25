@@ -17,7 +17,7 @@ function envolventePagina({ children, style, className = "" }) {
 
 function envolventeSeccion({ children, style, className = "", elevacion = 1 }) {
     return (
-        <paper
+        <Paper
             elevation={elevacion}
             className={className}
             style={{
@@ -27,6 +27,6 @@ function envolventeSeccion({ children, style, className = "", elevacion = 1 }) {
             }}
         >
             {children}
-        </paper>
+        </Paper>
     );
 }
