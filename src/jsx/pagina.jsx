@@ -15,6 +15,17 @@ function EnvolventePagina({ children, style, className = "" }) {
     );
 }
 
+function SubEnvolventeSeccion(props) {
+    if (!props.elevacion) {
+        props.elevacion = 2;
+    }
+    return <EnvolventeSeccion
+        {...props}
+    >
+        {children}
+    </EnvolventeSeccion>;
+}
+
 function EnvolventeSeccion({ children, style, className = "", elevacion = 1 }) {
     return (
         <Paper
