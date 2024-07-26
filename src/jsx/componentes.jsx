@@ -35,14 +35,12 @@ function EspacioVertical({ height = '20px' }) {
 }
 
 function CodeInline(props) {
-    return (
-        <Code
-            {...props}
-            linenumbers={false}
-            className="solo-texto mini"
-            esCopiable={false}
-        />
-    );
+    return <Code
+        {...props}
+        linenumbers={false}
+        className="solo-texto mini"
+        esCopiable={false}
+    />
 }
 
 function Code({
@@ -70,8 +68,6 @@ function Code({
             ${className}
         `}
         style={{
-            position: "relative",
-            margin: "40px 0",
             ...style,
         }}
     >
