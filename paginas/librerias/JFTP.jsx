@@ -1140,25 +1140,10 @@ function CodeJava({
     linenumbers = true,
     children,
 }) {
-    let multiLinea = false;
-    if (typeof children == "string") {
-        children = children.split("\n");
-        while (children[0].trim() == "") {
-            children.shift();
-        }
-        while (children[children.length - 1].trim() == "") {
-            children.pop();
-        }
-        if (children.length > 1) {
-            multiLinea = true;
-        }
-        let espaciosAlInicio = children.find((linea) => linea.match(/^\s*/)[0].length);
-        espaciosAlInicio = espaciosAlInicio ? espaciosAlInicio.match(/^\s*/)[0].length : 0;
+    let {multiLinea, str} = removerTabulacionesDeCodigo(children);
 
-        children = children.map((linea) => {
-            return linea.slice(espaciosAlInicio);
-        }).join("\n");
-    }
+    children = str;
+
     return (
         <Code
             nocode={nocode}

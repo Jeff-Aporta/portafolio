@@ -72,7 +72,7 @@ function Code({
         }}
     >
         {esCopiable ? <BotonCopiar /> : ""}
-        {children}
+        {removerTabulacionesDeCodigo(children).str}
     </pre >);
 
     function BotonCopiar() {
@@ -100,6 +100,32 @@ function Code({
             </Button>
         </TooltipTheme>;
     }
+}
+
+function removerTabulacionesDeCodigo(str) {
+    let multiLinea = false;
+    if (typeof str == "string") {
+        str = str.split("\n");
+        while (str[0].trim() == "") {
+            str.shift();
+        }
+        while (str[str.length - 1].trim() == "") {
+            str.pop();
+        }
+        if (str.length > 1) {
+            multiLinea = true;
+        }
+        let espaciosAlInicio = str.find((linea) => linea.match(/^\s*/)[0].length);
+        espaciosAlInicio = espaciosAlInicio ? espaciosAlInicio.match(/^\s*/)[0].length : 0;
+
+        str = str.map((linea) => {
+            return linea.slice(espaciosAlInicio);
+        }).join("\n");
+    }
+    return {
+        multiLinea,
+        str
+    };
 }
 
 function ChipCode(props) {
