@@ -35,7 +35,6 @@ pre {
   }
   .str {
     color: gold;
-    font-style: italic;
   } /* string */
   .kwd {
     color: deepskyblue;
