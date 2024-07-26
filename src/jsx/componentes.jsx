@@ -41,6 +41,7 @@ function Code({
     children,
     className = "",
     style = {},
+    esCopiable = true,
     onCopy = () => 0,
 }) {
     let idR = Math.random().toString().replace("0.", "idR-");
@@ -63,7 +64,7 @@ function Code({
             ...style,
         }}
     >
-        <BotonCopiar />
+        {esCopiable ? <BotonCopiar /> : ""}
         {children}
     </pre >);
 
