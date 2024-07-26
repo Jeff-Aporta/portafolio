@@ -10,10 +10,18 @@ pre {
     position: relative;
     margin: 20px 0;
 
+    &.simple {
+      .str,
+      .typ,
+      .lit {
+        color: white;
+      }
+    }
+
     &.noNumerar {
       padding: 15px;
 
-      ol{
+      ol {
         padding: 0px;
       }
 
