@@ -105,6 +105,7 @@ function Code({
 function removerTabulacionesDeCodigo(str) {
     let multiLinea = false;
     if (typeof str == "string") {
+        console.log(str);
         str = str.split("\n");
         while (str[0].trim() == "") {
             str.shift();
@@ -115,11 +116,16 @@ function removerTabulacionesDeCodigo(str) {
         if (str.length > 1) {
             multiLinea = true;
         }
-        let espaciosAlInicio = str.find((linea) => linea.match(/^\s*/)[0].length);
-        espaciosAlInicio = espaciosAlInicio ? espaciosAlInicio.match(/^\s*/)[0].length : 0;
+
+        let espaciosAlInicio = str.find((linea) => linea.trim()).match(/^\s*/)[0].length ?? 0;
 
         str = str.map((linea) => {
-            return linea.slice(espaciosAlInicio);
+            return linea.split("").reduce((acumulado, caracter, index) => {
+                if (index < espaciosAlInicio && caracter == " ") {
+                    return acumulado;
+                }
+                return acumulado + caracter;
+            }, "");
         }).join("\n");
     }
     return {

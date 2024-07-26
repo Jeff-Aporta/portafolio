@@ -10,15 +10,49 @@
     <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@main/mapeos-personales.js"></script>
 
     <script>
+      delete ASCII_MAPS.PORTAFOLIO;
 
-      
+      Object.values(ASCII_MAPS).forEach((map) => {
+        runASCIIMapLoad_inLine(map);
+      });
 
-      runASCIIMapLoad(ASCII_MAPS.CODEPRETTIFY);
-      runASCIIMapLoad(ASCII_MAPS.ICONOS);
-      runASCIIMapLoad(ASCII_MAPS.REACT_MUI);
-      runASCIIMapLoad(ASCII_MAPS.REACT_DESIGN_SYSTEM);
+      runASCIIMapLoad_inLine(`
+          🤖 REACT (JSX)
 
+          ➤📁 componentes
+          │
+          ├──📁 esquema
+          │   ├──📄 estilizados
+          ╧   └──📄 main
 
+          ➤📁 src
+          │
+          ├──📁 css
+          │   └──🎨 code-prettify
+          │
+          ├──📁 jsx
+          │   ├──🖼️ componentes
+          ╧   └──🖼️ pagina
+
+          🖼️ https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@latest/esquema
+
+          ➤📁 paginas
+          │
+          ├──📁 librerias
+          │   ├──🖼️ lib
+          │   │
+          │   ├──📁 Java
+          │   │   ├──📄 JFTP.contenido
+          │   ╧   └──📄 JFTP
+          │
+          ├──📄 configuracion
+          ├──📄 librerias
+          ├──📄 perfil
+          └──📄 proyectos
+
+          🖼️ index
+          📄 fin
+      `);
     </script>
   </head>
   <body>

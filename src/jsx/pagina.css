@@ -1,0 +1,23 @@
+.esquema-principal {
+  .contenedor-pagina {
+    &.ocultar {
+      filter: blur(3px) brightness(0.3);
+      & > * {
+        pointer-events: none;
+      }
+    }
+    .pagina {
+      padding: 40px 50px;
+
+      .seccion {
+        padding: 30px;
+        border-radius: 20px;
+
+        .subseccion {
+          padding: 20px;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+}

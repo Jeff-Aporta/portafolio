@@ -44,19 +44,24 @@ function MiniDrawer() {
     let listaDePaginas = [
         {
             ID: "JFTP",
-            accion: (actualizarURL = true) => {
-                CambiarPagina(<PaginaLibreriaJFTP />, "JFTP", actualizarURL);
+            accion: function (actualizarURL = true) {
+                CambiarPagina(<PaginaLibreriaJFTP />, this.ID, actualizarURL);
+            }
+        },
+        {
+            ID: "ASCII Map Loader",
+            accion: function (actualizarURL = true) {
+                CambiarPagina(<PaginaASCIIMapLoader inclusionEnPortafolio={false} />, this.ID, actualizarURL);
             }
         }
     ]
-
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     let [fadeType, setFadeType] = React.useState("in");
 
     const handleDrawerOpen = () => {
-        document.querySelector('.pagina').classList.add('ocultar');
+        document.querySelector('.contenedor-pagina').classList.add('ocultar');
         setOpen(true);
     };
 
@@ -64,7 +69,7 @@ function MiniDrawer() {
         if (!open) {
             return;
         }
-        document.querySelector('.pagina').classList.remove('ocultar');
+        document.querySelector('.contenedor-pagina').classList.remove('ocultar');
         setOpen(false);
     };
 
@@ -84,7 +89,7 @@ function MiniDrawer() {
             <MenuSuperior />
             <MenuIzquierda />
             <div
-                className="pagina"
+                className="contenedor-pagina"
                 onClick={handleDrawerClose}
                 style={{
                     marginLeft: `${(open ? drawerWidth : drawerWidthClosed) + 5}px`,
@@ -142,7 +147,7 @@ function MiniDrawer() {
         setTimeout(() => {
             ReactDOM.render(
                 pagina,
-                document.querySelector('.pagina .contenido')
+                document.querySelector('.contenedor-pagina .contenido')
             );
             setFadeType("in");
         }, 500);
@@ -411,20 +416,3 @@ function SimpleSnackbar() {
         />
     };
 }
-
-crearEstilo({
-    "a": {
-        color: "inherit",
-        textDecoration: "none",
-    },
-    ".esquema-principal": {
-        ".pagina": {
-            "&.ocultar": {
-                filter: "brightness(0.4) blur(4px)",
-                "*": {
-                    pointerEvents: "none",
-                },
-            },
-        },
-    },
-})

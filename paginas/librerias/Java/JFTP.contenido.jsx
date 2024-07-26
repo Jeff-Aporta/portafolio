@@ -1,138 +1,76 @@
-crearEstilo({
-    ".seccion1": {
-        padding: '30px',
-        marginBottom: '30px !important',
-    },
-})
+const JFTP = {
+    nombre: "JFTP",
+    slogan: "FTP Para Java",
+    img: "imgs/Librerias/JFTP.jpeg",
 
-function PaginaLibreriaJFTP() {
+    github: "https://github.com/Jeff-Aporta/libreria-java-JFTP",
 
-    const [value, setValue] = React.useState(0);
-
-    const indice = [];
-
-    setTimeout(() => {
-        PR.prettyPrint();
-        ReactDOM.render(
-            <div>
-                <h1>
-                    Índice
-                </h1>
-                <ol>
-                    {
-                        indice.map((item, index) => {
-                            return (
-                                <li>
-                                    <Link href={`#${item.id}`}>
-                                        {item.titulo}
-                                    </Link>
-                                </li>
-                            );
-                        })
-                    }
-                </ol>
-            </div>,
-            document.querySelector('.indice')
-        );
-    }, 0);
-
-    return (<ThemeProvider theme={themeSelected}>
-        <div
-            style={{
-                padding: '20px 80px',
-            }}>
-            <h1
-                style={{
-                    fontSize: '400%',
-                }}>
-                <Titulo texto="JFTP" />
-                <HrGrueso width="50%" />
-            </h1>
-
-
-            <div>
+    resumen: function () {
+        return <div>
+            <FormatoDoc>
                 Implementa un cliente FTP Java con todas las funciones de JFTP integrado en su aplicación.
-                <br />
-                <br />
-
-                <img src="imgs/Librerias/JFTP.jpeg" alt="Logo"
-                    style={{
-                        float: 'left',
-                        margin: '10px 40px 0 0',
-                        width: '200px',
-                        borderRadius: '20px',
-                    }}
-                />
-
-                <div
-                    style={{
-                        position: "fixed",
-                        right: "20px",
-                        bottom: "20px",
-                        zIndex: "10",
-                    }}
-                >
-
-                    <Button
-                        size="large"
-                        variant="contained"
-                        style={{
-                            backgroundColor: 'black',
-                            color: 'white',
-                            border: '1px solid #555',
-                        }}
-                        startIcon={<i className="fab fa-github" />}
-                        href="https://github.com/Jeff-Aporta/libreria-java-JFTP"
-                        target="_blank"
-                    >
-                        GitHub
-                    </Button>
-
-                </div>
-
-                <br />
-                <b>
-                    Puede:
-                </b>
-                <br />
-                <div
-                    style={{
-                        display: 'inline-block',
-                    }}>
-                    <ul>
-                        <LIDoc>
-                            Transferir archivos (cargar y descargar)
-                        </LIDoc>
-                        <LIDoc>
-                            Explorar el sitio FTP remoto (incluido el listado de directorios)
-                        </LIDoc>
-                        <LIDoc>
-                            Crear, eliminar, cambiar el nombre y mover directorios y archivos remotos
-                        </LIDoc>
-                    </ul>
-                </div>
-            </div>
-
-            <div className="indice" />
-
+            </FormatoDoc>
+            <br />
             <br />
 
-            <FormatoDoc>
-                <Seccion1 titulo="Requisitos">
-                    <ul>
-                        <LIDoc>
-                            Java Runtime Environment J2SE v.1.4 o posterior.
-                        </LIDoc>
-                    </ul>
-                </Seccion1>
+            <img src={this.img} alt="Logo"
+                style={{
+                    float: 'left',
+                    margin: '10px 40px 0 0',
+                    width: '200px',
+                    borderRadius: '20px',
+                }}
+            />
 
-                <Seccion1 titulo="Instalación">
+            <br />
+            <b>
+                Puede:
+            </b>
+            <br />
+            <div
+                style={{
+                    display: 'inline-block',
+                }}
+            >
+                <ul className="punto-centrico">
+                    <LIDoc>
+                        Transferir archivos (cargar y descargar)
+                    </LIDoc>
+                    <LIDoc>
+                        Explorar el sitio FTP remoto (incluido el listado de directorios)
+                    </LIDoc>
+                    <LIDoc>
+                        Crear, eliminar, cambiar el nombre y mover directorios y archivos remotos
+                    </LIDoc>
+                </ul>
+            </div>
+        </div>
+    },
+
+    secciones: [
+        {
+            nombre: "Requisitos",
+            contenido: () => {
+                return <ul>
+                    <LIDoc>
+                        Java Runtime Environment J2SE v.1.4 o posterior.
+                    </LIDoc>
+                </ul>
+            }
+        },
+        {
+            nombre: "Instalación",
+            contenido: () => {
+                return `
                     Agregue el archivo JFTP.jar a la ruta de clase de su aplicación y se le
                     habilitará automáticamente el uso de las clases JFTP.
-                </Seccion1>
-
-
-                <Seccion1 titulo="Inicio rápido">
+                `
+            }
+        },
+        {
+            nombre: "Inicio rápido",
+            contenido: () => {
+                return <React.Fragment>
                     La clase principal de la biblioteca es FTPClient (JFTP.FTPClient).
 
 
@@ -189,9 +127,13 @@ function PaginaLibreriaJFTP() {
                         client.disconnect(false);
                     </CodeJava>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Conexión a través de un proxy">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Conexión a través de un proxy",
+            contenido: () => {
+                return <React.Fragment>
 
                     El cliente se conecta al servidor a través de un conector (un objeto que
                     extiende JFTP.FTPConnector), que devuelve al
@@ -246,9 +188,13 @@ function PaginaLibreriaJFTP() {
                     Dado que la arquitectura del conector utilizada por JFTP es conectable,
                     siempre puede crear su propio conector ampliando la clase abstracta
                     FTPConnector.
-                </Seccion1>
-
-                <Seccion1 titulo="Conexión segura FTPS/FTPES">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Conexión segura FTPS/FTPES",
+            contenido: () => {
+                return <React.Fragment>
 
                     La biblioteca JFTP admite tanto FTPS (FTP sobre TLS/SSL implícito) como
                     FTPES (FTP sobre TLS/SSL explícito).
@@ -294,14 +240,12 @@ function PaginaLibreriaJFTP() {
                             import javax.net.ssl.SSLSocketFactory;
                             import javax.net.ssl.TrustManager;
                             import javax.net.ssl.X509TrustManager;
-
                     `}</CodeJava>
 
                     <h2>
                         Implementación genérica
                     </h2>
                     <CodeJava>{`
-
                             TrustManager[] trustManager = new TrustManager[] {new X509TrustManager() {
                                 public X509Certificate[] getAcceptedIssuers() {
                                     return null;
@@ -327,14 +271,14 @@ function PaginaLibreriaJFTP() {
                             FTPClient client = new FTPClient();
                             client.setSSLSocketFactory(sslSocketFactory);
                             client.setSecurity(FTPClient.SECURITY_FTPS); // or client.setSecurity(FTPClient.SECURITY_FTPES);
-
-                    `}
-                    </CodeJava>
-                </Seccion1>
-
-                <Seccion1 titulo="Navegando por el sitio remoto">
-
-
+                    `}</CodeJava>
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Navegando por el sitio remoto",
+            contenido: () => {
+                return <React.Fragment>
                     Obtenga la ruta absoluta del directorio actual llamando a:
 
                     <CodeJava>
@@ -361,17 +305,25 @@ function PaginaLibreriaJFTP() {
                         client.changeDirectoryUp();
                     </CodeJava>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Cambiar el nombre de archivos y directorios">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Cambiar el nombre de archivos y directorios",
+            contenido: () => {
+                return <React.Fragment>
                     Para cambiar el nombre de un archivo o directorio remoto:
 
                     <CodeJava>
                         client.rename("nombre-antiguo.ext", "nombre-nuevo.ext");
                     </CodeJava>
-                </Seccion1>
-
-                <Seccion1 titulo="Mover archivos y directorios">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Mover archivos y directorios",
+            contenido: () => {
+                return <React.Fragment>
                     El método rename() también se puede utilizar para mover archivos y
                     directorios de una ubicación a otra.
 
@@ -382,9 +334,13 @@ function PaginaLibreriaJFTP() {
                     <CodeJava>
                         client.rename("miarchivo.txt", "micarpeta/miarchivo.txt");
                     </CodeJava>
-                </Seccion1>
-
-                <Seccion1 titulo="Eliminar archivos">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Eliminar archivos y directorios",
+            contenido: () => {
+                return <React.Fragment>
                     Para eliminar una llamada de archivo remoto:
 
                     <CodeJava>
@@ -396,10 +352,13 @@ function PaginaLibreriaJFTP() {
                     <CodeJava>
                         client.deleteFile("useless.txt");
                     </CodeJava>
-                </Seccion1>
-
-                <Seccion1 titulo="Crear y eliminar directorios">
-
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Crear y eliminar directorios",
+            contenido: () => {
+                return <React.Fragment>
 
                     Puede crear un nuevo directorio en el sitio remoto, si el servicio le brinda
                     esta oportunidad:
@@ -423,9 +382,13 @@ function PaginaLibreriaJFTP() {
                     Tenga en cuenta que normalmente los servidores FTP sólo pueden eliminar
                     directorios vacíos.
 
-                </Seccion1>
-
-                <Seccion1 titulo="Listado de archivos, directorios y enlaces">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Listado de archivos, directorios y enlaces",
+            contenido: () => {
+                return <React.Fragment>
 
                     El protocolo FTP no ofrece un método ampliamente compatible para obtener información completa sobre el
                     contenido del directorio de trabajo. El comando LIST normalmente proporciona todo lo que necesita saber,
@@ -508,9 +471,13 @@ function PaginaLibreriaJFTP() {
                         client.setMLSDPolicy(FTPClient.MLSD_NEVER);
                     </CodeJava>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Obtener la fecha de modificación de archivos y directorios.">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Obtener la fecha de modificación de archivos y directorios",
+            contenido: () => {
+                return <React.Fragment>
 
                     Por lo general, un objeto FTPFile le informa sobre la última fecha de modificación de una entrada, pero como se describió
                     anteriormente, eso depende de la respuesta enviada por el servidor. Si necesita una fecha de modificación y no puede
@@ -520,9 +487,13 @@ function PaginaLibreriaJFTP() {
                         java.util.Date md = client.modifiedDate("nombre-de-archivo.ext");
                     </CodeJava>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Descarga y carga de archivos">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Descarga y carga de archivos",
+            contenido: () => {
+                return <React.Fragment>
 
                     La forma más sencilla de descargar un archivo remoto es llamar al método de descarga (Cadena, Archivo):
 
@@ -579,8 +550,7 @@ function PaginaLibreriaJFTP() {
                             }
 
                         }
-                    `}
-                    </CodeJava>
+                    `}</CodeJava>
 
                     Ahora descargue o cargue de la siguiente manera:
 
@@ -628,9 +598,13 @@ function PaginaLibreriaJFTP() {
                     Otras variantes download(), upload() y append() permiten trabajar con secuencias en lugar de objetos java.io.File.
                     Así también puedes transferir datos desde y hacia una base de datos, una conexión de red o cualquier otra cosa.
 
-                </Seccion1>
-
-                <Seccion1 titulo="Modos de transferencia de datos activos y pasivos.">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Modos de transferencia de datos activos y pasivos",
+            contenido: () => {
+                return <React.Fragment>
 
                     Los canales de transferencia de datos se establecen a través de una conexión de red separada entre el cliente y el servidor.
                     El servidor podría ser activo o pasivo en el establecimiento del canal de transferencia. Cuando el servidor está activo, las
@@ -755,9 +729,13 @@ function PaginaLibreriaJFTP() {
                         </LIDoc>
                     </ul>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Tipos de transferencia de datos binarios y textuales">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Tipos de transferencia de datos binarios y textuales",
+            contenido: () => {
+                return <React.Fragment>
 
                     Otro concepto clave en la transferencia de datos se refiere a los tipos binario y textual. Cuando una
                     transferencia es binaria, el archivo se trata como una secuencia binaria y la máquina de destino lo almacena
@@ -802,8 +780,7 @@ function PaginaLibreriaJFTP() {
                         sgm sgml sh shtml shtml spc ssi hablar 
                         tcl tcsh texto tsv txt uil uni unis
                         uri uris uu uue vcs wml wmls wsc xml zsh
-                    `}
-                    </CodeJava>
+                    `}</CodeJava>
 
                     Puede crear su propio reconocedor implementando la interfaz
                     FTPTextualExtensionRecognizer, pero tal vez le guste más crear una
@@ -815,9 +792,13 @@ function PaginaLibreriaJFTP() {
                         client.setTextualExtensionRecognizer(myRecognizer);
                     </CodeJava>
 
-                </Seccion1>
-
-                <Seccion1 titulo="Compresión de transferencia de datos">
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Compresión de transferencia de datos",
+            contenido: () => {
+                return <React.Fragment>
 
                     Algunos servidores admiten una función de compresión de transferencia de
                     datos llamada MODE Z. Esta función es útil para ahorrar ancho de banda en
@@ -825,58 +806,47 @@ function PaginaLibreriaJFTP() {
                     servidor y autenticado, se puede verificar el soporte de compresión llamando
                     a:
 
-
                     <CodeJava>
                         boolean compressionSupported = client.isCompressionSupported();
                     </CodeJava>
 
-
                     Si la compresión se admite en el lado del servidor, se puede habilitar
                     llamando a:
-
 
                     <CodeJava>
                         client.setCompressionEnabled(true);
                     </CodeJava>
 
-
                     Después de esta llamada, cualquier transferencia de datos posterior
                     (descargas, cargas y operaciones de listas) se comprimirá, ahorrando ancho
                     de banda.
 
-
                     La compresión de transferencia de datos se puede desactivar nuevamente
                     llamando a:
-
 
                     <CodeJava>
                         client.setCompressionEnabled(false);
                     </CodeJava>
 
-
                     El valor de la bandera también se puede verificar:
-
 
                     <CodeJava>
                         boolean compressionEnabled = client.isCompressionEnabled();
                     </CodeJava>
 
-
                     Tenga en cuenta que la transferencia de datos comprimidos se realizará solo
                     si la compresión está habilitada y admitida.
-
 
                     De forma predeterminada, la compresión está deshabilitada, incluso si el
                     servidor la admite. Si es necesario, debe activarse explícitamente.
 
-
-
-
-
-                </Seccion1>
-
-                <Seccion1 titulo="NOOPing el servidor">
-
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "NOOPing el servidor",
+            contenido: () => {
+                return <React.Fragment>
 
                     Supongamos que su cliente no está haciendo nada ya que está esperando la
                     entrada del usuario. Normalmente los servidores FTP desconectan
@@ -902,7 +872,6 @@ function PaginaLibreriaJFTP() {
                     Con este valor, el cliente emitirá un comando NOOP después de 30 segundos de
                     inactividad.
 
-
                     El tiempo de espera NOOP automático se puede desactivar nuevamente
                     utilizando un valor igual o menor que cero:
 
@@ -910,13 +879,13 @@ function PaginaLibreriaJFTP() {
                         cliente.setAutoNoopTimeout(-1);
                     </CodeJava>
 
-
-
-
-                </Seccion1>
-
-                <Seccion1 titulo="Comandos personalizados y específicos del sitio">
-
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Comandos personalizados y específicos del sitio",
+            contenido: () => {
+                return <React.Fragment>
 
                     Puede enviar comandos específicos del sitio de la siguiente manera:
 
@@ -937,11 +906,13 @@ function PaginaLibreriaJFTP() {
                     respuesta FTP comunes, por lo que puede intentar hacer coincidir su código
                     de respuesta con uno de los que la biblioteca conoce con seguridad.
 
-
-                </Seccion1>
-
-                <Seccion1 titulo="Manejo de excepciones">
-
+                </React.Fragment>
+            }
+        },
+        {
+            nombre: "Manejo de excepciones",
+            contenido: () => {
+                return <React.Fragment>
 
                     La biblioteca JFTP define cinco tipos de excepciones:
 
@@ -978,183 +949,8 @@ function PaginaLibreriaJFTP() {
                         </LIDoc>
                     </ul>
 
-                </Seccion1>
-
-            </FormatoDoc>
-
-        </div>
-    </ThemeProvider>);
-
-    function Seccion1({
-        titulo,
-        children,
-    }) {
-        let id = titulo.replace(/\s+/g, "-").toLowerCase();
-        indice.push({
-            titulo,
-            id
-        });
-        return <Paper
-            id={id}
-            className="seccion1"
-        >
-            <TituloH2>
-                {titulo}
-            </TituloH2>
-            <br />
-            <FormatoDoc>
-                {children}
-            </FormatoDoc>
-        </Paper>;
-    }
-}
-
-
-function LIDoc({ children }) {
-    return (<li>
-        <FormatoDoc>
-            {children}
-        </FormatoDoc>
-    </li>);
-}
-
-function FormatoDoc({ children }) {
-    if (Array.isArray(children)) {
-        return (children.map((child, index) => {
-            return (
-                <RefString>
-                    {child}
-                </RefString>
-            )
-        }));
-    }
-
-    return (
-        <RefString>
-            {children}
-        </RefString>
-    )
-
-    function RefString({ children }) {
-        const terminaciones = ["", ".", ",", ":", ";"]
-        const comillas = ["\"", "'"]
-        const caracteresRaros = ["/", "@"]
-        if (typeof children == "string") {
-            let retorno = [];
-            let acumulado = "";
-            children.split(" ").forEach((element, index, array) => {
-
-                if (terminaciones.some((terminacion) => element.endsWith("()" + terminacion))) {
-                    if (acumulado) {
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    retorno.push(
-                        <Resaltar color="plum">
-                            {element}
-                        </Resaltar>
-                    );
-                    retorno.push(" ");
-                } else {
-                    if (acumulado && element.startsWith("(")) {
-                        // cuando se detecta un parentesis al inicio de una palabra
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    if (acumulado && comillas.some((comilla) => element.startsWith(comilla))) {
-                        // cuando se detecta una comilla al inicio de una palabra
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    const contarMayusculas = element.split("").filter((letra) =>
-                        letra == letra.toUpperCase() &&
-                        !terminaciones.includes(letra)
-                    ).length;
-                    let tieneFormatoRaro = (element.includes(".") && !element.endsWith("."));
-                    tieneFormatoRaro ||= caracteresRaros.some((caracter) => element.includes(caracter));
-                    const NoEstaAcumulandoEncierro = [acumulado, element].every(test =>
-                        !test.startsWith("(") &&
-                        !comillas.some((comilla) => test.startsWith(comilla))
-                    );
-
-                    if (NoEstaAcumulandoEncierro) {
-                        // No está acumulando una frase entre parentesis o comillas
-                        if (
-                            contarMayusculas > 1 ||
-                            tieneFormatoRaro ||
-                            Number(element) == element
-                        ) {
-                            retorno.push(acumulado + " ");
-                            retorno.push(
-                                <Resaltar color="LemonChiffon">
-                                    {element}
-                                </Resaltar>
-                            );
-                            acumulado = "";
-                        } else {
-                            acumulado += element;
-                        }
-                    } else {
-                        acumulado += element;
-                    }
-                    let terminacionComilla;
-                    if (comillas.some((comilla) =>
-                        acumulado.endsWith(comilla) ||
-                        (terminacionComilla = terminaciones.find((terminacion) => acumulado.endsWith(comilla + terminacion)))
-                    )) {
-                        // Se detecto una frase entre comillas
-                        retorno.push((() => {
-                            return (
-                                <span>
-                                    <Resaltar color="orange">
-                                        {terminacionComilla ? acumulado.slice(0, -1) : acumulado}
-                                    </Resaltar>{terminacionComilla}
-                                </span>
-                            );
-                        })());
-                        acumulado = "";
-                    }
-                    if (acumulado.startsWith("(") && terminaciones.some((terminacion) => acumulado.endsWith(")" + terminacion))) {
-                        // Se detecto una frase entre parentesis
-                        retorno.push(
-                            <Resaltar>
-                                {acumulado.replace(/\(\s+/g, "(").replace(/\s+\)/g, ")")}
-                            </Resaltar>
-                        );
-                        acumulado = "";
-                    }
-                    if (index == array.length - 1) {
-                        retorno.push(acumulado);
-                    }
-                    acumulado += " ";
-                }
-            });
-            return retorno;
+                </React.Fragment>
+            }
         }
-        return children;
-    }
-}
-
-function CodeJava({
-    nocode = false,
-    linenumbers = true,
-    children,
-}) {
-    let {multiLinea, str} = removerTabulacionesDeCodigo(children);
-
-    children = str;
-
-    return (
-        <Code
-            nocode={nocode}
-            language="java"
-            linenumbers={linenumbers && ((Array.isArray(children) && children.length > 1) || multiLinea)}
-            children={children}
-            onCopy={() => {
-                esquemaContenido.mensajeSimple.mostrarMensaje(<b>
-                    <i className="fa-solid fa-check" /> Texto copiado al portapapeles
-                </b>);
-            }}
-        />
-    );
+    ],
 }

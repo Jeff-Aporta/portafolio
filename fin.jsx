@@ -16,9 +16,9 @@ window.navigation.addEventListener("navigate", (e) => {
     }
 })
 
-function buscarPagina(id) {
-    esquemaContenido.listaDePaginas.find(pagina => pagina.ID == id)?.accion();
-    esquemaContenido.BotonesOpcion.find(pagina => pagina.Texto && pagina.Texto == id)?.accion();
+function buscarPagina(id, actualizar = true) {
+    esquemaContenido.listaDePaginas.find(pagina => pagina.ID.replaceAll(" ", "") == id)?.accion(actualizar);
+    esquemaContenido.BotonesOpcion.find(pagina => pagina.Texto && pagina.Texto.replaceAll(" ", "") == id)?.accion(actualizar);
 }
 
 function aplicarParametros(href) {
@@ -28,8 +28,11 @@ function aplicarParametros(href) {
     }
     p = url.searchParams.get("p") || "Perfil";
 
-    esquemaContenido.listaDePaginas.find(pagina => pagina.ID == p)?.accion(false);
-    esquemaContenido.BotonesOpcion.find(boton => boton.Texto == p)?.accion(false);
+    buscarPagina(p, false);
 }
 
 aplicarParametros();
+
+if (!p) {
+    buscarPagina("Perfil");
+}

@@ -1,41 +1,46 @@
-function EnvolventePagina({ children, style, className = "" }) {
+function EnvolventePagina(props) {
+    activadorCSSdeComponente(props);
     return (
         <ThemeProvider theme={themeSelected}>
             <CssBaseline />
             <div
-                className={className}
-                style={{
-                    padding: "80px 50px",
-                    ...style,
-                }}
-            >
-                {children}
-            </div>
+                {...props}
+                className="pagina"
+            />
         </ThemeProvider>
     );
 }
 
 function SubEnvolventeSeccion(props) {
-    if (!props.elevacion) {
-        props.elevacion = 2;
+    if (!props.elevation) {
+        props.elevation ??= 2;
     }
     return <EnvolventeSeccion
         {...props}
+        className="subseccion"
     />;
 }
 
-function EnvolventeSeccion({ children, style, className = "", elevacion = 1 }) {
+function EnvolventeSeccion(props) {
+    props.elevation ??= 1;
+    activadorCSSdeComponente(props);
     return (
         <Paper
-            elevation={elevacion}
-            className={className}
-            style={{
-                padding: "30px",
-                borderRadius: "20px",
-                ...style,
-            }}
-        >
-            {children}
-        </Paper>
+            {...props}
+            className="seccion"
+        />
     );
+}
+
+function activadorCSSdeComponente(props) {
+    props.style ??= {};
+    Object.assign(props.style, {
+        ...(()=>{
+            const style = {};
+            if (props.relative) {
+                style.position = "relative";
+            }
+            return style;
+        })()
+    });
 }
