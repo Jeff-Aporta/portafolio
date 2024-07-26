@@ -1165,61 +1165,11 @@ function CodeJava({
             language="java"
             linenumbers={linenumbers && ((Array.isArray(children) && children.length > 1) || multiLinea)}
             children={children}
+            onCopy={() => {
+                esquemaContenido.mensajeSimple.mostrarMensaje(<b>
+                    <i className="fa-solid fa-check" /> Texto copiado al portapapeles
+                </b>);
+            }}
         />
     );
-}
-
-function Code({
-    nocode = false,
-    language = "java",
-    linenumbers = true,
-    children,
-}) {
-    let idR = Math.random().toString().replace("0.", "idR-");
-    return (<pre
-        id={idR}
-        className={`
-            prettyprint 
-            ${nocode ?
-                "nocode" :
-                `lang-${language}`
-            }
-            ${linenumbers && !nocode ? "linenums:1" : ""}
-        `}
-        style={{
-            position: "relative",
-            margin: "40px 0",
-        }}
-    >
-        <BotonCopiar />
-        {children}
-    </pre >);
-
-    function BotonCopiar() {
-        return <TooltipTheme
-            title="Copiar"
-            placement="left"
-        >
-            <Button
-                variant="contained"
-                style={{
-                    position: "absolute",
-                    right: "5px",
-                    top: "5px",
-                    padding: "10px",
-                    minWidth: "0",
-                    borderRadius: "50%",
-                    backgroundColor: "rgba(0, 200, 255, 0.2)",
-                }}
-                onClick={() => {
-                    navigator.clipboard.writeText(document.getElementById(idR).innerText);
-                    esquemaContenido.mensajeSimple.mostrarMensaje(<b>
-                        <i className="fa-solid fa-check" /> Texto copiado al portapapeles
-                    </b>);
-                }}
-            >
-                <i className="fa-solid fa-copy" />
-            </Button>
-        </TooltipTheme>;
-    }
 }
