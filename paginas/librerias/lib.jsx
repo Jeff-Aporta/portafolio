@@ -1,4 +1,4 @@
-function esquemaGeneralLibreria(contenido, props) {
+function esquemaGeneralLibreria(objLib, props) {
     const indice = [];
 
     setTimeout(() => {
@@ -10,16 +10,16 @@ function esquemaGeneralLibreria(contenido, props) {
         <ThemeProvider theme={themeSelected}>
             <div className="fijo abajo derecha">
                 <BotonGit
-                    href={contenido.github}
+                    href={objLib.github}
                 />
             </div>
             <EnvolventePagina>
                 <Encabezado />
-                {contenido.resumen(props)}
+                {objLib.resumen(props)}
                 <Indice />
-                {generarContenidoLibreria(contenido.secciones)}
+                {generarContenidoLibreria(objLib)}
                 <br />
-                {contenido.footer(props)}
+                {(objLib.footer ?? (() => ""))(props)}
             </EnvolventePagina>
         </ThemeProvider>
     );
@@ -43,28 +43,30 @@ function esquemaGeneralLibreria(contenido, props) {
                 style={{
                     fontSize: '400%',
                 }}>
-                <Titulo texto={contenido.nombre} />
+                <Titulo texto={objLib.nombre} />
                 <HrGrueso width="50%" />
             </h1>
             <h1>
-                {contenido.slogan}
+                {objLib.slogan}
             </h1>
         </React.Fragment>;
     }
 
-    function generarContenidoLibreria(contenido) {
+    function generarContenidoLibreria(obj) {
+        const secciones = obj.secciones;
+
         return <FormatoDoc>
-            {contenido.map(seccion => Seccion(seccion))}
+            {secciones.map(seccion => Seccion({ ...seccion, obj }))}
         </FormatoDoc>
 
 
-        function Seccion({ nombre, contenido }) {
+        function Seccion({ nombre, contenido, obj }) {
             let id = nombre.replace(/\s+/g, "-").toLowerCase();
             indice.push({
                 titulo: nombre,
                 id
             });
-            contenido = contenido();
+            contenido = contenido(obj);
             return (
                 <div id={id}>
                     <br />
