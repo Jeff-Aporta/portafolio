@@ -115,7 +115,6 @@ function Code({
 function removerTabulacionesDeCodigo(str) {
     let multiLinea = false;
     if (typeof str == "string") {
-        console.log(str);
         str = str.split("\n");
         while (str[0].trim() == "") {
             str.shift();
