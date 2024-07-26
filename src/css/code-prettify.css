@@ -7,6 +7,20 @@ pre {
     border: 1px solid hsla(210, 100%, 36%, 0.3);
     border-radius: 20px;
 
+    &.solo-texto {
+      padding: 0;
+      border: none;
+      background-color: transparent;
+
+      &.L1,
+      &.L3,
+      &.L5,
+      &.L7,
+      &.L9 {
+        background-color: transparent;
+      }
+    }
+
     white-space: pre-wrap;
     z-index: 0;
 
