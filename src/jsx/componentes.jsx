@@ -34,6 +34,17 @@ function EspacioVertical({ height = '20px' }) {
         }} />;
 }
 
+function CodeInline(props) {
+    return (
+        <Code
+            {...props}
+            linenumbers={false}
+            className="solo-texto mini"
+            esCopiable={false}
+        />
+    );
+}
+
 function Code({
     nocode = false,
     language,

@@ -6,133 +6,19 @@
     <link rel="icon" type="image/png" href="imgs/icon.png" />
     <title>Jeffrey Agudelo</title>
 
+    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@main/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@main/mapeos-personales.js"></script>
+
     <script>
-      let mapa = `
-          🎨 index
 
-          ➤🌐 https://unpkg.com
-            │
-            ├──🔗 react@latest/umd/react.production.min.js
-            ├──🔗 react-dom@latest/umd/react-dom.production.min.js
-            ├──🔗 @babel/standalone/babel.min.js
-            └──🔗 @mui/material@latest/umd/material-ui.production.min.js
+      
 
-          ➤📁 src
-            │
-            ├──📁 jsx
-            │   🤖 REACT (JSX)
-            │   └──📄 componentes
-            │
-            ├──📁 css
-            │   ├──🏠 https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js
-            ╧   └──📄 code-prettify.css
+      runASCIIMapLoad(ASCII_MAPS.CODEPRETTIFY);
+      runASCIIMapLoad(ASCII_MAPS.ICONOS);
+      runASCIIMapLoad(ASCII_MAPS.REACT_MUI);
+      runASCIIMapLoad(ASCII_MAPS.REACT_DESIGN_SYSTEM);
 
-          ➤🌐 https://cdn.jsdelivr.net/gh/Jeff-Aporta/react-cdn-design-system@latest
-            │
-            ├──📄 JS2CSS
-            ├──🎨 abreviaturas
-            │
-            ├──📁 dependencias
-            │   └──🎨 animate.min
-            │
-            🤖 REACT (JSX)
-            │
-            ├──📄 main
-            │
-            ├──📁 componente
-            │   │
-            │   ├──📁 MUICustom
-            │   │   ├──📄 prettoSlider
-            │   │   ├──📄 switchTheme
-            │   │   └──📄 tooltipTheme
-            │   │
-            │   ├──📁 selects
-            │   │   ├──🖼️ selector-tiempo
-            │   │   └──🖼️ selectpicker
-            │   │
-            │   ├──📁 ventanas
-            │   │   │
-            │   │   ├──📁 flotante-tipo-windows
-            │   │   │   ├──📄 1-main
-            │   │   │   ├──📄 2-modelos
-            │   │   │   ├──📄 2-globales
-            │   │   │   ├──📄 2-css-root-control
-            │   │   │   ├──🎨 index
-            │   │   │   │
-            │   │   │   ├──📁 componente
-            │   │   │   │   ├──📄 3-crear
-            │   │   │   │   ├──📄 3-marco
-            │   │   ╧   ╧   └──📄 3-control
-            │   │
-            │   │   
-            │   ├──🗀 reproductor
-            │   │   ├──📁 video
-            ╧   ╧   ╧   └──📄 theme1
 
-          ➤📁 paginas
-            │
-            🤖 REACT (JSX)
-            │
-            ├──📄 configuracion
-            ├──📄 librerias
-            ├──📄 perfil
-            ├──📄 proyectos
-            │
-            ├──📁 Librerias
-            ╧   └──📄 JFTP
-
-          🤖 REACT (JSX)
-
-          📄 index-app
-          📄 fin
-      `;
-
-      runASCIIMapLoad(mapa);
-
-      /*
-      loadScriptList({
-        folder: prefixLoad,
-        list: [
-          "index",
-          {
-            folder: "dependencias",
-            list: ["animate.min.css"],
-          },
-          //---------------- REACT (JSX)
-          {
-            type: "text/babel",
-            list: [
-              "main",
-              {
-                folder: "componente",
-                list: [
-                  "selectpicker",
-                  "switchTheme",
-                  "tiempo",
-                  {
-                    folder: "ventanas/flotante-tipo-windows",
-                    list: [
-                      "1-main",
-                      "2-modelos",
-                      "2-globales",
-                      "2-css-root-control",
-                      {
-                        folder: "componente",
-                        list: ["3-crear", "3-marco", "3-control"],
-                      },
-                    ],
-                  },
-                  {
-                    folder: "reproductor/video",
-                    list: ["theme1"],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      });
-    */
     </script>
   </head>
   <body>
