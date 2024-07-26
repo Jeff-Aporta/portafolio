@@ -10,14 +10,20 @@ pre {
     white-space: pre-wrap;
     z-index: 0;
 
+    color: white;
+
+    &.link {
+      color: hotpink;
+    }
+
     &.mini {
       padding: 10px;
       display: inline-block;
 
-      & li{
+      & li {
         list-style-type: none;
       }
-      & ol{
+      & ol {
         padding: 0px;
       }
     }
