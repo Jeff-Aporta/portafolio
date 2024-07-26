@@ -12,7 +12,11 @@ pre {
 
     &.noNumerar {
       padding: 15px;
-      
+
+      ol{
+        padding: 0px;
+      }
+
       li {
         list-style-type: none;
         .L1,
