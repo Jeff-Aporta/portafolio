@@ -93,3 +93,20 @@ function Code({
         </TooltipTheme>;
     }
 }
+
+function BotonLinkPortafolio() {
+    return (
+        <Button
+            variant="contained"
+            href="https://jeff-aporta.github.io/portafolio/"
+            target="_blank"
+            style={{
+                backgroundColor: "midnightblue",
+                border: "1px solid #333",
+            }}
+            startIcon={<i className="fa-solid fa-briefcase" />}
+        >
+            Web Jeffrey Agudelo
+        </Button>
+    );
+}
