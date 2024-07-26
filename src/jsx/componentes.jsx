@@ -95,6 +95,32 @@ function Code({
     }
 }
 
+function ChipCode(props) {
+    let label = props.label;
+    delete props.label;
+    return (
+        <Chip
+            {...props}
+            style={{
+                backgroundColor: props.nocode ? "rgba(0,0,0,0.4)" : "black",
+                color: "white",
+            }}
+            label={
+                <Code
+                    className={`
+                        solo-texto
+                        ${props.nocode ? "nocode" : ""}
+                    `}
+                    linenumbers={false}
+                    esCopiable={false}
+                >
+                    {label}
+                </Code>
+            }
+        />
+    );
+}
+
 function BotonLinkPortafolio() {
     return (
         <Button
