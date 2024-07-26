@@ -10,18 +10,32 @@ pre {
     position: relative;
     margin: 20px 0;
 
+    &.noNumerar {
+      li {
+        list-style-type: none;
+        .L1,
+        .L3,
+        .L5,
+        .L7,
+        .L9 {
+          list-style-type: none;
+        }
+      }
+    }
+
     &.solo-texto {
       margin: 0 !important;
       padding: 0 !important;
       border: none !important;
       background-color: transparent !important;
-
-      .L1,
-      .L3,
-      .L5,
-      .L7,
-      .L9 {
-        background-color: transparent !important;
+      li {
+        .L1,
+        .L3,
+        .L5,
+        .L7,
+        .L9 {
+          background-color: transparent !important;
+        }
       }
     }
 
