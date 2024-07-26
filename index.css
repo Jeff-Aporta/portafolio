@@ -1,0 +1,10 @@
+ul.punto-centrico {
+  margin: 15px 0;
+  list-style-type: "⦿   ";
+  li {
+    margin-bottom: 15px;
+    &::marker {
+      color: deepskyblue;
+    }
+  }
+}
