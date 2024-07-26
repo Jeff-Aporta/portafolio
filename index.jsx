@@ -25,16 +25,6 @@ function TituloH2({ texto, children }) {
     </h2>
 }
 
-function HrGrueso({ width = "100%", centrar = false }) {
-    return <hr
-        style={{
-            width,
-            border: '5px solid white',
-            borderRadius: '10px',
-            margin: centrar ? '0 auto' : '0',
-        }} />;
-}
-
 function IconoRedondo({
     backgroundColor = 'dodgerblue',
     padding = '10px',

@@ -17,6 +17,16 @@ function Titulo({ texto, children }) {
     </React.Fragment>;
 }
 
+function HrGrueso({ grosor = 5, color = "white", width = "100%", centrar = false }) {
+    return <hr
+        style={{
+            width,
+            border: grosor + 'px solid ' + color,
+            borderRadius: '10px',
+            margin: centrar ? '0 auto' : '0',
+        }} />;
+}
+
 function Resaltar({ children, color = "skyblue" }) {
     return <b
         style={{
