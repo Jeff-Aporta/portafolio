@@ -15,7 +15,7 @@ function esquemaGeneralLibreria(objLib, props) {
             </div>
             <EnvolventePagina>
                 <Encabezado />
-                {objLib.resumen(props)}
+                <Resumen {...objLib.resumen()} />
                 <Indice />
                 {generarContenidoLibreria(objLib)}
                 <br />
@@ -119,6 +119,57 @@ function esquemaGeneralLibreria(objLib, props) {
     }
 }
 
+function Resumen({ desc, rel, img, descImg }) {
+    return <div>
+        <FormatoDoc>
+            {desc}
+        </FormatoDoc>
+        <br />
+        <br />
+
+        <b>
+            Puede:
+        </b>
+        <br />
+        <br />
+        <div
+            style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                width: '100%',
+                gap: '20px',
+                wrap: 'nowrap',
+            }}
+        >
+            <img
+                src={
+                    [
+                        rel, img
+                    ].filter(e => e).join("/")
+                }
+                style={{
+                    float: 'left',
+                    margin: '10px 40px 0 0',
+                    width: '200px',
+                    height: '200px',
+                    borderRadius: '20px',
+                }}
+            />
+            <ul className="punto-centrico">
+                {
+                    Array.isArray(descImg) ? descImg.map((item, index) => {
+                        return (
+                            <LIDoc>
+                                {item}
+                            </LIDoc>
+                        );
+                    }) : descImg
+                }
+            </ul>
+        </div>
+    </div>;
+}
+
 function BotonGit({ href }) {
     return <Button
         size="large"
@@ -141,6 +192,9 @@ function LIDoc({ children }) {
 }
 
 function FormatoDoc({ children }) {
+    if (!children) {
+        return;
+    }
     if (children.type == React.Fragment) {
         return FormatoDoc({ children: children.props.children });
     }

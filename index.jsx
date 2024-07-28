@@ -68,11 +68,12 @@ function App() {
                 contenido: _JFTP_
             },
             "ASCIIMapLoader": {
-                rel: "https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@u.2024.07.26.2",
+                rel: "https://jeff-aporta.github.io/ASCIIMapLoader",
                 componente: function () {
                     return <PaginaASCIIMapLoader {
                         ...{
-                            rel: this.rel
+                            rel: this.rel,
+                            inclusionEnPortafolio: true,
                         }
                     } />
                 },
@@ -86,25 +87,6 @@ function App() {
     return (
         MiniDrawerDriver.componente
     );
-}
-
-function generarMenuInferior(props) {
-    Object.entries(props).forEach(([k, v]) => {
-        if (typeof v === "function") {
-            this[k] = v.bind(this);
-        } else {
-            this[k] = v;
-        }
-    });
-
-    this.keys = function () {
-        console.log(this);
-        return Object.keys(this.opciones);
-    }
-
-    this.opcionIDSeleccionada = function () {
-        return this.keys()[this.calcIndex()];
-    }
 }
 
 ReactDOM.render(

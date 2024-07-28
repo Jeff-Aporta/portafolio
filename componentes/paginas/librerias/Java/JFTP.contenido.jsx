@@ -1,57 +1,17 @@
-const _JFTP_ = {
-    nombre: "JFTP",
+const _JFTP_ = new GenerarContenidoLibreria({
+    titulo: "JFTP",
     slogan: "FTP Para Java",
     img: "imgs/Librerias/JFTP.jpeg",
 
     github: "https://github.com/Jeff-Aporta/libreria-java-JFTP",
 
-    resumen: function ({ inclusionEnPortafolio, rel = "" }) {
-        return <div>
-            <FormatoDoc>
-                Implementa un cliente FTP Java con todas las funciones de JFTP integrado en su aplicación.
-            </FormatoDoc>
-            <br />
-            <br />
-
-            <img
-                src={
-                    inclusionEnPortafolio ?
-                        [
-                            rel, this.img
-                        ].join("/") :
-                        this.img
-                }
-                style={{
-                    float: 'left',
-                    margin: '10px 40px 0 0',
-                    width: '200px',
-                    borderRadius: '20px',
-                }}
-            />
-
-            <br />
-            <b>
-                Puede:
-            </b>
-            <br />
-            <div
-                style={{
-                    display: 'inline-block',
-                }}
-            >
-                <ul className="punto-centrico">
-                    <LIDoc>
-                        Transferir archivos (cargar y descargar)
-                    </LIDoc>
-                    <LIDoc>
-                        Explorar el sitio FTP remoto (incluido el listado de directorios)
-                    </LIDoc>
-                    <LIDoc>
-                        Crear, eliminar, cambiar el nombre y mover directorios y archivos remotos
-                    </LIDoc>
-                </ul>
-            </div>
-        </div>
+    resumen: {
+            desc: "Implementa un cliente FTP Java con todas las funciones de JFTP integrado en su aplicación.",
+            descImg: [
+                    "Transferir archivos (cargar y descargar)",
+                    "Explorar el sitio FTP remoto (incluido el listado de directorios)",
+                    "Crear, eliminar, cambiar el nombre y mover directorios y archivos remotos"
+            ]
     },
 
     secciones: [
@@ -960,4 +920,4 @@ const _JFTP_ = {
             }
         }
     ],
-}
+});

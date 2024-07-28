@@ -116,6 +116,8 @@ function PaginaLibrerias() {
   function Proyecto({ estado, id, lenguaje, icono, state }) {
     const contenido = estado.contenido;
 
+    console.log("Proyecto", contenido);
+
     if (!state) {
       return;
     }
@@ -133,7 +135,7 @@ function PaginaLibrerias() {
             }}
           >
             <Titulo
-              texto={contenido.nombre}
+              texto={contenido.titulo}
             />
           </h1>
 
@@ -154,10 +156,7 @@ function PaginaLibrerias() {
               {contenido.slogan}
             </h1>
 
-            {contenido.resumen({
-              inclusionEnPortafolio: true,
-              rel: "https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@u.2024.07.26.2"
-            })}
+            <Resumen {...contenido.resumen} />
 
             <div
               style={{
