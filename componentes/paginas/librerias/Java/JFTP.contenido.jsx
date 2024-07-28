@@ -1,11 +1,11 @@
-const JFTP = {
+const _JFTP_ = {
     nombre: "JFTP",
     slogan: "FTP Para Java",
     img: "imgs/Librerias/JFTP.jpeg",
 
     github: "https://github.com/Jeff-Aporta/libreria-java-JFTP",
 
-    resumen: function () {
+    resumen: function ({ inclusionEnPortafolio, rel = "" }) {
         return <div>
             <FormatoDoc>
                 Implementa un cliente FTP Java con todas las funciones de JFTP integrado en su aplicación.
@@ -13,7 +13,14 @@ const JFTP = {
             <br />
             <br />
 
-            <img src={this.img} alt="Logo"
+            <img
+                src={
+                    inclusionEnPortafolio ?
+                        [
+                            rel, this.img
+                        ].join("/") :
+                        this.img
+                }
                 style={{
                     float: 'left',
                     margin: '10px 40px 0 0',

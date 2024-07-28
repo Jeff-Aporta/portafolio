@@ -6,5 +6,5 @@ crearEstilo({
 })
 
 function PaginaLibreriaJFTP() {
-    return esquemaGeneralLibreria(JFTP);
+    return esquemaGeneralLibreria(_JFTP_);
 }

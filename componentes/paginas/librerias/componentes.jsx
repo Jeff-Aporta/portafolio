@@ -120,7 +120,7 @@ function esquemaGeneralLibreria(objLib, props) {
 }
 
 function BotonGit({ href }) {
-    <Button
+    return <Button
         size="large"
         variant="contained"
         className="boton-github"
@@ -276,7 +276,7 @@ function CodeJava({
             linenumbers={linenumbers && ((Array.isArray(children) && children.length > 1) || multiLinea)}
             children={children}
             onCopy={() => {
-                esquemaContenido.mensajeSimple.mostrarMensaje(<b>
+                MiniDrawerDriver.mensajeSimple.mostrarMensaje(<b>
                     <i className="fa-solid fa-check" /> Texto copiado al portapapeles
                 </b>);
             }}

@@ -6,52 +6,58 @@
     <link rel="icon" type="image/png" href="imgs/icon.png" />
     <title>Jeffrey Agudelo</title>
 
-    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@main/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@main/mapeos-personales.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@u.2024.07.26.2/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@u.2024.07.26.2/src/mapeos-personales.js"></script>
 
     <script>
       delete ASCII_MAPS.PORTAFOLIO;
 
       Object.values(ASCII_MAPS).forEach((map) => {
-        runASCIIMapLoad_inLine(map);
+        runASCIIMapLoader_inLine(map);
       });
 
-      runASCIIMapLoad_inLine(`
+      runASCIIMapLoader_inLine(`
           🤖 REACT (JSX)
-
-          ➤📁 componentes
-          │
-          ├──📁 esquema
-          │   ├──📄 estilizados
-          ╧   └──📄 main
 
           ➤📁 src
           │
           ├──📁 css
-          │   └──🎨 code-prettify
-          │
-          ├──📁 jsx
-          │   ├──🖼️ componentes
-          ╧   └──🖼️ pagina
+          ╧   └──🎨 code-prettify
 
-          🖼️ https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@latest/esquema
-
-          ➤📁 paginas
+          ➤📁 componentes
           │
-          ├──📁 librerias
-          │   ├──🖼️ lib
+          ├──📄 coleccion-aux
+          │
+          ├──📁 esquema
+          │   ├──📄 estilizados
+          │   └──📄 MiniDrawer
+          │
+          ├──📁 paginas
           │   │
-          │   ├──📁 Java
-          │   │   ├──📄 JFTP.contenido
-          │   ╧   └──📄 JFTP
-          │
-          ├──📄 configuracion
-          ├──📄 librerias
-          ├──📄 perfil
-          └──📄 proyectos
+          │   ├──📁 main
+          │   │   ├──🖼️ componentes
+          │   │   └──🖼️ envolventes
+          │   │
+          │   ├──📁 librerias
+          │   │   ├──🖼️ componentes
+          │   │   ├──📄 librerias
+          │   │   │
+          │   │   ├──📁 Java
+          │   │   │   ├──📄 JFTP.contenido
+          │   │   ╧   └──📄 JFTP
+          │   │
+          │   ├──📄 configuracion
+          │   ├──📄 perfil
+          ╧   └──📄 proyectos
 
+          ➤📁 https://cdn.jsdelivr.net/gh/Jeff-Aporta/ASCIIMapLoader@u.2024.07.27.1/src
+          │
+          ├──📁 esquema
+          │   ├──📄 pagina
+          ╧   └──📄 contenido
+
+          📄 URLDriver
           🖼️ index
-          📄 fin
       `);
     </script>
   </head>
