@@ -15,7 +15,7 @@ function esquemaGeneralLibreria(objLib, props) {
             </div>
             <EnvolventePagina>
                 <Encabezado />
-                <Resumen {...objLib.resumen()} />
+                <Resumen {...objLib.resumen} />
                 <Indice />
                 {generarContenidoLibreria(objLib)}
                 <br />
