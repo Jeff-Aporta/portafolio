@@ -3,8 +3,17 @@ function esquemaGeneralLibreria(objLib, props) {
 
     setTimeout(() => {
         PR.prettyPrint();
-        generarIndice();
     }, 0);
+
+
+    objLib.secciones.forEach((seccion, index) => {
+        let id = seccion.nombre.replace(/\s+/g, "-").toLowerCase();
+        seccion.id = id;
+        indice.push({
+            titulo: seccion.nombre,
+            id
+        });
+    });
 
     return (
         <ThemeProvider theme={themeSelected}>
@@ -15,7 +24,9 @@ function esquemaGeneralLibreria(objLib, props) {
             </div>
             <EnvolventePagina>
                 <Encabezado />
-                <Resumen {...objLib.resumen} />
+                <EnvolventeSeccion>
+                    <Resumen {...objLib.resumen} />
+                </EnvolventeSeccion>
                 <Indice />
                 {generarContenidoLibreria(objLib)}
                 <br />
@@ -29,66 +40,7 @@ function esquemaGeneralLibreria(objLib, props) {
             <br />
             <br />
             <hr />
-            <div className="indice" />
-            <br />
-            <hr />
-            <br />
-            <br />
-        </React.Fragment>;
-    }
-
-    function Encabezado() {
-        return <React.Fragment>
-            <h1
-                style={{
-                    fontSize: '400%',
-                }}>
-                <Titulo texto={objLib.nombre} />
-                <HrGrueso width="50%" />
-            </h1>
-            <h1>
-                {objLib.slogan}
-            </h1>
-        </React.Fragment>;
-    }
-
-    function generarContenidoLibreria(obj) {
-        const secciones = obj.secciones;
-
-        return <FormatoDoc>
-            {secciones.map(seccion => Seccion({ ...seccion, obj }))}
-        </FormatoDoc>
-
-
-        function Seccion({ nombre, contenido, obj }) {
-            let id = nombre.replace(/\s+/g, "-").toLowerCase();
-            indice.push({
-                titulo: nombre,
-                id
-            });
-            contenido = contenido(obj);
-            return (
-                <div id={id}>
-                    <br />
-                    <br />
-                    <h1>
-                        <Titulo>
-                            {nombre}
-                        </Titulo>
-                    </h1>
-                    <EnvolventeSeccion>
-                        <FormatoDoc>
-                            {contenido}
-                        </FormatoDoc>
-                    </EnvolventeSeccion>
-                </div>
-            );
-        }
-    }
-
-    function generarIndice() {
-        ReactDOM.render(
-            <div>
+            <div className="indice">
                 <h1>
                     Índice
                 </h1>
@@ -113,9 +65,58 @@ function esquemaGeneralLibreria(objLib, props) {
                         })
                     }
                 </ol>
-            </div>,
-            document.querySelector('.indice')
-        );
+            </div>
+            <br />
+            <hr />
+            <br />
+            <br />
+        </React.Fragment>;
+    }
+
+    function Encabezado() {
+        return <React.Fragment>
+            <h1
+                style={{
+                    fontSize: '400%',
+                }}>
+                <Titulo texto={objLib.nombre} />
+                <HrGrueso width="50%" />
+            </h1>
+            <h1>
+                {objLib.slogan}
+            </h1>
+        </React.Fragment>;
+    }
+
+    function generarContenidoLibreria(obj) {
+        return obj.secciones.map(seccion => {
+            return [
+                <Seccion {...seccion} obj={obj} />,
+                <br />,
+                <br />
+            ]
+        });
+
+
+
+        function Seccion({ nombre, contenido, obj }) {
+            const id = obj.id;
+            contenido = contenido(obj);
+            return (
+                <div id={id}>
+                    <h1>
+                        <Titulo>
+                            {nombre}
+                        </Titulo>
+                    </h1>
+                    <EnvolventeSeccion>
+                        <FormatoDoc>
+                            {contenido}
+                        </FormatoDoc>
+                    </EnvolventeSeccion>
+                </div>
+            );
+        }
     }
 }
 

@@ -48,7 +48,7 @@ function CodeInline(props) {
     return <Code
         {...props}
         linenumbers={false}
-        className="solo-texto mini"
+        className={`solo-texto mini ${props.className ? props.className : ""}`}
         esCopiable={false}
     />
 }

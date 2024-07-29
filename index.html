@@ -47,17 +47,16 @@
           │   ├──📄 perfil
           ╧   └──📄 proyectos
 
-          ➤📁 https://jeff-aporta.github.io/ASCIIMapLoader/src
-          │
-          ├──📁 esquema
-          │   ├──📄 pagina
-          ╧   └──📄 contenido
-
-          ➤📁 https://jeff-aporta.github.io/libreria-java-JFTP/src-web
-          │
-          ├──📁 esquema
-          │   ├──📄 pagina
-          ╧   └──📄 contenido
+          ${[
+            "https://jeff-aporta.github.io/ASCIIMapLoader/src",
+            "https://jeff-aporta.github.io/JFTP/src-web",
+          ].map((lib) => `
+              ➤📁 ${lib}
+              │
+              ├──📁 esquema
+              │   ├──📄 pagina
+              ╧   └──📄 contenido
+          `).join("\n")}
 
           📄 URLDriver
           🖼️ index
