@@ -236,7 +236,7 @@ function FormatoDoc({ children }) {
     function RefString({ children }) {
         const terminaciones = ["", ".", ",", ":", ";"]
         const comillas = ["\"", "'"]
-        const caracteresRaros = ["/", "@"]
+        const caracteresRaros = ["/", "@", ":"]
         if (typeof children == "string") {
             let retorno = [];
             let acumulado = "";
