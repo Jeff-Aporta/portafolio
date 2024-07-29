@@ -79,7 +79,17 @@ function esquemaGeneralLibreria(objLib, props) {
                 style={{
                     fontSize: '400%',
                 }}>
-                <Titulo texto={objLib.nombre} />
+                <Titulo
+                    texto={
+                        objLib.nombre_render_as == "CodeInline" ?
+                            (
+                                <CodeInline>
+                                    {objLib.nombre}
+                                </CodeInline>
+                            ) :
+                            objLib.nombre
+                    }
+                />
                 <HrGrueso width="50%" />
             </h1>
             <h1>
