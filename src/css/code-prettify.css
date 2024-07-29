@@ -16,6 +16,10 @@ pre {
       .lit {
         color: white;
       }
+      .com {
+        color: white;
+        font-size: 100%;
+      }
     }
 
     &.noNumerar {
