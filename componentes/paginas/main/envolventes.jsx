@@ -25,7 +25,7 @@ function SubEnvolventeSeccion(props, lvl=2) {
 }
 
 function EnvolventeSeccion(props, lvl=1) {
-    props.elevation ??= lvl;
+    props.elevation = lvl;
     activadorCSSdeComponente(props);
     return (
         <Paper
