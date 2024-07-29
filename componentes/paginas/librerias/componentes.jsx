@@ -109,14 +109,22 @@ function esquemaGeneralLibreria(objLib, props) {
 
 
 
-        function Seccion({ nombre, contenido, obj }) {
+        function Seccion({ nombre, nombre_render_as, contenido, obj }) {
             const id = obj.id;
             contenido = contenido(obj);
             return (
                 <div id={id}>
                     <h1>
                         <Titulo>
-                            {nombre}
+                            {
+                                nombre_render_as == "CodeInline" ?
+                                    (
+                                        <CodeInline>
+                                            {nombre}
+                                        </CodeInline>
+                                    ) :
+                                    nombre
+                            }
                         </Titulo>
                     </h1>
                     <EnvolventeSeccion>
