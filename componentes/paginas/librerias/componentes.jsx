@@ -292,7 +292,7 @@ function FormatoDoc({ children }) {
                         retorno.push((() => {
                             return (
                                 <span>
-                                    <Resaltar color="orange">
+                                    <Resaltar color="gold">
                                         {terminacionComilla ? acumulado.slice(0, -1) : acumulado}
                                     </Resaltar>{terminacionComilla}
                                 </span>
