@@ -2,8 +2,6 @@ function PaginaLibrerias() {
 
   const estado = MiniDrawerDriver.estados["Librerías"];
 
-  console.log("PaginaLibrerias", estado);
-
   const opnID = estado.menuInferior.opcionIDSeleccionada();
 
   return (
@@ -116,17 +114,11 @@ function PaginaLibrerias() {
   function Proyecto({ estado, id, lenguaje, icono, state }) {
     const contenido = estado.contenido;
 
-    console.log("Proyecto", contenido);
-
     if (!state) {
       return;
     }
 
     return (
-      <Fade
-        in={state}
-        timeout={1000}
-      >
         <div>
           <h1
             style={{
@@ -135,7 +127,7 @@ function PaginaLibrerias() {
             }}
           >
             <Titulo
-              texto={contenido.titulo}
+              texto={contenido.nombre}
             />
           </h1>
 
@@ -178,7 +170,6 @@ function PaginaLibrerias() {
             </div>
           </EnvolventeSeccion>
         </div>
-      </Fade>
     );
   }
 

@@ -245,8 +245,14 @@ function FormatoDoc({ children }) {
                         retorno.push(acumulado);
                         acumulado = "";
                     }
+                    const esLetra = (caracter) => {
+                        let ascii = caracter.toUpperCase().charCodeAt(0);
+                        return ascii > 64 && ascii < 91;
+                    };
+
                     const contarMayusculas = element.split("").filter((letra) =>
                         letra == letra.toUpperCase() &&
+                        esLetra(letra) &&
                         !terminaciones.includes(letra)
                     ).length;
                     let tieneFormatoRaro = (element.includes(".") && !element.endsWith("."));
