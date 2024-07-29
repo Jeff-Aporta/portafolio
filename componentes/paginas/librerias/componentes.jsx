@@ -276,6 +276,16 @@ function FormatoDoc({ children }) {
                         !terminaciones.includes(letra)
                     ).length;
 
+                    const esNumero = !Number.isNaN(Number(terminaciones.reduce((acumulado, terminacion) => {
+                        if (!terminacion) {
+                            return acumulado;
+                        }
+                        if (acumulado.endsWith(terminacion)) {
+                            acumulado = acumulado.slice(0, -1);
+                        }
+                        return acumulado;
+                    }, element)));
+
                     let tieneFormatoRaro = (element.includes(".") && !element.endsWith("."));
                     tieneFormatoRaro ||= caracteresRaros.some((caracter) => element.includes(caracter));
                     tieneFormatoRaro ||= caracterRaroMedio.some((caracter) => element.includes(caracter) && !element.endsWith(caracter));
@@ -288,6 +298,7 @@ function FormatoDoc({ children }) {
                     if (NoEstaAcumulandoEncierro) {
                         // No está acumulando una frase entre parentesis o comillas
                         if (
+                            esNumero ||
                             contarMayusculas > 1 ||
                             tieneFormatoRaro ||
                             Number(element) == element
@@ -307,9 +318,9 @@ function FormatoDoc({ children }) {
                     }
                     let terminacionComilla;
                     if (comillas.some((comilla) =>
-                        acumulado.endsWith(comilla) ||
+                    (acumulado.startsWith(comilla) &&
                         (terminacionComilla = terminaciones.find((terminacion) => acumulado.endsWith(comilla + terminacion)))
-                    )) {
+                    ))) {
                         // Se detecto una frase entre comillas
                         retorno.push((() => {
                             return (
