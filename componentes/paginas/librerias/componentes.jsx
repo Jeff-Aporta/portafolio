@@ -236,7 +236,7 @@ function FormatoDoc({ children }) {
     function RefString({ children }) {
         const terminaciones = ["", ".", ",", ":", ";"];
         const comillas = ["\"", "'"];
-        const caracteresRaros = ["/", "@"];
+        const caracteresRaros = ["/", "@", "+"];
         const caracterRaroMedio = ["-", "_", ":"];
         if (typeof children == "string") {
             let retorno = [];
@@ -275,9 +275,11 @@ function FormatoDoc({ children }) {
                         esLetra(letra) &&
                         !terminaciones.includes(letra)
                     ).length;
+
                     let tieneFormatoRaro = (element.includes(".") && !element.endsWith("."));
                     tieneFormatoRaro ||= caracteresRaros.some((caracter) => element.includes(caracter));
                     tieneFormatoRaro ||= caracterRaroMedio.some((caracter) => element.includes(caracter) && !element.endsWith(caracter));
+
                     const NoEstaAcumulandoEncierro = [acumulado, element].every(test =>
                         !test.startsWith("(") &&
                         !comillas.some((comilla) => test.startsWith(comilla))
