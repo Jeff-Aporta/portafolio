@@ -29,6 +29,14 @@ function EnvolventeSeccion(props) {
     return (
         <Paper
             {...props}
+            className={(() => {
+                switch (props.elevation) {
+                    case 1:
+                        return "seccion";
+                    default:
+                        return "subseccion";
+                }
+            })()}
         >
             <FormatoDoc>
                 {props.children}
