@@ -16,24 +16,23 @@ function EnvolventePagina(props) {
     );
 }
 
-function SubEnvolventeSeccion(props, lvl=2) {
+function SubEnvolventeSeccion(props) {
     return <EnvolventeSeccion
         {...props}
-        lvl={lvl}
-        className="subseccion"
+        lvl={props.lvl ?? 2}
     />;
 }
 
-function EnvolventeSeccion(props, lvl=1) {
-    props.elevation = lvl;
+function EnvolventeSeccion(props) {
+    props.elevation = props.lvl ?? 1;
     activadorCSSdeComponente(props);
     return (
         <Paper
             {...props}
-            children={undefined}
-            className="seccion"
         >
-            {props.children}
+            <FormatoDoc>
+                {props.children}
+            </FormatoDoc>
         </Paper>
     );
 }
