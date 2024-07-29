@@ -5,8 +5,13 @@ function EnvolventePagina(props) {
             <CssBaseline />
             <div
                 {...props}
+                children={undefined}
                 className="pagina"
-            />
+            >
+                <FormatoDoc>
+                    {props.children}
+                </FormatoDoc>
+            </div>
         </ThemeProvider>
     );
 }
@@ -35,7 +40,7 @@ function EnvolventeSeccion(props) {
 function activadorCSSdeComponente(props) {
     props.style ??= {};
     Object.assign(props.style, {
-        ...(()=>{
+        ...(() => {
             const style = {};
             if (props.relative) {
                 style.position = "relative";
