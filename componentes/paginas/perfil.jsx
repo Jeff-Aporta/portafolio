@@ -225,7 +225,7 @@ function PaginaPerfil() {
       }}
       Ubicacion="Cali, Valle del Cauca, Colombia"
       Modalidad="Presencial"
-      ImagenWeb="imgs/Empresas/Registel-home.JPG"
+      ImagenWeb="src/imgs/Empresas/Registel-home.JPG"
       VerticalTabs={<VerticalTabsRegistel />}
       Testimonio="
           En Registel S.A.S, lideré iniciativas clave que mejoraron la eficiencia operativa y la experiencia
@@ -296,7 +296,7 @@ function PaginaPerfil() {
             <li>
               <br />
               <RenglónConImagen>
-                <Miniatura src="imgs/Empresas/Registel-ControlLineal.png" />
+                <Miniatura src="src/imgs/Empresas/Registel-ControlLineal.png" />
                 Propuse y desarrollé una mejor experiencia en un concepto que se llama control lineal de ruta,
                 pudiendo visualizar de forma animada y actualizada las posiciones de los buses en una ruta,
                 haciendo uso de un modelo de carretera en forma de herradura.
@@ -308,7 +308,7 @@ function PaginaPerfil() {
                 Desarrollé un sistema de salidas de buses, enfocado en presentarse en pantallas grandes
                 ubicadas en las terminales, para indicar a los usuarios el estado de los buses según su llegada o
                 salida de la terminal. esto inspirado en el sistema de salidas de aviones en un aeropuerto.
-                <Miniatura src="imgs/Empresas/Registel-TableroDeSalidas.png" />
+                <Miniatura src="src/imgs/Empresas/Registel-TableroDeSalidas.png" />
               </RenglónConImagen>
             </li>
             <ItemClave>
@@ -408,7 +408,7 @@ function PaginaPerfil() {
       }}
       Ubicacion="Medellín, Antioquia, Colombia"
       Modalidad="Remoto"
-      ImagenWeb="imgs/Empresas/ISeeCI-home.png"
+      ImagenWeb="src/imgs/Empresas/ISeeCI-home.png"
       VerticalTabs={<VerticalTabsISeeCI />}
       Testimonio="
           Mi tiempo en ISeeCI estuvo marcado por una serie de logros clave que reflejan mi capacidad
@@ -546,7 +546,7 @@ function PaginaPerfil() {
       }}
       Ubicacion="Pereira, Risaralda, Colombia"
       Modalidad="Presencial"
-      ImagenWeb="imgs/Empresas/ELCINCO-home.png"
+      ImagenWeb="src/imgs/Empresas/ELCINCO-home.png"
       VerticalTabs={<VerticalTabsELCINCO />}
       Testimonio="
           Desde la implementación de sistemas innovadores hasta la capacitación del equipo, cada hito
@@ -1213,7 +1213,7 @@ function PaginaPerfil() {
 
         <img
           loading="lazy"
-          src="imgs/jeff-profile.png"
+          src="src/imgs/jeff-profile.png"
           style={{
             position: "absolute",
             top: "40%",
@@ -1226,7 +1226,7 @@ function PaginaPerfil() {
             borderRadius: "50%",
             objectFit: "cover",
             objectPosition: "right",
-            backgroundImage: "url(imgs/back.gif)",
+            backgroundImage: "url(src/imgs/back.gif)",
             backgroundSize: "cover",
             backgroundBlendMode: "hard-light",
             opacity: 0.4,

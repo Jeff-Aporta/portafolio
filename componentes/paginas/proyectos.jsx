@@ -63,7 +63,7 @@ function PaginaProyectos() {
 
         {[
           {
-            imagen: "imgs/Proyectos/Memorama-prev.png",
+            imagen: "src/imgs/Proyectos/Memorama-prev.png",
             titulo: { icono: "fa-solid fa-brain", titulo: "Memorama" },
             descripcion: "Juego de memoria donde tienes que encontrar las parejas de cartas iguales.",
             youtube: "https://www.youtube.com/embed/n8ujo9spBR4",
@@ -72,7 +72,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Juego-trivia-prev.jpg",
+            imagen: "src/imgs/Proyectos/Juego-trivia-prev.jpg",
             titulo: { icono: "fa-regular fa-circle-question", titulo: "Juego de preguntas" },
             descripcion: "Juego de preguntas y respuestas con diferentes categorías.",
             youtube: "https://www.youtube.com/embed/HHDCktzuUCk",
@@ -81,7 +81,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Juego-Trivia-v2-prev.jpg",
+            imagen: "src/imgs/Proyectos/Juego-Trivia-v2-prev.jpg",
             titulo: { icono: "fa-regular fa-circle-question", titulo: "Juego de preguntas v2" },
             descripcion: "Juego de preguntas y respuestas con diferentes categorías. segunda versión.",
             youtube: "https://www.youtube.com/embed/HHDCktzuUCk",
@@ -90,7 +90,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Buscaminas-prev.jpg",
+            imagen: "src/imgs/Proyectos/Buscaminas-prev.jpg",
             titulo: { icono: "fa-solid fa-puzzle-piece", titulo: "Buscaminas" },
             descripcion: "Implementación del juego de buscaminas.",
             youtube: "https://www.youtube.com/embed/xwapo6FFhnQ",
@@ -99,7 +99,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Pong-prev.jpg",
+            imagen: "src/imgs/Proyectos/Pong-prev.jpg",
             titulo: { icono: "fa-solid fa-table-tennis-paddle-ball", titulo: "Pong solitario" },
             descripcion: "Juego de pong para un solo jugador.",
             youtube: "https://www.youtube.com/embed/MCEl05ZbZ80",
@@ -108,7 +108,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Juego-conway-prev.jpg",
+            imagen: "src/imgs/Proyectos/Juego-conway-prev.jpg",
             titulo: { icono: "fa-solid fa-infinity", titulo: "Juego de la vida" },
             descripcion: "Implementación del juego de la vida de Conway.",
             youtube: "https://www.youtube.com/embed/JA3dvpNbUJs",
@@ -117,7 +117,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Starfield-prev.jpg",
+            imagen: "src/imgs/Proyectos/Starfield-prev.jpg",
             titulo: { icono: "fa-solid fa-film", titulo: "Starfield" },
             descripcion: "Efecto de campo de estrellas en movimiento, icónico del screensaver de Windows 95.",
             youtube: "https://www.youtube.com/embed/SDnhXcOZiXM",
@@ -126,7 +126,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/caida-de-nieve-prev.jpg",
+            imagen: "src/imgs/Proyectos/caida-de-nieve-prev.jpg",
             titulo: { icono: "fa-solid fa-film", titulo: "Caida de nieve" },
             descripcion: "Efecto de caida de nieve en movimiento.",
             youtube: "https://www.youtube.com/embed/TOPe7fdwUAo",
@@ -135,7 +135,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Snake-game-prev.jpg",
+            imagen: "src/imgs/Proyectos/Snake-game-prev.jpg",
             titulo: { icono: "fa-solid fa-gamepad", titulo: "Snake game" },
             descripcion: "Implementación básica del juego de la serpiente.",
             youtube: "https://www.youtube.com/embed/wgSjVMmkLC0",
@@ -144,7 +144,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/mandelbrot-prev.jpg",
+            imagen: "src/imgs/Proyectos/mandelbrot-prev.jpg",
             titulo: { icono: "fa-solid fa-infinity", titulo: "Mandelbrot" },
             descripcion: "Implementación del conjunto de Mandelbrot.",
             youtube: "https://www.youtube.com/embed/SW0dq_DzeWk",
@@ -153,7 +153,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/Epicicloides-prev.jpg",
+            imagen: "src/imgs/Proyectos/Epicicloides-prev.jpg",
             titulo: { icono: "fa-solid fa-infinity", titulo: "Epicicloides" },
             descripcion: "Implementación de epicicloides con tablas de multiplicar, una curisidad matemática llevada a la programación.",
             youtube: "https://www.youtube.com/embed/TtQaSRsS2bM",
@@ -162,7 +162,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/arboles-fractal-prev.jpg",
+            imagen: "src/imgs/Proyectos/arboles-fractal-prev.jpg",
             titulo: { icono: "fa-solid fa-infinity", titulo: "Arboles fractal" },
             descripcion: "Implementación de arboles fractales con recursividad.",
             youtube: "https://www.youtube.com/embed/noe_P35Md5M",
@@ -171,7 +171,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/tetris-prev.jpg",
+            imagen: "src/imgs/Proyectos/tetris-prev.jpg",
             titulo: { icono: "fa-solid fa-gamepad", titulo: "Tetris" },
             descripcion: "Implementación básica del juego de tetris.",
             youtube: "https://www.youtube.com/embed/y_rnUOHUoQ4",
@@ -180,7 +180,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow",
           },
           {
-            imagen: "imgs/Proyectos/peces-prev.jpg",
+            imagen: "src/imgs/Proyectos/peces-prev.jpg",
             titulo: { icono: "fa-solid fa-film", titulo: "Peces" },
             descripcion: "Efecto de peces animados en un estanque, con vista cenital.",
             youtube: "https://www.youtube.com/embed/0cvC6XRYz24",
@@ -189,7 +189,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/tierra-prev.png",
+            imagen: "src/imgs/Proyectos/tierra-prev.png",
             titulo: { icono: "fa-solid fa-film", titulo: "Tierra y luna" },
             descripcion: "Animación de la tierra y la luna en movimiento, con tecnología WebGL para renderizado 3D.",
             youtube: "https://www.youtube.com/embed/ijqsaG5qp3Y",
@@ -198,7 +198,7 @@ function PaginaProyectos() {
             color_lenguaje: "yellow"
           },
           {
-            imagen: "imgs/Proyectos/carros-prev.png",
+            imagen: "src/imgs/Proyectos/carros-prev.png",
             titulo: { icono: "fa-solid fa-car-side", titulo: "Carros 3D (Three.js)" },
             descripcion: "Juego 3D programado con Three.js, donde hay que acelerar y frenar para no chocar con los carros de la autopista.",
             youtube: "https://www.youtube.com/embed/GKFJajmz_dg",
