@@ -64,6 +64,13 @@ function Code({
     onCopy = () => 0,
 }) {
     let idR = Math.random().toString().replace("0.", "idR-");
+
+    let { multiLinea, str } = removerTabulacionesDeCodigo(children);
+
+    children = str;
+
+    linenumbers = (linenumbers && ((Array.isArray(children) && children.length > 1) || multiLinea));
+
     return (<pre
         id={idR}
         className={`
