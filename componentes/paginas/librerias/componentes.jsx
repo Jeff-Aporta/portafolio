@@ -110,7 +110,7 @@ function esquemaGeneralLibreria(objLib, props) {
 
 
         function Seccion({ nombre, id, nombre_render_as, contenido, obj }) {
-            const id = obj.id;
+            id ??= obj.id;
             contenido = contenido(obj);
             return (
                 <div id={id}>
