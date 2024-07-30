@@ -17,13 +17,20 @@
   border: 1px solid #555 !important;
 }
 
+.elemento-funcion,
+.elemento-puntuado {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
 .formato-anomalo {
   font-weight: bold;
   color: lemonchiffon;
 }
 
 .palabra {
-  &.todo-mayuscula {
+  &.todo-mayuscula,
+  &.coincidencia {
     font-weight: bold;
     color: lemonchiffon;
   }
@@ -35,9 +42,13 @@
 
 .obj-call {
   color: greenyellow;
+
+  .solo-giones & {
+    color: springgreen;
+  }
 }
 
-.funcion{
+.funcion {
   color: greenyellow;
 }
 
@@ -57,26 +68,52 @@
 }
 
 .agrupacion {
-  font-weight: bold;
+  display: inline-flex;
+  flex-wrap: wrap;
 
   .exclamacion {
-    color: lightsteelblue;
+    font-weight: bold;
+    color: deepskyblue;
   }
   .contenido-exclamacion {
-    font-weight: bolder;
-    color: white;
+    font-weight: bold;
+    color: lightsteelblue;
   }
 
   .comilla {
     color: gold;
   }
   .contenido-texto {
+    &,
+    .obj-call,
+    .parcialmente-mayuscula,
+    .funcion,
+    .numero,
+    .todo-mayuscula,
+    .coincidencia {
+      font-weight: normal;
+      color: orange;
+    }
     color: orange;
   }
   .agrupador {
-    color: lightskyblue;
+    font-weight: bold;
+    color: deepskyblue;
   }
   .contenido-agrupado {
-    color: lightcyan;
+    font-weight: bold;
+    color: paleturquoise;
+
+    .obj-call,
+    .parcialmente-mayuscula,
+    .funcion {
+      color: aquamarine;
+    }
+    .todo-mayuscula,
+    .numero,
+    .coincidencia {
+      font-weight: bold;
+      color: skyblue;
+    }
   }
 }

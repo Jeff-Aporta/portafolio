@@ -107,8 +107,6 @@ function esquemaGeneralLibreria(objLib, props) {
             ]
         });
 
-
-
         function Seccion({ nombre, id, nombre_render_as, contenido, obj }) {
             id ??= obj.id;
             contenido = contenido(obj);
@@ -210,7 +208,9 @@ function LIDoc({ children }) {
     </li>);
 }
 
-function FormatoDoc({ children }) {
+function FormatoDoc({ children, lastSpace = true }) {
+    const puntuaciones = [".", ",", ";", ":", "-"];
+    
     if (!children) {
         return;
     }
@@ -237,103 +237,245 @@ function FormatoDoc({ children }) {
         if (!children) {
             return "";
         }
-        if (typeof children == "string") {
 
-            if (!children.trim()) {
-                return children;
+        let retorno = children;
+        retorno = tratamientoDeString(retorno);
+        if (Array.isArray(retorno) && retorno.length == 1) {
+            retorno = retorno[0];
+        }
+
+        separarPorEspacios();
+
+        return retorno;
+
+        function separarPorEspacios() {
+            if (!Array.isArray(retorno)) {
+                return;
+            }
+            let retornoEspaciado = [];
+            retorno.forEach((element, index, array) => {
+                retornoEspaciado.push(element);
+                if (index < array.length - 1) {
+                    retornoEspaciado.push(" ");
+                }
+            });
+            retorno = retornoEspaciado;
+        }
+
+        function tratamientoDeString(string) {
+            if (typeof string != "string") {
+                return string;
+            } else {
+                string = string.trim();
+                if (!string) {
+                    return string;
+                }
+                // string = string.replaceAll("\n", " ");
+                // while (string.includes("  ")) {
+                //     string = string.replaceAll("  ", " ");
+                // }
+            }
+
+            string = agrupadores(string);
+            if (Array.isArray(string)) {
+                if (string.length == 1) {
+                    string = string[0];
+                } else {
+                    string = string.map((element, index) => {
+                        return (
+                            <RefString>
+                                {element}
+                            </RefString>
+                        );
+                    });
+                }
+            }
+            if (typeof string != "string") {
+                return string;
             }
 
             let retorno = [];
             let acumulado = "";
 
-            if (agrupadores()) {
-                return children;
+            string.split(" ").forEach((element, index, array) => {
+
+                if (element.trim()) {
+                    aplicarTransformacion();
+                }
+
+                function aplicarTransformacion() {
+                    if (aplicarPuntuacionesEnElemento()) {
+                        return;
+                    } else {
+                        aplicarReglas();
+                    }
+
+                    if (index == array.length - 1) {
+                        acumulado += " ";
+                        añadirAcumulado();
+                    }
+
+                    function añadirAcumulado() {
+                        retorno.push(acumulado.trim());
+                        acumulado = "";
+                    }
+
+                    function aplicarPuntuacionesEnElemento() {
+                        element = buscarPuntuacion(element);
+                        const cambio = element.cambio;
+                        element = element.resultado;
+
+                        if (cambio) {
+                            añadirAcumulado();
+                            if (Array.isArray(element)) {
+                                retorno.push(
+                                    <span className="elemento-puntuado">
+                                        {element}
+                                    </span>
+                                );
+                            } else {
+                                retorno.push(element);
+                            }
+                        }
+                        return cambio;
+                    }
+
+                    function aplicarReglas() {
+                        let reglas = Object.values(reglasFormato(element, retorno)).filter((regla) => regla.condicion);
+
+                        if (reglas.length) {
+                            añadirAcumulado();
+                            reglas.shift().accion();
+                        } else if (index == array.length - 1) {
+                            acumulado += element + " ";
+                            añadirAcumulado();
+                        } else {
+                            acumulado += element + " ";
+                        }
+                    }
+                }
+            });
+
+            if (retorno.length == 1) {
+                retorno = retorno[0];
             }
 
-            children.split(" ").forEach((element, index, array) => {
+            return retorno;
+        }
 
-                element = buscarPuntuacion(element);
+        function reglasFormato(element, retorno) {
+            const mayusculas = element
+                .split("")
+                .map((caracter, index) => {
+                    return { caracter, index }
+                }).filter((caracterIndex) =>
+                    caracterIndex.caracter == caracterIndex.caracter.toUpperCase() &&
+                    esLetra(caracterIndex.caracter)
+                );
 
-                const cambio = element.cambio;
-                element = element.resultado;
+            const esNumero = !Number.isNaN(Number(element));
 
-                if (cambio) {
-                    if (Array.isArray(element)) {
-                        element.forEach((elemento) => {
-                            retorno.push(elemento);
-                        });
-                    } else {
-                        retorno.push(element);
-                    }
-                } else {
-                    const mayusculas = element
-                        .split("")
-                        .map((caracter, index) => {
-                            return { caracter, index }
-                        }).filter((caracterIndex) =>
-                            caracterIndex.caracter == caracterIndex.caracter.toUpperCase() &&
-                            esLetra(caracterIndex.caracter)
-                        );
-
-                    const esNumero = !Number.isNaN(Number(element));
-
-                    if (element.endsWith("()")) {
+            return [
+                {
+                    condicion: ["react", "javascript", "material-ui", "babel"].includes(element.toLowerCase()),
+                    nombre: "coincidencias",
+                    accion: () => {
                         retorno.push(
-                            <span className="funcion">
-                                {element.slice(0, -2)}<span className="puntuacion">()</span>
+                            <span className="palabra coincidencia">
+                                {element}
                             </span>
                         );
-                    } else if (["/", "@"].some(e => element.includes(e))) {
+                    }
+                },
+                {
+                    condicion: element.includes("()"),
+                    nombre: "funcion",
+                    accion: () => {
+                        retorno.push(
+                            <Funcion>
+                                {element}
+                            </Funcion>
+                        );
+                    }
+                },
+                {
+                    condicion: ["/", "@"].some(e => element.includes(e)),
+                    nombre: "formato-anomalo",
+                    accion: () => {
                         retorno.push(
                             <span className="formato-anomalo">
                                 {element}
                             </span>
                         );
-                    } else if (esNumero) {
+                    }
+                },
+                {
+                    condicion: esNumero,
+                    nombre: "numero",
+                    accion: () => {
                         retorno.push(
                             <span className="numero">
                                 {element}
                             </span>
                         );
-                    } else if (ES_SNAKE_UPPER_CASE(element)){
+                    }
+                },
+                {
+                    condicion: ES_SNAKE_UPPER_CASE(element),
+                    nombre: "snake-upper-case",
+                    accion: () => {
                         retorno.push(
                             <span className="snake-upper-case">
                                 {element}
                             </span>
                         );
-                    } else if (mayusculas.length == element.length) {
+                    }
+                },
+                {
+                    condicion: mayusculas.length == element.length,
+                    nombre: "todo-mayuscula",
+                    accion: () => {
                         retorno.push(
                             <span className="palabra todo-mayuscula">
                                 {element}
                             </span>
                         );
-                    } else if (mayusculas.length > 1) {
+                    }
+                },
+                {
+                    condicion: mayusculas.length > 1,
+                    nombre: "parcialmente-mayuscula",
+                    accion: () => {
                         retorno.push(
                             <span className="palabra parcialmente-mayuscula">
                                 {element}
                             </span>
                         );
-                    } else if (mayusculas.length == 1 && mayusculas[0].index != 0) {
+                    }
+                },
+                {
+                    condicion: mayusculas.length == 1 && mayusculas[0].index != 0,
+                    nombre: "funcion",
+                    accion: () => {
                         retorno.push(
-                            <span className="funcion">
+                            <Funcion>
                                 {element}
-                            </span>
-                        );
-                    } else {
-                        retorno.push(
-                            element
+                            </Funcion>
                         );
                     }
-                }
-
-                if (index < array.length - 1) {
-                    retorno.push(" ");
-                }
-
-            });
-            return retorno;
+                },
+            ];
         }
-        return children;
+
+        function Funcion({ children }) {
+            return (
+                <span className="elemento-funcion">
+                    <span className="funcion">
+                        {children.replaceAll("()", "")}
+                    </span><span className="puntuacion">()</span>
+                </span>
+            );
+        }
 
         function esLetra(caracter) {
             let ascii = caracter.toUpperCase().charCodeAt(0);
@@ -341,10 +483,13 @@ function FormatoDoc({ children }) {
         };
 
         function buscarPuntuacion(palabra) {
-            const puntuaciones = [".", ",", ";", ":"];
             let retorno = [];
 
             let acumulado = "";
+
+            const caracteresDePuntuacion = palabra.split("").filter((caracter) => puntuaciones.includes(caracter));
+            caracteresDePuntuacion.pop();
+            const soloGiones = caracteresDePuntuacion.every((caracter) => caracter == "-");
 
             palabra.split("").forEach((caracter, index, array) => {
                 if (puntuaciones.includes(caracter)) {
@@ -366,32 +511,43 @@ function FormatoDoc({ children }) {
             }
 
             if (retorno.length > 2) {
-                retorno = retorno.map((element, index) => {
-                    if (typeof element == "string") {
-                        return (
-                            ES_SNAKE_UPPER_CASE(element) ?
-                                <span className="snake-upper-case">
-                                    {element}
-                                </span> :
-                                <span className="obj-call">
-                                    {element}
-                                </span>
-                        );
-                    }
-                    return element;
-                });
+                retorno = (
+                    <span className={`elemento-puntuado ${soloGiones ? "solo-giones" : ""}`}>
+                        {
+                            retorno.map((element, index) => {
+                                if (typeof element == "string") {
+                                    return (
+                                        ES_SNAKE_UPPER_CASE(element) ?
+                                            <span className="snake-upper-case">
+                                                {element}
+                                            </span> :
+                                            <span className="obj-call">
+                                                {element}
+                                            </span>
+                                    );
+                                }
+                                return element;
+                            })
+                        }
+                    </span>
+                )
+                return retornarRetorno();
             }
 
             if (retorno.length > 1) {
-                return {
-                    resultado: retorno,
-                    cambio: true,
-                };
+                return retornarRetorno();
             }
             return {
                 resultado: palabra,
                 cambio: false,
             };
+
+            function retornarRetorno(){
+                return {
+                    resultado: retorno,
+                    cambio: true,
+                };
+            }
         }
 
         function ES_SNAKE_UPPER_CASE(palabra) {
@@ -404,7 +560,7 @@ function FormatoDoc({ children }) {
             }, true);
         }
 
-        function agrupadores() {
+        function agrupadores(string) {
             const agrupadores = [
                 {
                     open: "¡",
@@ -454,57 +610,93 @@ function FormatoDoc({ children }) {
             let agrupadorActual;
             let acumulado = "";
 
-            children.split("").forEach((caracter, index, array) => {
+            string.split("").forEach((caracter, index, array) => {
                 if (agrupadorActual) {
-                    if (caracter == agrupadorActual.close) {
-                        acumulado = acumulado.trim();
-                        if (!acumulado) {
-                            acumulado = `${agrupadorActual.open}${agrupadorActual.close}`;
-                            agrupadorActual = undefined;
-                        } else {
-                            retorno.push(
-                                <span className="agrupacion">
-                                    <span className={agrupadorActual.clase}>
-                                        {agrupadorActual.open}
-                                    </span><span className={agrupadorActual.claseContenido}>
-                                        {acumulado}
-                                    </span><span className={agrupadorActual.clase}>
-                                        {agrupadorActual.close}
-                                    </span>
-                                </span>
-                            );
-                        }
-                        acumulado = "";
-                        agrupadorActual = undefined;
-                    } else if (index == array.length - 1) {
-                        retorno.push(
-                            <RefString>
-                                {agrupadorActual.open}{acumulado}
-                            </RefString>
-                        );
-                    } else {
+                    agrupando();
+                } else {
+                    buscarApertura();
+                }
+
+                function agrupando() {
+                    if (seEncontroCierre()) {
+                        return;
+                    }
+                    if (seAlcanzoAlFinal()) {
+                        return;
+                    }
+
+                    noHayAgrupacion();
+
+                    function noHayAgrupacion() {
                         acumulado += caracter;
                     }
-                } else {
+
+                    function seEncontroCierre() {
+                        const condicion = caracter == agrupadorActual.close;
+                        if (condicion) {
+                            if (acumulado) {
+                                retorno.push(
+                                    <span className="agrupacion">
+                                        <span className={agrupadorActual.clase}>
+                                            {agrupadorActual.open}
+                                        </span>
+                                        <span className={agrupadorActual.claseContenido}>
+                                            <RefString>
+                                                {acumulado}
+                                            </RefString>
+                                        </span>
+                                        <span className={agrupadorActual.clase}>
+                                            {agrupadorActual.close}
+                                        </span>
+                                    </span>
+                                );
+                            } else {
+                                retorno.push(`${agrupadorActual.open}${agrupadorActual.close}`);
+                            }
+                            acumulado = "";
+                            agrupadorActual = undefined;
+                        }
+                        return condicion;
+                    }
+
+                    function seAlcanzoAlFinal() {
+                        const condicion = index == array.length - 1;
+                        if (condicion) {
+                            if (agrupadorActual) {
+                                retorno.push(`${agrupadorActual.open}${acumulado}`);
+                            } else {
+                                retorno.push(acumulado);
+                            }
+                            acumulado = "";
+                        }
+                        return condicion;
+                    }
+                }
+
+                function buscarApertura() {
                     agrupadorActual = agrupadores.find((agrupador) => caracter == agrupador.open);
-                    if (!agrupadorActual) {
-                        acumulado += caracter;
+                    let next = array[index + 1];
+                    let prev = array[index - 1];
+                    if (agrupadorActual) {
+                        if (next == agrupadorActual.close) {
+                            agrupadorActual = undefined;
+                        } else {
+                            retorno.push(acumulado);
+                            acumulado = "";
+                        }
                     } else {
-                        retorno.push(
-                            <RefString>
-                                {acumulado}
-                            </RefString>
-                        );
-                        acumulado = "";
+                        if (!agrupadores.some(agrupador => caracter == agrupador.close && prev == agrupador.open)) {
+                            acumulado += caracter;
+                        }
+                        if (index == array.length - 1) {
+                            retorno.push(acumulado);
+                            acumulado = "";
+                        }
                     }
                 }
             });
 
-            if (retorno.length > 1) {
-                children = retorno;
-                return true;
-            }
-            return false;
+            return retorno;
         }
     }
 }
