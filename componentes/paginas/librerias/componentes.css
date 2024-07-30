@@ -16,3 +16,67 @@
   color: white !important;
   border: 1px solid #555 !important;
 }
+
+.formato-anomalo {
+  font-weight: bold;
+  color: lemonchiffon;
+}
+
+.palabra {
+  &.todo-mayuscula {
+    font-weight: bold;
+    color: lemonchiffon;
+  }
+
+  &.parcialmente-mayuscula {
+    color: greenyellow;
+  }
+}
+
+.obj-call {
+  color: greenyellow;
+}
+
+.funcion{
+  color: greenyellow;
+}
+
+.snake-upper-case {
+  font-weight: bold;
+  color: coral;
+}
+
+.numero {
+  font-weight: bold;
+  color: lemonchiffon;
+}
+
+.puntuacion {
+  font-weight: bold;
+  color: mediumaquamarine;
+}
+
+.agrupacion {
+  font-weight: bold;
+
+  .exclamacion {
+    color: lightsteelblue;
+  }
+  .contenido-exclamacion {
+    font-weight: bolder;
+    color: white;
+  }
+
+  .comilla {
+    color: gold;
+  }
+  .contenido-texto {
+    color: orange;
+  }
+  .agrupador {
+    color: lightskyblue;
+  }
+  .contenido-agrupado {
+    color: lightcyan;
+  }
+}

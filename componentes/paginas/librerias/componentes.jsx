@@ -234,123 +234,278 @@ function FormatoDoc({ children }) {
     )
 
     function RefString({ children }) {
-        const terminaciones = ["", ".", ",", ":", ";"];
-        const comillas = ["\"", "'"];
-        const caracteresRaros = ["/", "@", "+"];
-        const caracterRaroMedio = ["-", "_", ":"];
+        if (!children) {
+            return "";
+        }
         if (typeof children == "string") {
+
+            if (!children.trim()) {
+                return children;
+            }
+
             let retorno = [];
             let acumulado = "";
+
+            if (agrupadores()) {
+                return children;
+            }
+
             children.split(" ").forEach((element, index, array) => {
 
-                if (terminaciones.some((terminacion) => element.endsWith("()" + terminacion))) {
-                    if (acumulado) {
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    retorno.push(
-                        <Resaltar color="plum">
-                            {element}
-                        </Resaltar>
-                    );
-                    retorno.push(" ");
-                } else {
-                    if (acumulado && element.startsWith("(")) {
-                        // cuando se detecta un parentesis al inicio de una palabra
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    if (acumulado && comillas.some((comilla) => element.startsWith(comilla))) {
-                        // cuando se detecta una comilla al inicio de una palabra
-                        retorno.push(acumulado);
-                        acumulado = "";
-                    }
-                    const esLetra = (caracter) => {
-                        let ascii = caracter.toUpperCase().charCodeAt(0);
-                        return ascii > 64 && ascii < 91;
-                    };
+                element = buscarPuntuacion(element);
 
-                    const contarMayusculas = element.split("").filter((letra) =>
-                        letra == letra.toUpperCase() &&
-                        esLetra(letra) &&
-                        !terminaciones.includes(letra)
-                    ).length;
+                const cambio = element.cambio;
+                element = element.resultado;
 
-                    const esNumero = !Number.isNaN(Number(terminaciones.reduce((acumulado, terminacion) => {
-                        if (!terminacion) {
-                            return acumulado;
-                        }
-                        if (acumulado.endsWith(terminacion)) {
-                            acumulado = acumulado.slice(0, -1);
-                        }
-                        return acumulado;
-                    }, element)));
-
-                    let tieneFormatoRaro = (element.includes(".") && !element.endsWith("."));
-                    tieneFormatoRaro ||= caracteresRaros.some((caracter) => element.includes(caracter));
-                    tieneFormatoRaro ||= caracterRaroMedio.some((caracter) => element.includes(caracter) && !element.endsWith(caracter));
-
-                    const NoEstaAcumulandoEncierro = [acumulado, element].every(test =>
-                        !test.startsWith("(") &&
-                        !comillas.some((comilla) => test.startsWith(comilla))
-                    );
-
-                    if (NoEstaAcumulandoEncierro) {
-                        // No está acumulando una frase entre parentesis o comillas
-                        if (
-                            esNumero ||
-                            contarMayusculas > 1 ||
-                            tieneFormatoRaro ||
-                            Number(element) == element
-                        ) {
-                            retorno.push(acumulado + " ");
-                            retorno.push(
-                                <Resaltar color="LemonChiffon">
-                                    {element}
-                                </Resaltar>
-                            );
-                            acumulado = "";
-                        } else {
-                            acumulado += element;
-                        }
+                if (cambio) {
+                    if (Array.isArray(element)) {
+                        element.forEach((elemento) => {
+                            retorno.push(elemento);
+                        });
                     } else {
-                        acumulado += element;
+                        retorno.push(element);
                     }
-                    let terminacionComilla;
-                    if (comillas.some((comilla) =>
-                    (acumulado.startsWith(comilla) &&
-                        (terminacionComilla = terminaciones.find((terminacion) => acumulado.endsWith(comilla + terminacion)))
-                    ))) {
-                        // Se detecto una frase entre comillas
-                        retorno.push((() => {
-                            return (
-                                <span>
-                                    <Resaltar color="gold">
-                                        {terminacionComilla ? acumulado.slice(0, -1) : acumulado}
-                                    </Resaltar>{terminacionComilla}
-                                </span>
-                            );
-                        })());
-                        acumulado = "";
-                    }
-                    if (acumulado.startsWith("(") && terminaciones.some((terminacion) => acumulado.endsWith(")" + terminacion))) {
-                        // Se detecto una frase entre parentesis
-                        retorno.push(
-                            <Resaltar>
-                                {acumulado.replace(/\(\s+/g, "(").replace(/\s+\)/g, ")")}
-                            </Resaltar>
+                } else {
+                    const mayusculas = element
+                        .split("")
+                        .map((caracter, index) => {
+                            return { caracter, index }
+                        }).filter((caracterIndex) =>
+                            caracterIndex.caracter == caracterIndex.caracter.toUpperCase() &&
+                            esLetra(caracterIndex.caracter)
                         );
-                        acumulado = "";
+
+                    const esNumero = !Number.isNaN(Number(element));
+
+                    if (element.endsWith("()")) {
+                        retorno.push(
+                            <span className="funcion">
+                                {element.slice(0, -2)}<span className="puntuacion">()</span>
+                            </span>
+                        );
+                    } else if (["/", "@"].some(e => element.includes(e))) {
+                        retorno.push(
+                            <span className="formato-anomalo">
+                                {element}
+                            </span>
+                        );
+                    } else if (esNumero) {
+                        retorno.push(
+                            <span className="numero">
+                                {element}
+                            </span>
+                        );
+                    } else if (ES_SNAKE_UPPER_CASE(element)){
+                        retorno.push(
+                            <span className="snake-upper-case">
+                                {element}
+                            </span>
+                        );
+                    } else if (mayusculas.length == element.length) {
+                        retorno.push(
+                            <span className="palabra todo-mayuscula">
+                                {element}
+                            </span>
+                        );
+                    } else if (mayusculas.length > 1) {
+                        retorno.push(
+                            <span className="palabra parcialmente-mayuscula">
+                                {element}
+                            </span>
+                        );
+                    } else if (mayusculas.length == 1 && mayusculas[0].index != 0) {
+                        retorno.push(
+                            <span className="funcion">
+                                {element}
+                            </span>
+                        );
+                    } else {
+                        retorno.push(
+                            element
+                        );
                     }
-                    if (index == array.length - 1) {
-                        retorno.push(acumulado);
-                    }
-                    acumulado += " ";
                 }
+
+                if (index < array.length - 1) {
+                    retorno.push(" ");
+                }
+
             });
             return retorno;
         }
         return children;
+
+        function esLetra(caracter) {
+            let ascii = caracter.toUpperCase().charCodeAt(0);
+            return ascii > 64 && ascii < 91;
+        };
+
+        function buscarPuntuacion(palabra) {
+            const puntuaciones = [".", ",", ";", ":"];
+            let retorno = [];
+
+            let acumulado = "";
+
+            palabra.split("").forEach((caracter, index, array) => {
+                if (puntuaciones.includes(caracter)) {
+                    retorno.push(acumulado);
+                    retorno.push(
+                        <span className="puntuacion">{caracter}</span>
+                    );
+                    acumulado = "";
+                } else {
+                    acumulado += caracter;
+                }
+                if (acumulado && index == array.length - 1) {
+                    retorno.push(acumulado);
+                }
+            });
+
+            if (retorno.length == 2 && typeof retorno[0] == "string") {
+                retorno[0] = <RefString>{retorno[0]}</RefString>;
+            }
+
+            if (retorno.length > 2) {
+                retorno = retorno.map((element, index) => {
+                    if (typeof element == "string") {
+                        return (
+                            ES_SNAKE_UPPER_CASE(element) ?
+                                <span className="snake-upper-case">
+                                    {element}
+                                </span> :
+                                <span className="obj-call">
+                                    {element}
+                                </span>
+                        );
+                    }
+                    return element;
+                });
+            }
+
+            if (retorno.length > 1) {
+                return {
+                    resultado: retorno,
+                    cambio: true,
+                };
+            }
+            return {
+                resultado: palabra,
+                cambio: false,
+            };
+        }
+
+        function ES_SNAKE_UPPER_CASE(palabra) {
+            if (!palabra.includes("_")) {
+                return false;
+            }
+            return palabra.replaceAll("_", "").split("").reduce((acumulado, caracter, index) => {
+                acumulado &&= (caracter == caracter.toUpperCase() && esLetra(caracter));
+                return acumulado;
+            }, true);
+        }
+
+        function agrupadores() {
+            const agrupadores = [
+                {
+                    open: "¡",
+                    close: "!",
+                    clase: "exclamacion",
+                    claseContenido: "contenido-exclamacion",
+                },
+                {
+                    open: "{",
+                    close: "}",
+                    clase: "agrupador",
+                    claseContenido: "contenido-agrupado",
+                },
+                {
+                    open: "[",
+                    close: "]",
+                    clase: "agrupador",
+                    claseContenido: "contenido-agrupado",
+                },
+                {
+                    open: "(",
+                    close: ")",
+                    clase: "agrupador",
+                    claseContenido: "contenido-agrupado",
+                },
+                {
+                    open: '"',
+                    close: '"',
+                    clase: "comilla",
+                    claseContenido: "contenido-texto",
+                },
+                {
+                    open: "'",
+                    close: "'",
+                    clase: "comilla",
+                    claseContenido: "contenido-texto",
+                },
+                {
+                    open: "`",
+                    close: "`",
+                    clase: "comilla",
+                    claseContenido: "contenido-texto",
+                },
+            ]
+
+            let retorno = [];
+            let agrupadorActual;
+            let acumulado = "";
+
+            children.split("").forEach((caracter, index, array) => {
+                if (agrupadorActual) {
+                    if (caracter == agrupadorActual.close) {
+                        acumulado = acumulado.trim();
+                        if (!acumulado) {
+                            acumulado = `${agrupadorActual.open}${agrupadorActual.close}`;
+                            agrupadorActual = undefined;
+                        } else {
+                            retorno.push(
+                                <span className="agrupacion">
+                                    <span className={agrupadorActual.clase}>
+                                        {agrupadorActual.open}
+                                    </span><span className={agrupadorActual.claseContenido}>
+                                        {acumulado}
+                                    </span><span className={agrupadorActual.clase}>
+                                        {agrupadorActual.close}
+                                    </span>
+                                </span>
+                            );
+                        }
+                        acumulado = "";
+                        agrupadorActual = undefined;
+                    } else if (index == array.length - 1) {
+                        retorno.push(
+                            <RefString>
+                                {agrupadorActual.open}{acumulado}
+                            </RefString>
+                        );
+                    } else {
+                        acumulado += caracter;
+                    }
+                } else {
+                    agrupadorActual = agrupadores.find((agrupador) => caracter == agrupador.open);
+                    if (!agrupadorActual) {
+                        acumulado += caracter;
+                    } else {
+                        retorno.push(
+                            <RefString>
+                                {acumulado}
+                            </RefString>
+                        );
+                        acumulado = "";
+                    }
+                }
+            });
+
+            if (retorno.length > 1) {
+                children = retorno;
+                return true;
+            }
+            return false;
+        }
     }
 }
 

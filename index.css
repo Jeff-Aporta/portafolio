@@ -3,6 +3,13 @@ a {
     text-decoration: none;
 }
 
+ul, ol{
+  li{
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+}
+
 ul.punto-centrico {
   margin: 15px 0;
   &,
