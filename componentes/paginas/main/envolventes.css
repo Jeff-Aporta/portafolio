@@ -105,12 +105,7 @@
   }
   .contenido-texto {
     &,
-    .obj-call,
-    .parcialmente-mayuscula,
-    .funcion,
-    .numero,
-    .todo-mayuscula,
-    .coincidencia {
+    * {
       font-weight: normal;
       color: orange;
     }
