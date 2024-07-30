@@ -22,7 +22,7 @@ function PaginaLibrerias() {
                 },
                 idFilter: "javascript",
                 idsProyecto: [
-                  "ASCIIMapLoader",
+                  "ASCIIMapLoader", "OrigenTel",
                 ]
               }),
               Seccion({
@@ -103,7 +103,12 @@ function PaginaLibrerias() {
                 }
               })
               .map((proyecto) => {
-                return <Proyecto {...proyecto} {...sello} />
+                return (
+                  <div>
+                    <Proyecto {...proyecto} {...sello} />
+                    <br /><br />
+                  </div>
+                );
               })
           }
         </div>
@@ -119,57 +124,57 @@ function PaginaLibrerias() {
     }
 
     return (
-        <div>
-          <h1
+      <div>
+        <h1
+          style={{
+            fontSize: '300%',
+            margin: '0',
+          }}
+        >
+          <Titulo
+            texto={contenido.nombre}
+          />
+        </h1>
+
+        <EnvolventeSeccion relative>
+
+          <div
             style={{
-              fontSize: '300%',
-              margin: '0',
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
-            <Titulo
-              texto={contenido.nombre}
-            />
+            <BotonGit href={contenido.github} />
+            <Sello lenguaje={lenguaje} icono={icono} />
+          </div>
+
+
+          <h1>
+            {contenido.slogan}
           </h1>
 
-          <EnvolventeSeccion relative>
+          <Resumen {...contenido.resumen} />
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
+          <div
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Button
+              size="large"
+              variant="contained"
+              color="primary"
+              startIcon={<i class="fa-solid fa-book" />}
+              endIcon={<i class="fa-solid fa-angles-right" />}
+              onClick={() => {
+                estado.seleccionar();
               }}
             >
-              <BotonGit href={contenido.github} />
-              <Sello lenguaje={lenguaje} icono={icono} />
-            </div>
-
-
-            <h1>
-              {contenido.slogan}
-            </h1>
-
-            <Resumen {...contenido.resumen} />
-
-            <div
-              style={{
-                textAlign: 'right',
-              }}
-            >
-              <Button
-                size="large"
-                variant="contained"
-                color="primary"
-                startIcon={<i class="fa-solid fa-book" />}
-                endIcon={<i class="fa-solid fa-angles-right" />}
-                onClick={() => {
-                  estado.seleccionar();
-                }}
-              >
-                Documentación
-              </Button>
-            </div>
-          </EnvolventeSeccion>
-        </div>
+              Documentación
+            </Button>
+          </div>
+        </EnvolventeSeccion>
+      </div>
     );
   }
 

@@ -64,22 +64,23 @@ function App() {
             "JFTP": {
                 componente: () => <PaginaLibreriaJFTP />,
                 titulo: "JFTP",
-                Icono: "fa-solid fa-server",
                 contenido: _JFTP_
             },
             "ASCIIMapLoader": {
                 rel: "https://jeff-aporta.github.io/ASCIIMapLoader",
                 componente: function () {
-                    return <PaginaASCIIMapLoader {
-                        ...{
-                            rel: this.rel,
-                            inclusionEnPortafolio: true,
-                        }
-                    } />
+                    return esquemaGeneralLibreria(this.contenido);
                 },
                 titulo: "ASCII Map Loader",
-                Icono: "fa-solid fa-map",
                 contenido: _ASCIIMapLoader_
+            },
+            "OrigenTel": {
+                rel: "https://jeff-aporta.github.io/OrigenTel",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: "OrigenTel JS",
+                contenido: _ORIGEN_TEL_
             },
         },
         navegadorIzquierda: ["Perfil", 0, "Proyectos", "Librerías", 0, "Configuración"],

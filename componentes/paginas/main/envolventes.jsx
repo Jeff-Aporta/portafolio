@@ -535,7 +535,10 @@ function FormatoDoc({ children, lastSpace = true }) {
                             acumulado = "";
                         }
                     } else {
-                        if (!agrupadores.some(agrupador => caracter == agrupador.close && prev == agrupador.open)) {
+                        const agrupador = agrupadores.find(agrupador => caracter == agrupador.close && prev == agrupador.open);
+                        if (agrupador) {
+                            acumulado += [agrupador.open, agrupador.close].join("");
+                        }else{
                             acumulado += caracter;
                         }
                         if (index == array.length - 1) {

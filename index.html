@@ -48,10 +48,10 @@
           ╧   └──📄 proyectos
 
           ${[
-            "https://jeff-aporta.github.io/ASCIIMapLoader/src",
-            "https://jeff-aporta.github.io/JFTP/src-web",
+            ...["OrigenTel","ASCIIMapLoader"].map((lib) => `${lib}/src`),
+            ...["JFTP"].map((lib) => `${lib}/src-web`)
           ].map((lib) => `
-              ➤📁 ${lib}
+              ➤📁 https://jeff-aporta.github.io/${lib}
               │
               ├──📁 esquema
               │   ├──📄 pagina
