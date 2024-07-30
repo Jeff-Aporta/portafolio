@@ -92,6 +92,14 @@ function esquemaGeneralLibreria(objLib, props) {
                 />
                 <HrGrueso width="50%" />
             </h1>
+            <Typography variant="h5">
+                <i class="fa-brands fa-github" />
+                &nbsp;&nbsp;
+                <Link href={objLib.github}>
+                    {objLib.github}
+                </Link>
+            </Typography>
+            <br />
             <h1>
                 {objLib.slogan}
             </h1>
