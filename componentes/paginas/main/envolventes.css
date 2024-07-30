@@ -107,9 +107,8 @@
     &,
     * {
       font-weight: normal;
-      color: orange;
+      color: orange !important;
     }
-    color: orange;
   }
   .agrupador {
     font-weight: bold;
