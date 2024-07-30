@@ -342,7 +342,14 @@ function FormatoDoc({ children, lastSpace = true }) {
                 if (puntuaciones.includes(caracter)) {
                     retorno.push(acumulado);
                     retorno.push(
-                        <span className="puntuacion">{caracter}</span>
+                        <span
+                            className={`
+                                puntuacion
+                                ${caracter == "×" ? "times" : ""}
+                            `}
+                        >
+                            {caracter}
+                        </span>
                     );
                     acumulado = "";
                 } else {

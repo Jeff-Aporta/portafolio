@@ -89,6 +89,10 @@
 .puntuacion {
   font-weight: bold;
   color: mediumaquamarine;
+
+  &.times{
+    color: darkmagenta;
+  }
 }
 
 .agrupacion {
