@@ -59,7 +59,7 @@ function activadorCSSdeComponente(props) {
 }
 
 function FormatoDoc({ children, lastSpace = true }) {
-    const puntuaciones = [".", ",", ";", ":", "-"];
+    const puntuaciones = [".", ",", ";", ":", "-", "×", "+"];
 
     if (!children) {
         return;
@@ -120,10 +120,6 @@ function FormatoDoc({ children, lastSpace = true }) {
                 if (!string) {
                     return string;
                 }
-                // string = string.replaceAll("\n", " ");
-                // while (string.includes("  ")) {
-                //     string = string.replaceAll("  ", " ");
-                // }
             }
 
             string = agrupadores(string);
@@ -339,7 +335,8 @@ function FormatoDoc({ children, lastSpace = true }) {
 
             const caracteresDePuntuacion = palabra.split("").filter((caracter) => puntuaciones.includes(caracter));
             caracteresDePuntuacion.pop();
-            const soloGiones = caracteresDePuntuacion.every((caracter) => caracter == "-");
+            const soloGiones = caracteresDePuntuacion.length && caracteresDePuntuacion.every((caracter) => caracter == "-");
+            const soloMultiplicadores = caracteresDePuntuacion.length && caracteresDePuntuacion.every((caracter) => caracter == "×");
 
             palabra.split("").forEach((caracter, index, array) => {
                 if (puntuaciones.includes(caracter)) {
@@ -362,9 +359,15 @@ function FormatoDoc({ children, lastSpace = true }) {
 
             if (retorno.length > 2) {
                 retorno = (
-                    <span className={`elemento-puntuado ${soloGiones ? "solo-giones" : ""}`}>
+                    <span
+                        className={`
+                            elemento-puntuado
+                            ${soloGiones ? "solo-guiones" : ""}
+                            ${soloMultiplicadores ? "solo-multiplicadores" : ""}
+                        `}
+                    >
                         {
-                            retorno.map((element, index) => {
+                            retorno.filter(e => e).map((element, index) => {
                                 if (typeof element == "string") {
                                     return (
                                         ES_SNAKE_UPPER_CASE(element) ?
@@ -538,7 +541,7 @@ function FormatoDoc({ children, lastSpace = true }) {
                         const agrupador = agrupadores.find(agrupador => caracter == agrupador.close && prev == agrupador.open);
                         if (agrupador) {
                             acumulado += [agrupador.open, agrupador.close].join("");
-                        }else{
+                        } else {
                             acumulado += caracter;
                         }
                         if (index == array.length - 1) {

@@ -63,8 +63,12 @@
 .obj-call {
   color: greenyellow;
 
-  .solo-giones & {
+  .solo-guiones & {
     color: springgreen;
+  }
+
+  .solo-multiplicadores & {
+    color: magenta;
   }
 }
 
