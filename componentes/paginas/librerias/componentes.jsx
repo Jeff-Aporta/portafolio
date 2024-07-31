@@ -29,8 +29,6 @@ function esquemaGeneralLibreria(objLib) {
                 </EnvolventeSeccion>
                 <Indice />
                 {generarContenidoLibreria(objLib)}
-                <br />
-                {(objLib.footer ?? (() => ""))(props)}
             </EnvolventePagina>
         </ThemeProvider>
     );
