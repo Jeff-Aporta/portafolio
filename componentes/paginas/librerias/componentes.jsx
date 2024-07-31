@@ -140,7 +140,7 @@ function esquemaGeneralLibreria(objLib) {
                             marginTop: '-15px',
                         }}
                     >
-                        <small style={{color: "gray"}}>
+                        <small style={{ color: "gray" }}>
                             <small>
                                 Github:
                             </small>
@@ -251,12 +251,48 @@ function BotonGit({ href }) {
     </Button>
 }
 
-function LIDoc({ children }) {
+function LIDoc({ children, titulo = false }) {
+    if (titulo) {
+        return <LIDocTitulo>{children}</LIDocTitulo>;
+    }
     return (<li>
         <FormatoDoc>
             {children}
         </FormatoDoc>
     </li>);
+}
+
+function LIDocTitulo({ children }) {
+    if (Array.isArray(children)) {
+        const titulo = children.shift();
+        return (
+            <LIDoc>
+                <Typography variant="subtitle1">
+                    <Resaltar>{titulo}:</Resaltar>
+                </Typography>
+                <Typography variant="subtitle2" style={{ marginLeft: "20px" }}>
+                    <FormatoDoc>
+                        {children}
+                    </FormatoDoc>
+                </Typography>
+            </LIDoc>
+        );
+    }
+    if (typeof children === 'string') {
+        if (children.includes(":")) {
+            const split = children.split(":");
+            const titulo = split.shift();
+            return (
+                <LIDocTitulo>
+                    {[
+                        titulo,
+                        split.join(":")
+                    ]}
+                </LIDocTitulo>
+            );
+        }
+    }
+    return <LiDoc>{children}</LiDoc>;
 }
 
 function CodeJava({
