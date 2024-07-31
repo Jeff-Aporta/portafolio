@@ -75,10 +75,7 @@ function esquemaGeneralLibreria(objLib, props) {
 
     function Encabezado() {
         return <React.Fragment>
-            <h1
-                style={{
-                    fontSize: '400%',
-                }}>
+            <Typography variant="h1">
                 <Titulo
                     texto={
                         objLib.nombre_render_as == "CodeInline" ?
@@ -90,20 +87,72 @@ function esquemaGeneralLibreria(objLib, props) {
                             objLib.nombre
                     }
                 />
-                <HrGrueso width="50%" />
-            </h1>
-            <Typography variant="h5">
-                <i class="fa-brands fa-github" />
-                &nbsp;&nbsp;
-                <Link href={objLib.github}>
-                    {objLib.github}
-                </Link>
+                <EspacioVertical heigth="30px" />
             </Typography>
-            <br />
-            <h1>
-                {objLib.slogan}
-            </h1>
+            <SloganElement />
+            <EspacioVertical height="30px" />
+            <HrGrueso width="60%" />
+            <EspacioVertical height="20px" />
+            <GitElement />
+            <EspacioVertical height="40px" />
         </React.Fragment>;
+
+        function SloganElement() {
+            return (
+                <Typography
+                    variant="h4"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '30px',
+                    }}
+                >
+                    {objLib.slogan}
+                </Typography>
+            );
+        }
+
+        function GitElement() {
+            const istyle = {
+                fontSize: '180%',
+            };
+            return (
+                <Typography
+                    variant="h5"
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '30px',
+
+                        border: '4px solid #252525',
+                        padding: '15px',
+                        borderRadius: '50px',
+
+                        scale: '0.75',
+                        transformOrigin: '0 0',
+                    }}
+                >
+                    <span style={istyle}>
+                        <i className="fa-brands fa-github" />
+                    </span>
+                    <span
+                        style={{
+                            marginTop: '-15px',
+                        }}
+                    >
+                        <small style={{color: "gray"}}>
+                            <small>
+                                Github:
+                            </small>
+                        </small>
+                        <br />
+                        <Link href={objLib.github} target="_blank" color="inherit" underline="hover">
+                            {objLib.github}
+                        </Link>
+                    </span>
+                </Typography>
+            );
+        }
     }
 
     function generarContenidoLibreria(obj) {
