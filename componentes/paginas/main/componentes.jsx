@@ -178,17 +178,55 @@ function ChipCode(props) {
 
 function BotonLinkPortafolio() {
     return (
-        <Button
-            variant="contained"
-            href="https://jeff-aporta.github.io/portafolio/"
-            target="_blank"
+        <Paper
             style={{
-                backgroundColor: "midnightblue",
-                border: "1px solid #333",
+                textAlign: "center",
+                padding: "40px",
             }}
-            startIcon={<i className="fa-solid fa-briefcase" />}
         >
-            Web Jeffrey Agudelo
-        </Button>
+            <div
+                style={{
+                    display: "inline-block",
+                    padding: "30px",
+                    border: "1px solid #333",
+                    borderRadius: "25px",
+                }}
+            >
+                <img
+                    src="https://jeff-aporta.github.io/portafolio/src/imgs/jeff-profile.png"
+                    style={{
+                        background: "black",
+                        width: "100px",
+                        aspectRatio: "1/1",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        objectPosition: "right",
+                        backgroundImage: "url(https://jeff-aporta.github.io/portafolio/src/imgs/back.gif)",
+                        backgroundSize: "cover",
+                        backgroundBlendMode: "hard-light",
+                        border: "2px solid white",
+                    }}
+                />
+                <Typography variant="h5">
+                    Puedes ver más de mi trabajo en mi
+                </Typography>
+                <Link
+                    href="https://jeff-aporta.github.io/portafolio/"
+                    target="_blank"
+                    underline="none"
+                >
+                    <Typography variant="h4">
+                        <b>
+                            Portafolio
+                        </b>
+                    </Typography>
+                    <Typography variant="h6">
+                        <small>
+                            (Jeffrey Agudelo)
+                        </small>
+                    </Typography>
+                </Link>
+            </div>
+        </Paper>
     );
 }
