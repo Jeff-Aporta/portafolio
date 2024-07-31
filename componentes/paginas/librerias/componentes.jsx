@@ -105,6 +105,8 @@ function esquemaGeneralLibreria(objLib, props) {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '30px',
+                        maxWidth: '80%',
+                        textWrap: 'balance',
                     }}
                 >
                     {objLib.slogan}
