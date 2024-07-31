@@ -202,12 +202,6 @@ function Resumen({ desc, rel, img, descImg }) {
         </FormatoDoc>
         <br />
         <br />
-
-        <b>
-            Puede:
-        </b>
-        <br />
-        <br />
         <div
             style={{
                 display: 'inline-flex',
