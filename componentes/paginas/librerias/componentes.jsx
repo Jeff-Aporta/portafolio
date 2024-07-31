@@ -73,7 +73,12 @@ function esquemaGeneralLibreria(objLib) {
 
     function Encabezado() {
         return <React.Fragment>
-            <Typography variant="h1">
+            <Typography 
+                variant="h1"
+                style={{
+                    fontWeight: 'bolder',
+                }}
+            >
                 <Titulo
                     texto={
                         objLib.nombre_render_as == "CodeInline" ?
@@ -105,6 +110,7 @@ function esquemaGeneralLibreria(objLib) {
                         gap: '30px',
                         maxWidth: '80%',
                         textWrap: 'balance',
+                        fontWeight: 'lighter',
                     }}
                 >
                     {objLib.slogan}
