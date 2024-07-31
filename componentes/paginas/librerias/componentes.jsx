@@ -1,4 +1,4 @@
-function esquemaGeneralLibreria(objLib, props) {
+function esquemaGeneralLibreria(objLib) {
     const indice = [];
 
     setTimeout(() => {

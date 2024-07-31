@@ -81,16 +81,11 @@ function PaginaLibrerias() {
 
     return (
       <React.Fragment>
-        <Zoom
-          in={state}
-          timeout={300}
-        >
-          <div>
-            <TituloSeccion icono={icono.className} colorIcono={icono?.style?.color}>
-              {lenguaje}
-            </TituloSeccion>
-          </div>
-        </Zoom>
+        <div>
+          <TituloSeccion icono={icono.className} colorIcono={icono?.style?.color}>
+            {lenguaje}
+          </TituloSeccion>
+        </div>
         <div
           className="contenedor-proyectos javascript"
         >
