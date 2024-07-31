@@ -178,21 +178,23 @@ function ChipCode(props) {
 
 function BotonLinkPortafolio() {
     return (
-        <Paper
-            style={{
-                textAlign: "center",
-                padding: "40px",
+        <ThemeProvider theme={themeSelected}>
+            <Paper
+                style={{
+                    textAlign: "center",
+                    padding: "40px",
 
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "stretch",
-                gap: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "stretch",
+                    gap: "20px",
 
-            }}
-        >
-            <Portafolio />
-        </Paper>
+                }}
+            >
+                <Portafolio />
+            </Paper>
+        </ThemeProvider>
     );
 
     function Social() {
