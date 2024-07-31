@@ -29,7 +29,6 @@ function esquemaGeneralLibreria(objLib) {
                 </EnvolventeSeccion>
                 <Indice />
                 {generarContenidoLibreria(objLib)}
-                A
             </EnvolventePagina>
         </ThemeProvider>
     );
