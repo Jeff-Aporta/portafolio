@@ -6,7 +6,12 @@ function EnvolventePagina(props) {
             <div
                 {...props}
                 children={undefined}
-                className="pagina"
+                className={`
+                    pagina
+                    ${CSScmds(`
+                        400px<-x->1000px?padding: 40px [10px,50px];
+                    `)}
+                `}
             >
                 <FormatoDoc>
                     {props.children}
@@ -26,17 +31,18 @@ function SubEnvolventeSeccion(props) {
 function EnvolventeSeccion(props) {
     props.elevation = props.lvl ?? 1;
     activadorCSSdeComponente(props);
+    const seccion = props.lvl == 1;
+    const subseccion = props.lvl > 1;
+    const pad = seccion ? 30 : 20;
     return (
         <Paper
             {...props}
-            className={(() => {
-                switch (props.elevation) {
-                    case 1:
-                        return "seccion";
-                    default:
-                        return "subseccion";
-                }
-            })()}
+            className={[
+                (seccion ? "seccion" : "subseccion"),
+                ...CSScmds(`
+                    400px<-x->1000px?padding: ${pad}px [10px,${pad}px];
+                `).split(" ")
+            ]}
         >
             <FormatoDoc>
                 {props.children}
@@ -58,14 +64,108 @@ function activadorCSSdeComponente(props) {
     });
 }
 
-function FormatoDoc({ children, lastSpace = true }) {
-    const puntuaciones = [".", ",", ";", ":", "-", "×", "+"];
+const _agrupadores_ = [
+    {
+        open: "¡",
+        close: "!",
+        clase: "exclamacion",
+        claseContenido: "contenido-exclamacion",
+    },
+    ...[
+        {
+            prevOpen: " ",
+            clase: "",
+        },
+        {
+            prevOpen: "&",
+            clase: ["todo-blanco"],
+        }
+    ].map((sufix) => {
+        return {
+            open: "*",
+            close: "*",
+            prevOpen: sufix.prevOpen,
+            nextClose: " ",
+            clase: "negrita",
+            claseContenido: [
+                "contenido-negrita",
+                ...sufix.clase,
+            ].join(" "),
+        }
+    }),
+    ...[
+        {
+            prevOpen: " ",
+            clase: "",
+        },
+        {
+            prevOpen: "&",
+            clase: ["todo-blanco"],
+        }
+    ].map((sufix) => {
+        return {
+            open: "_",
+            close: "_",
+            prevOpen: sufix.prevOpen,
+            nextClose: " ",
+            clase: "cursiva",
+            claseContenido: [
+                "contenido-cursiva",
+                ...sufix.clase,
+            ].join(" "),
+        }
+    }),
+    {
+        open: "~",
+        close: "~",
+        prevOpen: " ",
+        nextClose: " ",
+        clase: "tachado",
+        claseContenido: "contenido-tachado",
+    },
+    {
+        open: "`",
+        close: "`",
+        clase: "monospace",
+        claseContenido: "contenido-monospace",
+    },
+    {
+        open: "{",
+        close: "}",
+        clase: "agrupador",
+        claseContenido: "contenido-agrupado",
+    },
+    {
+        open: "[",
+        close: "]",
+        clase: "agrupador",
+        claseContenido: "contenido-agrupado",
+    },
+    {
+        open: "(",
+        close: ")",
+        clase: "agrupador",
+        claseContenido: "contenido-agrupado",
+    },
+    {
+        open: '"',
+        close: '"',
+        clase: "comilla",
+        claseContenido: "contenido-texto",
+    },
+    {
+        open: "'",
+        close: "'",
+        clase: "comilla",
+        claseContenido: "contenido-texto",
+    },
+];
 
+const _puntuaciones_ = [".", ",", ";", ":", "-", "×", "+"];
+
+function FormatoDoc({ children }) {
     if (!children) {
         return;
-    }
-    if (children.type == React.Fragment) {
-        return FormatoDoc({ children: children.props.children });
     }
     if (Array.isArray(children)) {
         return (children.map((child, index) => {
@@ -88,8 +188,14 @@ function FormatoDoc({ children, lastSpace = true }) {
             return "";
         }
 
+        if (typeof children != "string") {
+            return children;
+        }
+
         let retorno = children;
+
         retorno = tratamientoDeString(retorno);
+
         if (Array.isArray(retorno) && retorno.length == 1) {
             retorno = retorno[0];
         }
@@ -122,17 +228,21 @@ function FormatoDoc({ children, lastSpace = true }) {
                 }
             }
 
-            string = agrupadores(string);
+            string = agrupadores(string).filter(Boolean);
+
             if (Array.isArray(string)) {
                 if (string.length == 1) {
                     string = string[0];
                 } else {
-                    string = string.map((element, index) => {
-                        return (
-                            <RefString>
-                                {element}
-                            </RefString>
-                        );
+                    string = string.filter(Boolean).map((element, index) => {
+                        if (typeof element == "string") {
+                            return (
+                                <RefString>
+                                    {element}
+                                </RefString>
+                            );
+                        }
+                        return element;
                     });
                 }
             }
@@ -333,13 +443,13 @@ function FormatoDoc({ children, lastSpace = true }) {
 
             let acumulado = "";
 
-            const caracteresDePuntuacion = palabra.split("").filter((caracter) => puntuaciones.includes(caracter));
+            const caracteresDePuntuacion = palabra.split("").filter((caracter) => _puntuaciones_.includes(caracter));
             caracteresDePuntuacion.pop();
             const soloGiones = caracteresDePuntuacion.length && caracteresDePuntuacion.every((caracter) => caracter == "-");
             const soloMultiplicadores = caracteresDePuntuacion.length && caracteresDePuntuacion.every((caracter) => caracter == "×");
 
             palabra.split("").forEach((caracter, index, array) => {
-                if (puntuaciones.includes(caracter)) {
+                if (_puntuaciones_.includes(caracter)) {
                     retorno.push(acumulado);
                     retorno.push(
                         <span
@@ -421,51 +531,6 @@ function FormatoDoc({ children, lastSpace = true }) {
         }
 
         function agrupadores(string) {
-            const agrupadores = [
-                {
-                    open: "¡",
-                    close: "!",
-                    clase: "exclamacion",
-                    claseContenido: "contenido-exclamacion",
-                },
-                {
-                    open: "{",
-                    close: "}",
-                    clase: "agrupador",
-                    claseContenido: "contenido-agrupado",
-                },
-                {
-                    open: "[",
-                    close: "]",
-                    clase: "agrupador",
-                    claseContenido: "contenido-agrupado",
-                },
-                {
-                    open: "(",
-                    close: ")",
-                    clase: "agrupador",
-                    claseContenido: "contenido-agrupado",
-                },
-                {
-                    open: '"',
-                    close: '"',
-                    clase: "comilla",
-                    claseContenido: "contenido-texto",
-                },
-                {
-                    open: "'",
-                    close: "'",
-                    clase: "comilla",
-                    claseContenido: "contenido-texto",
-                },
-                {
-                    open: "`",
-                    close: "`",
-                    clase: "comilla",
-                    claseContenido: "contenido-texto",
-                },
-            ]
-
             let retorno = [];
             let agrupadorActual;
             let acumulado = "";
@@ -497,16 +562,16 @@ function FormatoDoc({ children, lastSpace = true }) {
                             if (acumulado) {
                                 retorno.push(
                                     <span className="agrupacion">
-                                        <span className={agrupadorActual.clase}>
-                                            {agrupadorActual.open}
-                                        </span>
                                         <span className={agrupadorActual.claseContenido}>
                                             <RefString>
+                                                <span className={agrupadorActual.clase}>
+                                                    {agrupadorActual.open}
+                                                </span>
                                                 {acumulado}
+                                                <span className={agrupadorActual.clase}>
+                                                    {agrupadorActual.close}
+                                                </span>
                                             </RefString>
-                                        </span>
-                                        <span className={agrupadorActual.clase}>
-                                            {agrupadorActual.close}
                                         </span>
                                     </span>
                                 );
@@ -523,7 +588,14 @@ function FormatoDoc({ children, lastSpace = true }) {
                         const condicion = index == array.length - 1;
                         if (condicion) {
                             if (agrupadorActual) {
-                                retorno.push(`${agrupadorActual.open}${acumulado}`);
+                                retorno.push(
+                                    <React.Fragment>
+                                        {agrupadorActual.open}
+                                        <RefString>
+                                            {acumulado}
+                                        </RefString>
+                                    </React.Fragment>
+                                );
                             } else {
                                 retorno.push(acumulado);
                             }
@@ -534,18 +606,23 @@ function FormatoDoc({ children, lastSpace = true }) {
                 }
 
                 function buscarApertura() {
-                    agrupadorActual = agrupadores.find((agrupador) => caracter == agrupador.open);
                     let next = array[index + 1];
                     let prev = array[index - 1];
+
+                    agrupadorActual = _agrupadores_.find((agrupador) => {
+                        const prevOpen = agrupador.prevOpen && prev ? prev == agrupador.prevOpen : true;
+                        return caracter == agrupador.open && prevOpen;
+                    });
                     if (agrupadorActual) {
-                        if (next == agrupadorActual.close) {
+                        const nextClose = agrupadorActual.nextClose && next ? next == agrupadorActual.nextClose : true;
+                        if (next == agrupadorActual.close && nextClose) {
                             agrupadorActual = undefined;
                         } else {
                             retorno.push(acumulado);
                             acumulado = "";
                         }
                     } else {
-                        const agrupador = agrupadores.find(agrupador => caracter == agrupador.close && prev == agrupador.open);
+                        const agrupador = _agrupadores_.find(agrupador => caracter == agrupador.close && prev == agrupador.open);
                         if (agrupador) {
                             acumulado += [agrupador.open, agrupador.close].join("");
                         } else {

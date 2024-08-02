@@ -6,6 +6,14 @@ function TituloH2({ texto, children }) {
     </h2>
 }
 
+function BRO({x="x<500px"}){
+    return <br
+        className={CSScmds(`
+            ${x}?display: (none,);
+        `)}
+    />
+}
+
 function IconoRedondo({
     backgroundColor = 'dodgerblue',
     padding = '10px',

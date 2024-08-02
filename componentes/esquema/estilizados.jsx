@@ -17,7 +17,7 @@ const AppBar = styled(AppBar, {
     }),
     ...(open && {
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth})`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -58,16 +58,13 @@ const Drawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
 
         function closedMixin(theme) {
             return {
-                width: `${drawerWidthClosed + 1}px`,
+                width: `${drawerWidthClosed}`,
                 backgroundColor,
                 transition: theme.transitions.create('width', {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.leavingScreen,
                 }),
                 overflowX: 'hidden',
-                [theme.breakpoints.down('sm')]: {
-                    display: 'none',
-                },
             }
         };
     },

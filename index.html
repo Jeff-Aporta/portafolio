@@ -10,6 +10,12 @@
     <script src="https://jeff-aporta.github.io/ASCIIMapLoader/src/mapeos-personales.js"></script>
 
     <script>
+      runASCIIMapLoader_inLine(`
+          ➤📁 src
+          ├──📄 JS2CSS.js
+          └──📄 theme.jsx
+      `)
+      
       delete ASCII_MAPS.PORTAFOLIO;
 
       Object.values(ASCII_MAPS).forEach((map) => {
@@ -22,6 +28,7 @@
           ➤📁 src
           │
           ├──📁 css
+          │   ├──🎨 abreviaturas
           ╧   └──🎨 code-prettify
 
           ➤📁 componentes
@@ -31,7 +38,7 @@
           │
           ├──📁 esquema
           │   ├──📄 estilizados
-          │   └──📄 MiniDrawer
+          │   └──🖼️ MiniDrawer
           │
           ├──📁 paginas
           │   │
@@ -48,14 +55,23 @@
           ╧   └──📄 proyectos
 
           ${[
-            ...["OrigenTel","ASCIIMapLoader"].map((lib) => `${lib}/src`),
-            ...["JFTP"].map((lib) => `${lib}/src-web`)
-          ].map((lib) => `
+            ...[
+              "OrigenTel",
+              "ASCIIMapLoader",
+              "Geometry-rects-n-circles-JS",
+            ].map((lib) => `${lib}/src`),
+
+            ...["JFTP"].map((lib) => `${lib}/src-web`),
+          ]
+            .map(
+              (lib) => `
               ➤📁 https://jeff-aporta.github.io/${lib}
               │
               ├──📁 esquema
               ╧   └──📄 contenido
-          `).join("\n")}
+          `
+            )
+            .join("\n")}
 
           📄 URLDriver
           🖼️ index

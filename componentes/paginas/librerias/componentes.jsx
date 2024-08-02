@@ -73,7 +73,7 @@ function esquemaGeneralLibreria(objLib) {
 
     function Encabezado() {
         return <React.Fragment>
-            <Typography 
+            <Typography
                 variant="h1"
                 style={{
                     fontWeight: 'bolder',
@@ -200,36 +200,69 @@ function esquemaGeneralLibreria(objLib) {
 }
 
 function Resumen({ desc, rel, img, descImg }) {
-    return <div>
+    const descR = (
         <FormatoDoc>
             {desc}
         </FormatoDoc>
-        <br />
-        <br />
+    );
+    const c1 = "500px<x<700px?display: (none,);"
+    const c2 = "500px<x<700px?display: (,none);width: 65%;";
+    return <div>
+        <p className={CSScmds(c1)}>
+            {descR}
+        </p>
         <div
+            className={CSScmds(`
+                x<700px?flex-direction:(column,row);
+                700px<-x->1000px?gap: [10px,20px];
+            `)}
             style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 width: '100%',
-                gap: '20px',
-                wrap: 'nowrap',
+                wrap: 'wrap',
             }}
         >
-            <img
-                src={
-                    [
-                        rel, img
-                    ].filter(e => e).join("/")
-                }
+            <span
                 style={{
-                    float: 'left',
-                    margin: '10px 40px 0 0',
-                    width: '200px',
-                    height: '200px',
-                    borderRadius: '20px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-evenly',
                 }}
-            />
-            <ul className="punto-centrico">
+            >
+                <img
+                    src={
+                        [
+                            rel, img
+                        ].filter(e => e).join("/")
+                    }
+                    className={[
+                        "anim1s",
+                        CSScmds(`
+                            700px<-x->1000px?margin: 10px [10px,40px] 0 0;
+                            500px<x<700px?width: (150px,230px);height: (150px,230px);
+                        `)
+                    ].join(' ')}
+                    style={{
+                        objectFit: 'cover',
+                        float: 'left',
+                        borderRadius: '20px',
+                    }}
+                />
+                <p className={CSScmds(c2)}>
+                    {descR}
+                </p>
+            </span>
+            <BRO />
+            <ul
+                className={[
+                    "punto-centrico",
+                    CSScmds(`
+                        x<500px?display: (none,);
+                        500px<-x->1000px?font-size: [10px,15px];
+                    `)
+                ].join(' ')}
+            >
                 {
                     Array.isArray(descImg) ? descImg.map((item, index) => {
                         return (
@@ -248,7 +281,13 @@ function BotonGit({ href }) {
     return <Button
         size="large"
         variant="contained"
-        className="boton-github"
+        className={[
+            "boton-github",
+            ...CSScmds(`
+                400px<-x->1000px?font-size: [10px,20px];
+                x<600px?scale: (0.9,);
+            `).split(' ')
+        ].join(' ')}
         startIcon={<i className="fab fa-github" />}
         href={href}
         target="_blank"

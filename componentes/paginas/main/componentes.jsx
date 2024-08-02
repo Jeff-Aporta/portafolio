@@ -19,9 +19,11 @@ function Titulo({ texto, children }) {
 
 function HrGrueso({ grosor = 5, color = "white", width = "100%", centrar = false }) {
     return <hr
+        className={CSScmds(`
+            400px<-x->1000px?border: [${grosor / 1.5}px, ${grosor}px] solid ${color};
+        `)}
         style={{
             width,
-            border: grosor + 'px solid ' + color,
             borderRadius: '10px',
             margin: centrar ? '0 auto' : '0',
         }} />;

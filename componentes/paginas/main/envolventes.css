@@ -7,8 +7,6 @@
   }
   .contenedor-pagina {
     .pagina {
-      padding: 40px 50px;
-
       .seccion,
       .subseccion {
         .prettyprint.solo-texto.mini {
@@ -23,11 +21,9 @@
       }
 
       .seccion {
-        padding: 30px;
         border-radius: 20px;
 
         .subseccion {
-          padding: 20px;
           border-radius: 15px;
         }
       }
@@ -90,14 +86,48 @@
   font-weight: bold;
   color: mediumaquamarine;
 
-  &.times{
+  &.times {
     color: darkmagenta;
   }
 }
 
 .agrupacion {
-  display: inline-flex;
   flex-wrap: wrap;
+
+  &,
+  * {
+    display: inline;
+  }
+
+  .negrita,
+  .cursiva,
+  .tachado,
+  .monospace {
+    display: none;
+  }
+
+  .contenido-negrita {
+    font-weight: bolder;
+  }
+
+  .contenido-cursiva {
+    font-style: italic;
+  }
+
+  .contenido-tachado {
+    text-decoration: line-through;
+  }
+
+  .contenido-monospace {
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .todo-blanco {
+    &,
+    * {
+      color: white;
+    }
+  }
 
   .exclamacion {
     font-weight: bold;

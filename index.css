@@ -7,7 +7,7 @@ ul,
 ol {
   li {
     margin-bottom: 10px;
-    padding-left: 10px;
+    padding-left: 5px;
   }
 }
 
@@ -23,4 +23,8 @@ ul.punto-centrico {
       color: deepskyblue;
     }
   }
+}
+
+.anim1s {
+  transition: all 1s;
 }

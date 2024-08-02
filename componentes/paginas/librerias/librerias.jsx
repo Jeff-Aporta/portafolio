@@ -22,7 +22,7 @@ function PaginaLibrerias() {
                 },
                 idFilter: "javascript",
                 idsProyecto: [
-                  "ASCIIMapLoader", "OrigenTel",
+                  "ASCIIMapLoader", "OrigenTel", "GeometryRectsNCircles"
                 ]
               }),
               Seccion({
@@ -52,9 +52,9 @@ function PaginaLibrerias() {
   function SeparadorSeccion() {
     return (
       <React.Fragment>
-        <br /><br /><br />
+        <br /><BRO /><BRO />
         <hr />
-        <br /><br /><br />
+        <br /><BRO /><BRO />
       </React.Fragment>
     );
   }
@@ -120,16 +120,19 @@ function PaginaLibrerias() {
 
     return (
       <div>
-        <h1
+        <Typography
+          variant="h2"
+          className={CSScmds(`
+              400px<-x->1000px?font-size: [30px,50px];margin-bottom: [20px,0px];
+          `)}
           style={{
-            fontSize: '300%',
             margin: '0',
           }}
         >
           <Titulo
             texto={contenido.nombre}
           />
-        </h1>
+        </Typography>
 
         <EnvolventeSeccion relative>
 
@@ -144,9 +147,15 @@ function PaginaLibrerias() {
           </div>
 
 
-          <h1>
+          <Typography
+            variant="h1"
+            className={CSScmds(`
+                400px<-x->1000px?font-size: [20px,40px];margin: 20px 0;
+                x<600px?font-weight: (bold,);
+            `)}
+          >
             {contenido.slogan}
-          </h1>
+          </Typography>
 
           <Resumen {...contenido.resumen} />
 
@@ -156,11 +165,25 @@ function PaginaLibrerias() {
             }}
           >
             <Button
-              size="large"
+              className={[
+                "anim1s",
+                CSScmds(`
+                    x<600px?width: (100%,);
+                `)
+              ].join(' ')}
               variant="contained"
               color="primary"
-              startIcon={<i class="fa-solid fa-book" />}
-              endIcon={<i class="fa-solid fa-angles-right" />}
+              startIcon={<i className="fa-solid fa-book" />}
+              endIcon={
+                <i
+                  className={[
+                    "fa-solid fa-angles-right",
+                    ...CSScmds(`
+                        x<600px?display: (none,);
+                    `).split(' ')
+                  ].join(' ')}
+                />
+              }
               onClick={() => {
                 estado.seleccionar();
               }}
@@ -183,11 +206,21 @@ function PaginaLibrerias() {
         margin: '0',
       }}
     >
-      {lenguaje}
+      <span
+        className={CSScmds(`
+            x<700px?display: (none,);
+        `)}
+      >
+        {lenguaje}
+      </span>
       <i
-        className={icono}
+        className={[
+          icono,
+          CSScmds(`
+              x<700px?font-size: (300%,200%);
+          `)
+        ].join(' ')}
         style={{
-          fontSize: '200%',
           marginLeft: '20px',
         }}
       />
@@ -205,25 +238,36 @@ function PaginaLibrerias() {
           }}
         >
           <h1
+            className={CSScmds(`
+                400px<-x->1000px?font-size: [30px,60px];
+            `)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              fontSize: '300%',
               margin: '0',
             }}
           >
             <i
-              className={icono}
+              className={[
+                icono,
+                ...CSScmds(`
+                    400px<-x->1000px?margin-right: [5px,20px];
+                `).split(' ')
+              ].join(' ')}
               style={{
                 fontSize: '150%',
-                marginRight: '20px',
                 color: colorIcono,
               }}
             />&nbsp;{children}
           </h1>
-          <h2>
+          <Typography
+            variant="h6"
+            className={CSScmds(`
+                400px<-x->1000px?font-size: [13px,20px];
+            `)}
+          >
             <Titulo texto="Librerías" />
-          </h2>
+          </Typography>
         </div>
         <br />
         <HrGrueso />

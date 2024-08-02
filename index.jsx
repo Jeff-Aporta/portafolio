@@ -74,6 +74,14 @@ function App() {
                 titulo: "ASCII Map Loader",
                 contenido: _ASCIIMapLoader_
             },
+            "GeometryRectsNCircles": {
+                rel: "https://jeff-aporta.github.io/Geometry-rects-n-circles-JS",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: "Geometry Rects n Circles JS",
+                contenido: _GEOMETRY_RECTS_N_CIRCLES_
+            },
             "OrigenTel": {
                 rel: "https://jeff-aporta.github.io/OrigenTel",
                 componente: function () {
@@ -97,3 +105,8 @@ ReactDOM.render(
     </ThemeProvider >,
     document.querySelector('body .app')
 );
+
+document.body.classList.add(...CSScmds(`
+    500px<-x->1000px?font-size:[12px,17px];
+    x<700px?padding-left:(0px,);
+`).split(" "));

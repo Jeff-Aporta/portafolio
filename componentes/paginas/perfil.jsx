@@ -104,15 +104,9 @@ function VerticalTabs({ children = {
 
 function PaginaPerfil() {
 
-  setTimeout(() => {
-    [...document.querySelectorAll(".fade-in_anim")].forEach(element => {
-      element.classList.remove("fade-in_anim");
-    });
-  }, 1000);
-
   return (
     <ThemeProvider theme={themeSelected}>
-      <div className="fade-in_anim">
+      <div>
         <Seccion1 />
         <Seccion2 />
         <Seccion3 />

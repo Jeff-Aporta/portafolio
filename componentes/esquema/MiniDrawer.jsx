@@ -1,5 +1,5 @@
-const drawerWidth = 240;
-const drawerWidthClosed = 60;
+const drawerWidth = "var(--drawer-open-w)";
+const drawerWidthClosed = "var(--drawer-close-w)";
 
 let MiniDrawerDriver;
 
@@ -9,19 +9,6 @@ crearEstilo({
             easing: themeSelected.transitions.easing.sharp,
             duration: themeSelected.transitions.duration.leavingScreen,
         }),
-        "&.menu-cerrado": {
-            paddingLeft: `${drawerWidthClosed}px !important`,
-            ".contenido-fijo.full-width": {
-                marginLeft: `${(drawerWidthClosed)}px`,
-            }
-        },
-        "&.menu-abierto": {
-            overflow: "hidden",
-            paddingLeft: `${drawerWidth}px !important`,
-            ".contenido-fijo.full-width": {
-                marginLeft: `${(drawerWidth)}px`,
-            }
-        }
     },
 })
 
