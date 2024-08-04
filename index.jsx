@@ -106,7 +106,10 @@ ReactDOM.render(
     document.querySelector('body .app')
 );
 
-document.body.classList.add(...CSScmds(`
-    500px<-x->1000px?font-size:[12px,17px];
-    x<700px?padding-left:(0px,);
-`).split(" "));
+(()=>{
+    const cls = CSScmds(`
+        500px<-x->1000px?font-size: [12px,17px];
+        x<700px?padding-left:(0px,);
+    `).split(" ");
+    document.body.classList.add(...cls);
+})();

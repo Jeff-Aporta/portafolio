@@ -224,8 +224,10 @@ function Resumen({ desc, rel, img, descImg }) {
             }}
         >
             <span
+                className={CSScmds(`
+                    x<500px?display: (flex,inline-flex);width: (100%,);
+                `)}
                 style={{
-                    display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'space-evenly',
                 }}
@@ -240,7 +242,7 @@ function Resumen({ desc, rel, img, descImg }) {
                         "anim1s",
                         CSScmds(`
                             700px<-x->1000px?margin: 10px [10px,40px] 0 0;
-                            500px<x<700px?width: (150px,230px);height: (150px,230px);
+                            500px<x<700px?width: (200px,180px,250px);height: (200px,180px,250px);
                         `)
                     ].join(' ')}
                     style={{
@@ -253,7 +255,7 @@ function Resumen({ desc, rel, img, descImg }) {
                     {descR}
                 </p>
             </span>
-            <BRO />
+            <BRO x="x>500px" />
             <ul
                 className={[
                     "punto-centrico",

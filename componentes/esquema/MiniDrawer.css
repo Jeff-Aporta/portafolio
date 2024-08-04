@@ -1,13 +1,15 @@
 
 :root {
+  --drawer-h: 60px;
   --drawer-open-w: 240px;
-  --drawer-close-w: 60px;
+  --drawer-close-w: 50px;
 }
 
 @media screen and (width < 700px) {
   :root {
     --drawer-open-w: 80%;
     --drawer-close-w: 0px;
+    --drawer-h: 55px;
   }  
 }
 

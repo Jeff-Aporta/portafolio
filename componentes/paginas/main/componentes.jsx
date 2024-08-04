@@ -2,7 +2,13 @@ function Titulo({ texto, children }) {
     if (children && !texto) {
         texto = children;
     }
-    return <React.Fragment    >
+    return <span
+        className={CSScmds(`
+                700px<x<1000px?font-size: [80%,90%,100%];
+            `,
+            "anim1s"
+        )}
+    >
         <i class="fa-solid fa-greater-than" />
         {(() => {
             if (texto) {
@@ -14,7 +20,7 @@ function Titulo({ texto, children }) {
             }
         })()}
         <i className="fa-solid fa-window-minimize titilar_anim" />
-    </React.Fragment>;
+    </span>;
 }
 
 function HrGrueso({ grosor = 5, color = "white", width = "100%", centrar = false }) {

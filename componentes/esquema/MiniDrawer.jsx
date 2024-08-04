@@ -26,6 +26,13 @@ window.navigation.addEventListener("navigate", (e) => {
     }
 });
 
+let windowWidth = window.innerWidth;
+
+window.addEventListener("resize", () => {
+    windowWidth = window.innerWidth;
+});
+
+
 const tiempoTransicionPagina = 500;
 
 function miniDrawer({ estados, navegadorIzquierda }) {
@@ -324,10 +331,21 @@ function miniDrawer({ estados, navegadorIzquierda }) {
 
     function MenuSuperior() {
         return <AppBar
-            className="app-bar"
+            className={CSScmds(`
+                    x<700px?background-color: [,hsl(240, 100%, 10%)],
+                `,
+                "app-bar"
+            )}
             open={menuOpen}
+            style={{
+                height: "var(--drawer-h)",
+            }}
         >
-            <Toolbar>
+            <Toolbar
+                style={{
+                    height: "var(--drawer-h)",
+                }}
+            >
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -335,7 +353,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                     edge="start"
                     sx={{
                         marginRight: 5,
-                        ...(menuOpen && { display: 'none' }),
+                        display: menuOpen ? 'none' : "",
                     }}
                 >
                     <i class="fa-solid fa-bars"></i>
