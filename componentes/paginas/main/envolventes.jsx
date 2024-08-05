@@ -1,3 +1,9 @@
+let windowWidth = window.innerWidth;
+
+window.addEventListener("resize", () => {
+    windowWidth = window.innerWidth;
+});
+
 function EnvolventePagina(props) {
     activadorCSSdeComponente(props);
     return (

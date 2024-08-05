@@ -26,14 +26,12 @@ window.navigation.addEventListener("navigate", (e) => {
     }
 });
 
-let windowWidth = window.innerWidth;
-
 const tiempoTransicionPagina = 500;
 
 function miniDrawer({ estados, navegadorIzquierda }) {
     const idR = Math.random().toString().replace("0.", "idR-");
 
-    let [_, update] = React.useState(Math.random());
+    let [_, update] = React.useState();
     let [Pagina, setPagina] = React.useState(parametroURL());
     let [menuOpen, setMenuOpen] = React.useState(false);
     let [effectGrowState, setEffectGrowState] = React.useState("in");
@@ -41,7 +39,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
 
     React.useEffect(() => {
       const handleResize = () => {
-        update(windowWidth = window.innerWidth)
+        update()
       };
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
