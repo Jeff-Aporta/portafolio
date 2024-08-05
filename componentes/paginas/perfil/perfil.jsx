@@ -1,15 +1,5 @@
 function PaginaPerfil() {
 
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <ThemeProvider theme={themeSelected}>
       <div>
@@ -34,7 +24,7 @@ function PaginaPerfil() {
     >
       <EsquemaEmpresa empresa={_Registel_} derecha={false} />
       <EsquemaEmpresa empresa={_ISeeCI_} />
-      <EsquemaEmpresa empresa={_ELCINCO_} />
+      <EsquemaEmpresa empresa={_ELCINCO_} derecha={false} />
     </div>;
   }
 
@@ -344,15 +334,20 @@ function PaginaPerfil() {
         opacidad: 1,
         z: 100,
       }].map(({ opacidad, z }) => {
+        const lerpw = 1 - Math.max(0, Math.min(((windowWidth - 900) / 300), 1));
         return <img
           className={CSScmds(`
-            900px<-x->1200px?width: [150px, 300px];
+              900px<-x->1200px?width: [150px, 300px];
           `)}
           src={src}
           style={{
             position: opacidad === 1 ? "relative" : "absolute",
             borderRadius: "20px",
-            transform: `${derecha ? derechaT : izquierdaT} translateZ(${derecha ? z : z - 100}px)`,
+            transform: `
+              ${derecha ? derechaT : izquierdaT} 
+              translateZ(${(derecha ? z : z - 100) - lerpw * 400}px)
+              translateX(${(derecha ? 1.2 : -1.2) * lerpw * 400}px)
+            `,
             opacity: opacidad,
             transformOrigin: "center top",
             border: "5px solid black",
@@ -394,8 +389,26 @@ function PaginaPerfil() {
         className={CSScmds(`
             400px<-x->1000px?font-size: [50px, 70px];
         `)}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
       >
-        {empresa.nombre}
+        {empresa.nombre} {(() => {
+          if (windowWidth >= 950) {
+            return
+          }
+          return <img
+            src={empresa.logo}
+            style={{
+              filter: "brightness(0) invert(1)",
+              height: "50px",
+              maxWidth: "100px",
+              objectFit: "contain",
+              objectPosition: "center",
+            }}
+          />
+        })()}
       </Typography>
       <br />
       <Typography
@@ -528,7 +541,7 @@ function PaginaPerfil() {
     function IconoEfecto() {
       return <span
         className={CSScmds(`
-          400px<-x->1000px?font-size: [150px, 250px];
+            400px<-x->1000px?font-size: [150px, 250px];
         `)}
         style={{
           position: 'relative',
@@ -566,7 +579,7 @@ function PaginaPerfil() {
     return (
       <div
         className={CSScmds(`
-            400px<-x->1000px?padding: [10px, 80px] [10px, 30px];
+            400px<-x->1000px?padding: 0 [10px, 30px];
         `)}
         style={{
           display: 'flex',
@@ -601,10 +614,10 @@ function PaginaPerfil() {
             }}
           >
             <Capacidades />
-            <TextoResumen x="x>950px"/>
+            <TextoResumen x="x>950px" />
           </SeccionFila2>
 
-          <TextoResumen x="x<950px"/>
+          <TextoResumen x="x<950px" />
 
 
           <img
@@ -630,12 +643,12 @@ function PaginaPerfil() {
         </div>
       );
 
-      function TextoResumen({x}) {
+      function TextoResumen({ x }) {
         if (x.startsWith("x<")) {
           if (windowWidth < parseInt(x.split("<")[1])) {
             return;
-          }  
-        }else{
+          }
+        } else {
           if (windowWidth > parseInt(x.split(">")[1])) {
             return;
           }
@@ -676,69 +689,69 @@ function PaginaPerfil() {
 
       function Capacidades() {
         return (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                flexDirection: 'column',
-              }}
-            >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              flexDirection: 'column',
+            }}
+          >
 
-              <RowItemsGraficos titulo="Habilidades">
+            <RowItemsGraficos titulo="Habilidades">
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Experto en"
-                  titulo2="JavaScript"
-                  icono="fa-brands fa-js" />
+              <ItemConGrafico_2Titulos
+                titulo1="Experto en"
+                titulo2="JavaScript"
+                icono="fa-brands fa-js" />
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Framework preferido"
-                  titulo2="React (JSX)"
-                  icono="fa-brands fa-react" />
+              <ItemConGrafico_2Titulos
+                titulo1="Framework preferido"
+                titulo2="React (JSX)"
+                icono="fa-brands fa-react" />
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Senior en"
-                  titulo2="Frontend"
-                  icono="fa-solid fa-laptop" />
+              <ItemConGrafico_2Titulos
+                titulo1="Senior en"
+                titulo2="Frontend"
+                icono="fa-solid fa-laptop" />
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Junior"
-                  titulo2="Backend"
-                  icono="fa-solid fa-server" />
+              <ItemConGrafico_2Titulos
+                titulo1="Junior"
+                titulo2="Backend"
+                icono="fa-solid fa-server" />
 
-              </RowItemsGraficos>
+            </RowItemsGraficos>
 
-              <RowItemsGraficos titulo="Conocimientos relevantes">
+            <RowItemsGraficos titulo="Conocimientos relevantes">
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Experto en"
-                  titulo2={<React.Fragment>
-                    Computación
-                    <br />
-                    Gráfica 2D
-                  </React.Fragment>}
-                  icono="fa-solid fa-dragon" />
+              <ItemConGrafico_2Titulos
+                titulo1="Experto en"
+                titulo2={<React.Fragment>
+                  Computación
+                  <br />
+                  Gráfica 2D
+                </React.Fragment>}
+                icono="fa-solid fa-dragon" />
 
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Buen conocimiento en"
-                  titulo2="Estructura de datos"
-                  icono="fa-solid fa-dice-d20" />
+              <ItemConGrafico_2Titulos
+                titulo1="Buen conocimiento en"
+                titulo2="Estructura de datos"
+                icono="fa-solid fa-dice-d20" />
 
-                <ItemConGrafico_2Titulos
-                  titulo1="Amante a la"
-                  titulo2={<React.Fragment>
-                    Investigación
-                    <br />
-                    e innovación
-                  </React.Fragment>}
-                  icono="fa-solid fa-rocket" />
+              <ItemConGrafico_2Titulos
+                titulo1="Amante a la"
+                titulo2={<React.Fragment>
+                  Investigación
+                  <br />
+                  e innovación
+                </React.Fragment>}
+                icono="fa-solid fa-rocket" />
 
-              </RowItemsGraficos>
+            </RowItemsGraficos>
 
-              <Social />
+            <Social />
 
-            </div>
+          </div>
         );
 
         function Social() {
@@ -859,13 +872,13 @@ function PaginaPerfil() {
         </SeccionFila2>;
 
         function IconoDev() {
-          if (windowWidth < 600) {
+          if (windowWidth < 700) {
             return;
           }
           return <span
             className={CSScmds(`
-              400px<-x->1000px?font-size: [30px, 80px];
-              x<600px?display: (none,);
+                400px<-x->1000px?font-size: [30px, 80px];
+                x<700px?display: (none,);
             `)}
             style={{
               display: "inline-block",

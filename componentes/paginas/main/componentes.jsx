@@ -69,6 +69,7 @@ function Code({
     className = "",
     style = {},
     esCopiable = true,
+    scroll = true,
     onCopy = () => 0,
 }) {
     let idR = Math.random().toString().replace("0.", "idR-");
@@ -79,51 +80,72 @@ function Code({
 
     linenumbers = (linenumbers && ((Array.isArray(children) && children.length > 1) || multiLinea));
 
-    return (<pre
-        id={idR}
-        className={`
-            prettyprint 
-            ${nocode ?
-                "nocode" :
-                language ?
-                    `lang-${language}` :
-                    ""
-            }
-            ${linenumbers && !nocode ? "linenums:1" : ""}
-            ${className}
-        `}
-        style={{
-            ...style,
-        }}
-    >
-        {esCopiable ? <BotonCopiar /> : ""}
-        {removerTabulacionesDeCodigo(children).str}
-    </pre >);
+    const precode = (
+        <pre
+            id={idR}
+            className={`
+                prettyprint 
+                ${nocode ?
+                    "nocode" :
+                    language ?
+                        `lang-${language}` :
+                        ""
+                }
+                ${linenumbers && !nocode ? "linenums:1" : ""}
+                ${className}
+            `}
+            style={{
+                ...style,
+            }}
+        >
+            {removerTabulacionesDeCodigo(children).str}
+        </pre >
+    );
+
+    if (!scroll) {
+        return precode;
+    }
+
+    return (
+        <div className="code-component">
+            <div className={`code-container ${className}`}>
+                {precode}
+            </div>
+            {esCopiable ? <BotonCopiar /> : ""}
+        </div>
+    );
 
     function BotonCopiar() {
-        return <TooltipTheme
-            title="Copiar"
-            placement="left"
-        >
-            <Button
-                variant="contained"
+        return (
+            <div
                 style={{
                     position: "absolute",
                     right: "5px",
                     top: "5px",
-                    padding: "10px",
-                    minWidth: "0",
-                    borderRadius: "50%",
-                    backgroundColor: "rgba(0, 200, 255, 0.2)",
-                }}
-                onClick={() => {
-                    navigator.clipboard.writeText(document.getElementById(idR).innerText);
-                    onCopy();
                 }}
             >
-                <i className="fa-solid fa-copy" />
-            </Button>
-        </TooltipTheme>;
+                <TooltipTheme
+                    title="Copiar"
+                    placement="left"
+                >
+                    <Button
+                        variant="contained"
+                        style={{
+                            padding: "15px",
+                            minWidth: "0",
+                            borderRadius: "50%",
+                            backgroundColor: "rgba(40, 40, 80)",
+                        }}
+                        onClick={() => {
+                            navigator.clipboard.writeText(document.getElementById(idR).innerText);
+                            onCopy();
+                        }}
+                    >
+                        <i className="fa-solid fa-copy" />
+                    </Button>
+                </TooltipTheme>
+            </div>
+        );
     }
 }
 

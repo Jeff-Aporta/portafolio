@@ -30,6 +30,8 @@ ul.punto-centrico {
 }
 
 *{
+  text-wrap: pretty;
+
   ::-webkit-scrollbar {
     width: 10px;
   }

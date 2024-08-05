@@ -1,14 +1,27 @@
 pre {
+  --listtype: decimal;
+  --pad: 20px;
+  --dcom: inline-block;
+}
+
+@media (width < 750px) {
+  pre {
+    --listtype: none;
+    --pad: 0px;
+    --dcom: none;
+  }
+}
+
+pre {
   &.prettyprint {
     padding: 15px;
-    padding-left: 30px;
+    margin: 0;
     display: block;
+    width: max-content;
+    min-width: 100%;
     background-color: hsla(230, 50%, 10%);
     border: 1px solid hsla(210, 100%, 36%, 0.3);
     border-radius: 20px;
-
-    position: relative;
-    margin: 20px 0;
 
     &.simple {
       .str,
@@ -26,7 +39,7 @@ pre {
       padding: 15px;
 
       ol {
-        padding: 0px;
+        padding: 0;
       }
 
       li {
@@ -42,6 +55,10 @@ pre {
     }
 
     &.solo-texto {
+      padding: 0 !important;
+      width: min-content !important;
+      min-width: 1px !important;
+      display: inline-block;
       margin: 0 !important;
       padding: 0 !important;
       border: none !important;
@@ -92,7 +109,8 @@ pre {
   }
   .com {
     color: rgba(255, 255, 255, 0.4);
-    font-size: 80%;
+    font-size: 90%;
+    display: var(--dcom);
   } /* comment */
   .typ {
     color: mediumaquamarine;
@@ -124,13 +142,15 @@ pre {
   } /* decimal */
 
   ol.linenums {
+    list-style-type: var(--listtype);
     margin-top: 0;
     margin-bottom: 0;
     color: rgba(255, 255, 255, 0.2);
+    padding-inline-start: var(--pad);
   }
 
   & li {
-    list-style-type: decimal-leading-zero;
+    list-style-type: var(--listtype);
     &.L0,
     &.L1,
     &.L2,
@@ -139,7 +159,7 @@ pre {
     &.L6,
     &.L7,
     &.L8 {
-      list-style-type: decimal-leading-zero;
+      list-style-type: var(--listtype);
     }
 
     &.L1,

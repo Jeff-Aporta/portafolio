@@ -12,3 +12,18 @@
     color: rgba(30, 144, 255, 0.5);
   }
 }
+
+.code-component {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 20px 0;
+
+  .code-container {
+    display: block;
+    position: sticky;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: auto !important;
+  }
+}

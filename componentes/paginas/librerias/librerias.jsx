@@ -164,26 +164,29 @@ function PaginaLibrerias() {
               textAlign: 'right',
             }}
           >
+            <BRO x="x>600px" />
             <Button
-              className={[
-                "anim1s",
-                CSScmds(`
-                    x<600px?width: (100%,);
-                `)
-              ].join(' ')}
+              size="large"
+              className={CSScmds(`
+                    x<700px?width: (100%,);
+                `,
+                "anim1s"
+              )}
               variant="contained"
               color="primary"
               startIcon={<i className="fa-solid fa-book" />}
-              endIcon={
-                <i
-                  className={[
-                    "fa-solid fa-angles-right",
-                    ...CSScmds(`
-                        x<600px?display: (none,);
-                    `).split(' ')
-                  ].join(' ')}
-                />
-              }
+              endIcon={(() => {
+                if (windowWidth < 900) {
+                  return;
+                }
+                return (
+                  <i className={CSScmds(`
+                      x<900px?display: (none,);
+                  `,
+                    "fa-solid fa-angles-right"
+                  )} />
+                );
+              })()}
               onClick={() => {
                 estado.seleccionar();
               }}
@@ -263,7 +266,8 @@ function PaginaLibrerias() {
           <Typography
             variant="h6"
             className={CSScmds(`
-                400px<-x->1000px?font-size: [13px,20px];
+                400px<-x->1000px?font-size: [15px,20px];
+                700px<x<1000px?opacity: (0.5,0.7,1);
             `)}
           >
             <Titulo texto="Librerías" />

@@ -6,12 +6,11 @@ function EnvolventePagina(props) {
             <div
                 {...props}
                 children={undefined}
-                className={`
-                    pagina
-                    ${CSScmds(`
-                        400px<-x->1000px?padding: 40px [10px,50px];
-                    `)}
-                `}
+                className={CSScmds(`
+                        400px<-x->1000px?padding: [5px,50px] [10px,50px];
+                    `,
+                    "pagina"
+                )}
             >
                 <FormatoDoc>
                     {props.children}

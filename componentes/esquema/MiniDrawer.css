@@ -1,36 +1,36 @@
-
 :root {
   --drawer-h: 60px;
-  --drawer-open-w: 240px;
+  --drawer-open-w: 300px;
   --drawer-close-w: 50px;
 }
 
-@media screen and (width < 700px) {
+@media (width >= 600px) and (width < 800px) {
   :root {
-    --drawer-open-w: 80%;
+    --drawer-open-w: 70%;
     --drawer-close-w: 0px;
-    --drawer-h: 55px;
-  }  
+    --drawer-h: 56px;
+  }
 }
 
-@media screen and (width < 500px) {
+@media (width < 600px) {
   :root {
     --drawer-open-w: 100%;
-  }  
+    --drawer-close-w: 0px;
+  }
 }
 
-body{
-    &.menu-cerrado {
-        padding-left: var(--drawer-close-w);
-        .contenido-fijo.full-width {
-            margin-left: var(--drawer-close-w);
-        }
+body {
+  padding-left: var(--drawer-close-w);
+  padding-top: var(--drawer-h);
+  &.menu-cerrado {
+    .contenido-fijo.full-width {
+      margin-left: var(--drawer-close-w);
     }
-    &.menu-abierto {
-        overflow: "hidden";
-        padding-left: var(--drawer-open-w);
-        .contenido-fijo.full-width {
-            margin-left: var(--drawer-open-w);
-        }
+  }
+  &.menu-abierto {
+    overflow: hidden;
+    .contenido-fijo.full-width {
+      margin-left: var(--drawer-open-w);
     }
+  }
 }

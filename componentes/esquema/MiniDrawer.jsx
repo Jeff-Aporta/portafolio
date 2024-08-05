@@ -28,21 +28,24 @@ window.navigation.addEventListener("navigate", (e) => {
 
 let windowWidth = window.innerWidth;
 
-window.addEventListener("resize", () => {
-    windowWidth = window.innerWidth;
-});
-
-
 const tiempoTransicionPagina = 500;
 
 function miniDrawer({ estados, navegadorIzquierda }) {
     const idR = Math.random().toString().replace("0.", "idR-");
 
-    let [_, setUpdate] = React.useState(Math.random());
+    let [_, update] = React.useState(Math.random());
     let [Pagina, setPagina] = React.useState(parametroURL());
     let [menuOpen, setMenuOpen] = React.useState(false);
     let [effectGrowState, setEffectGrowState] = React.useState("in");
     let [effectFadeState, setEffectFadeState] = React.useState("in");
+
+    React.useEffect(() => {
+      const handleResize = () => {
+        update(windowWidth = window.innerWidth)
+      };
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     if (menuOpen) {
         document.body.classList.add("menu-abierto");
@@ -188,7 +191,6 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                             timeout={tiempoTransicionPagina / 4}
                         >
                             <div>
-                                <DrawerHeader />
                                 <div className="contenido">
                                     {estadoActual.componente()}
                                 </div>
@@ -215,7 +217,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
         estados,
         setPagina,
         fadding,
-        update: () => setUpdate(Math.random()),
+        update: () => update(Math.random()),
     }
 
     function MenuInferior() {
@@ -266,7 +268,11 @@ function miniDrawer({ estados, navegadorIzquierda }) {
             variant="permanent"
             open={menuOpen}
         >
-            <DrawerHeader>
+            <DrawerHeader
+                sx={{
+                    borderBottom: menuOpen ? '1px solid rgba(255, 255, 255, 0.5)' : '',
+                }}
+            >
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'rtl' ?
                         <i class="fa-solid fa-chevron-right"></i>
@@ -274,7 +280,12 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                 </IconButton>
             </DrawerHeader>
             <Divider />
-            <List>
+            <List
+                className={CSScmds(`
+                    x<700px?padding: (0 ${menuOpen ? "20px" : "0"}, 0 ${menuOpen ? "10px" : "0"}),
+                `)}
+            >
+                <EspacioVertical height="15px" />
                 {navegadorIzquierda.map(opcion => (
                     <TooltipTheme
                         title={menuOpen ? "" : opcion.titulo}
@@ -282,9 +293,13 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                     >
                         {opcion.divisor ?
                             <React.Fragment>
-                                <br />
-                                <Divider />
-                                <br />
+                                <EspacioVertical height="10px" />
+                                <hr
+                                    style={{
+                                        opacity: 0.2,
+                                    }}
+                                />
+                                <EspacioVertical height="10px" />
                             </React.Fragment> :
                             <ListItemButton
                                 sx={{
@@ -325,6 +340,48 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                             </ListItemButton>}
                     </TooltipTheme>
                 ))}
+                {(() => {
+                    if (!menuOpen) {
+                        return;
+                    }
+                    return (
+                        <React.Fragment>
+                            <EspacioVertical height="10px" />
+                            <hr
+                                style={{
+                                    opacity: 0.2,
+                                }}
+                            />
+                            <EspacioVertical height="15px" />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                }}
+                            >
+                                {Object.values(_social_).map((social) => {
+                                    return (
+                                        <Button
+                                            fullWidth
+                                            variant="contained"
+                                            style={{
+                                                margin: "3px 0",
+                                                backgroundColor: social.color,
+                                            }}
+                                            startIcon={<i className={social.icon} />}
+                                            href={social.href}
+                                            target="_blank"
+                                        >
+                                            {social.txt}
+                                        </Button>
+                                    );
+                                })}
+                            </div>
+                        </React.Fragment>
+                    )
+                })()}
             </List>
         </Drawer>;
     }
@@ -332,7 +389,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
     function MenuSuperior() {
         return <AppBar
             className={CSScmds(`
-                    x<700px?background-color: [,hsl(240, 100%, 10%)],
+                    x<700px?background-color: [hsl(240, 100%, 5%),hsl(240, 100%, 10%)],
                 `,
                 "app-bar"
             )}
@@ -375,44 +432,21 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                         <Titulo texto={tituloMenuSuperior} />
                     </Typography>
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            gap: '10px',
-                        }}
-                    >
-                        <ButtonGroup
-                            color="primary"
-                            style={{
-                                transform: 'scale(0.8)',
-                                transformOrigin: 'right',
-                            }}
-                        >
-                            <Button
-                                size="small"
-                                variant="contained"
-                                href="https://t.me/canalAporta"
-                                target="_blank"
-                                startIcon={<i class="fa-brands fa-telegram" />}
-                                style={{ backgroundColor: "hsla(200, 100%, 50%, 0.6)" }}
-                            >
-                                Canal de Telegram
-                            </Button>
-
-                            <Button
-                                size="small"
-                                variant="contained"
-                                href="https://wa.link/1tmqmt"
-                                target="_blank"
-                                startIcon={<i class="fa-brands fa-whatsapp" />}
-                                style={{ backgroundColor: "hsla(120, 100%, 50%, 0.6)" }}
-                            >
-                                WhatsApp
-                            </Button>
-                        </ButtonGroup>
-                    </div>
+                    {(() => {
+                        if (windowWidth < 700 || menuOpen) {
+                            return;
+                        }
+                        return (
+                            <MenuDesplegable
+                                className={CSScmds(`
+                                    x<700px?display: (none,),
+                                `)}
+                                contenido={Object.values(_social_)}
+                                txt={"Social"}
+                                icon={"fa-solid fa-globe"}
+                            />
+                        )
+                    })()}
                 </div>
             </Toolbar>
         </AppBar>;

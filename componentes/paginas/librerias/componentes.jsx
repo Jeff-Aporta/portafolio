@@ -74,16 +74,13 @@ function esquemaGeneralLibreria(objLib) {
     function Encabezado() {
         return <React.Fragment>
             <Typography
-                variant="h1"
-                style={{
-                    fontWeight: 'bolder',
-                }}
+                variant="h2"
             >
                 <Titulo
                     texto={
                         objLib.nombre_render_as == "CodeInline" ?
                             (
-                                <CodeInline>
+                                <CodeInline scroll={false}>
                                     {objLib.nombre}
                                 </CodeInline>
                             ) :
@@ -103,13 +100,11 @@ function esquemaGeneralLibreria(objLib) {
         function SloganElement() {
             return (
                 <Typography
-                    variant="h4"
+                    variant="h5"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '30px',
-                        maxWidth: '80%',
-                        textWrap: 'balance',
                         fontWeight: 'lighter',
                     }}
                 >
@@ -132,10 +127,13 @@ function esquemaGeneralLibreria(objLib) {
 
                         border: '4px solid #252525',
                         padding: '15px',
+                        paddingRight: '50px',
                         borderRadius: '50px',
 
                         scale: '0.75',
                         transformOrigin: '0 0',
+
+                        fontSize: '110%',
                     }}
                 >
                     <span style={istyle}>
@@ -152,7 +150,12 @@ function esquemaGeneralLibreria(objLib) {
                             </small>
                         </small>
                         <br />
-                        <Link href={objLib.github} target="_blank" color="inherit" underline="hover">
+                        <Link
+                            href={objLib.github}
+                            target="_blank"
+                            color="inherit"
+                            underline="hover"
+                        >
                             {objLib.github}
                         </Link>
                     </span>
@@ -180,7 +183,7 @@ function esquemaGeneralLibreria(objLib) {
                             {
                                 nombre_render_as == "CodeInline" ?
                                     (
-                                        <CodeInline>
+                                        <CodeInline scroll={false}>
                                             {nombre}
                                         </CodeInline>
                                     ) :
@@ -200,17 +203,24 @@ function esquemaGeneralLibreria(objLib) {
 }
 
 function Resumen({ desc, rel, img, descImg }) {
-    const descR = (
-        <FormatoDoc>
-            {desc}
-        </FormatoDoc>
-    );
-    const c1 = "500px<x<700px?display: (none,);"
-    const c2 = "500px<x<700px?display: (,none);width: 65%;";
     return <div>
-        <p className={CSScmds(c1)}>
-            {descR}
-        </p>
+        {(() => {
+            if (windowWidth > 600 && windowWidth < 700) {
+                return;
+            }
+            return <p
+                className={CSScmds(`
+                    600px<x<700px?display: (,none,);
+                `)}
+                style={{
+                    fontSize: "120%",
+                }}
+            >
+                <FormatoDoc>
+                    {desc}
+                </FormatoDoc>
+            </p>
+        })()}
         <div
             className={CSScmds(`
                 x<700px?flex-direction:(column,row);
@@ -225,7 +235,7 @@ function Resumen({ desc, rel, img, descImg }) {
         >
             <span
                 className={CSScmds(`
-                    x<500px?display: (flex,inline-flex);width: (100%,);
+                    x<700px?display: (flex,inline-flex);width: (100%,);
                 `)}
                 style={{
                     alignItems: 'center',
@@ -241,8 +251,11 @@ function Resumen({ desc, rel, img, descImg }) {
                     className={[
                         "anim1s",
                         CSScmds(`
-                            700px<-x->1000px?margin: 10px [10px,40px] 0 0;
-                            500px<x<700px?width: (200px,180px,250px);height: (200px,180px,250px);
+                            700px<-x->1000px?margin: 10px [10px,30px] 0 0;
+                            500px<-x->900px{
+                                width: [200px,300px];
+                                height: [200px,300px];
+                            }
                         `)
                     ].join(' ')}
                     style={{
@@ -251,30 +264,54 @@ function Resumen({ desc, rel, img, descImg }) {
                         borderRadius: '20px',
                     }}
                 />
-                <p className={CSScmds(c2)}>
-                    {descR}
-                </p>
+                {(() => {
+                    if (!(windowWidth > 600 && windowWidth < 700)) {
+                        return;
+                    }
+                    const max = 400;
+                    const n = desc.length;
+                    const trunc = `${desc.slice(0, Math.min(max, n))}${(n > max ? "…" : "")}`;
+                    return <p
+                        className={CSScmds(`
+                            600px<x<700px?display: (,none);
+                        `)}
+                        style={{
+                            marginLeft: '20px',
+                            fontSize: "120%",
+                        }}
+                    >
+                        <FormatoDoc>
+                            {trunc}
+                        </FormatoDoc>
+                    </p>
+                })()}
             </span>
             <BRO x="x>500px" />
-            <ul
-                className={[
-                    "punto-centrico",
-                    CSScmds(`
-                        x<500px?display: (none,);
-                        500px<-x->1000px?font-size: [10px,15px];
-                    `)
-                ].join(' ')}
-            >
-                {
-                    Array.isArray(descImg) ? descImg.map((item, index) => {
-                        return (
-                            <LIDoc>
-                                {item}
-                            </LIDoc>
-                        );
-                    }) : descImg
+            {(() => {
+                if (windowWidth < 600) {
+                    return;
                 }
-            </ul>
+                return (
+                    <ul
+                        className={CSScmds(`
+                            x<600px?display: (none,);
+                            500px<-x->1000px?font-size: [13px,18px];
+                        `,
+                            "punto-centrico"
+                        )}
+                    >
+                        {
+                            Array.isArray(descImg) ? descImg.map((item, index) => {
+                                return (
+                                    <LIDoc>
+                                        {item}
+                                    </LIDoc>
+                                );
+                            }) : descImg
+                        }
+                    </ul>
+                );
+            })()}
         </div>
     </div>;
 }
@@ -314,14 +351,13 @@ function LIDocTitulo({ children }) {
         const titulo = children.shift();
         return (
             <LIDoc>
-                <Typography variant="subtitle1">
-                    <Resaltar>{titulo}:</Resaltar>
-                </Typography>
-                <Typography variant="subtitle2" style={{ marginLeft: "20px" }}>
+                <Resaltar>{titulo}:</Resaltar>
+                <br />
+                <span style={{ marginLeft: "20px" }}>
                     <FormatoDoc>
                         {children}
                     </FormatoDoc>
-                </Typography>
+                </span>
             </LIDoc>
         );
     }
