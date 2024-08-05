@@ -98,28 +98,6 @@ const _agrupadores_ = [
             ].join(" "),
         }
     }),
-    ...[
-        {
-            prevOpen: " ",
-            clase: "",
-        },
-        {
-            prevOpen: "&",
-            clase: ["todo-blanco"],
-        }
-    ].map((sufix) => {
-        return {
-            open: "_",
-            close: "_",
-            prevOpen: sufix.prevOpen,
-            nextClose: " ",
-            clase: "cursiva",
-            claseContenido: [
-                "contenido-cursiva",
-                ...sufix.clase,
-            ].join(" "),
-        }
-    }),
     {
         open: "~",
         close: "~",

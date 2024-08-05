@@ -108,7 +108,7 @@ ReactDOM.render(
 
 (()=>{
     const cls = CSScmds(`
-        500px<-x->1000px?font-size: [12px,17px];
+        500px<-x->1000px?font-size: [14px,18px];
         x<700px?padding-left:(0px,);
     `).split(" ");
     document.body.classList.add(...cls);

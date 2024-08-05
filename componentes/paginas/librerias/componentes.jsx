@@ -99,17 +99,16 @@ function esquemaGeneralLibreria(objLib) {
 
         function SloganElement() {
             return (
-                <Typography
-                    variant="h5"
+                <h1
+                    className={CSScmds(`
+                        700px<x<1000px?font-size: (160%,190%,220%);
+                    `)}
                     style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '30px',
                         fontWeight: 'lighter',
                     }}
                 >
                     {objLib.slogan}
-                </Typography>
+                </h1>
             );
         }
 
