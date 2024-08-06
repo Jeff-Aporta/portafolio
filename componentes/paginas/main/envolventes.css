@@ -33,6 +33,16 @@
 
 /*---------------------------------*/
 
+.iluminar-hover{
+  transition: filter 0.3s;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
+/*---------------------------------*/
+
 .elemento-funcion,
 .elemento-puntuado {
   display: inline-flex;

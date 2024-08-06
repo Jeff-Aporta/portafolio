@@ -239,6 +239,7 @@ function Resumen({ desc, rel, img, descImg }) {
                 style={{
                     alignItems: 'center',
                     justifyContent: 'space-evenly',
+                    alignItems: 'start',
                 }}
             >
                 <img
@@ -276,7 +277,7 @@ function Resumen({ desc, rel, img, descImg }) {
                         `)}
                         style={{
                             marginLeft: '20px',
-                            fontSize: "120%",
+                            fontSize: n < max ? "120%" : "100%",
                         }}
                     >
                         <FormatoDoc>

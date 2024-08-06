@@ -38,7 +38,7 @@ function PaginaPerfil() {
       }
       return verticalTabsEmpresa(empresa.detalles);
     })();
-    return (<p>
+    return (<p className="test-scroll">
       <p>
         <Typography
           variant="h5"
@@ -478,65 +478,165 @@ function PaginaPerfil() {
   }
 
   function Seccion2() {
-    return <div
-      className={CSScmds(`
-          400px<-x->1000px?padding: [20px, 50px] [20px, 30px];
-      `)}
-      style={{
-        backgroundColor: 'rgba(150, 150, 255, 0.1)',
-      }}
-    >
-      <span
-        className={CSScmds(`
-          400px<-x->1000px?margin: 0 0 [0px, 50px] 0;
-          550px<x<1000px?font-size: (270%, 300%, 350%);
-        `)}
-      >
-        <Titulo texto="Proyectos y Librerías" />
-      </span>
+    return (
       <div
         className={CSScmds(`
-          x<800px?flex-direction: (column,); gap: (, 50px);
-        `)}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-        }}
+              400px<-x->1000px?padding: [10px, 30px];
+          `,
+        )}
       >
-        <IconoEfecto />
-        <div
-          className={CSScmds(`
-            x<800px?width: (100%, 50%);
-          `)}
+        <h1
+          style={{
+            margin: 0,
+          }}
         >
-          <BRO x="x>800px" />
-          <p
-            style={{
-              fontSize: '110%',
-            }}
-          >
-            He desarrollado diversas aplicaciones web y plataformas, enfocándome en mejorar la eficiencia, productividad y experiencia
-            del usuario. Además, he creado librerías para simplificar acciones en proyectos.
-          </p>
-          <br />
-          <Button
-            className={CSScmds(`
-              x<800px?font-size: (140%, 150%);
-            `)}
-            fullWidth
-            variant="contained"
-            startIcon={<i className="fa-solid fa-code"></i>}
-            size="large"
-            onClick={() => {
-              buscarPagina('Proyectos');
-            }}
-          >
-            Ver proyectos y libreriás
-          </Button>
-        </div>
+          <Titulo texto="Originales" />
+        </h1>
+        <p>
+          He creado librerías de programación innovadoras que proponen formas interesantes de hacer las cosas o de 
+          suplir necesidades especiales.
+        </p>
+        <Coleccion titulo="Javascript" icono="fa-brands fa-js">
+          <SubColeccion titulo="Librerías">
+            <FiltrarEstado type="libreria-js" />
+          </SubColeccion>
+        </Coleccion>
+        <br />
+        <Coleccion titulo="Java" icono="fa-brands fa-java">
+          <SubColeccion titulo="Librerías">
+            <FiltrarEstado type="libreria-java" />
+          </SubColeccion>
+        </Coleccion>
       </div>
-    </div>;
+    );
+
+    function Coleccion(props) {
+      return (
+        <Paper
+          className={CSScmds(`
+              400px<-x->1000px?padding: [10px, 20px];
+            `,
+            "coleccion"
+          )}
+          elevation={1}
+          style={{
+            borderRadius: "20px",
+          }}
+          {...props}
+        >
+          <h1
+            style={{
+              margin: "0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {props.titulo}
+            <big>
+              <i className={props.icono} />
+            </big>
+          </h1>
+          {props.children}
+        </Paper>
+      );
+    }
+
+    function SubColeccion(props) {
+      return (
+        <Paper
+          {...props}
+          className="sub-coleccion"
+        >
+          <h2
+            style={{
+              opacity: 0.6,
+            }}
+          >
+            {props.titulo}
+          </h2>
+          <ScrollColeccion>
+            {props.children}
+          </ScrollColeccion>
+        </Paper>
+      );
+    }
+
+    function ScrollColeccion(props) {
+      return <Paper
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "10px",
+          padding: "10px",
+          wrap: "nowrap",
+
+          overflow: "auto",
+
+          borderRadius: "20px",
+        }}
+        className="scroll-coleccion"
+        elevation={0}
+        {...props}
+      />;
+    }
+
+    function FiltrarEstado({ type }) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            gap: "10px",
+            minWidth: "100%",
+          }}
+        >
+          {
+            Object.values(MiniDrawerDriver.estados).filter(e => e.type == type).map((estado, i) => {
+              const contenido = estado.contenido;
+
+              return (
+                <Paper
+                  elevation={5}
+                  className="iluminar-hover"
+                  style={{
+                    display: "inline-block",
+                    padding: "20px",
+                    textAlign: "center",
+                    borderRadius: "20px",
+                  }}
+                  onClick={() => {
+                    estado.seleccionar();
+                  }}
+                >
+                  <h3
+                    style={{
+                      maxWidth: "100%",
+                    }}
+                  >
+                    {contenido.nombre}
+                  </h3>
+                  <br />
+                  <img
+                    src={[contenido.githubPage, contenido.img].filter(e => e).join("/")}
+                    className={CSScmds(`
+                        500px<-x->900px{
+                            width: [200px,250px];
+                            height: [200px,250px];
+                        }
+                    `)}
+                    style={{
+                      objectFit: 'cover',
+                      borderRadius: '20px',
+                    }}
+                  />
+                </Paper>
+              );
+            })
+          }
+        </div>
+      );
+    }
 
     function IconoEfecto() {
       return <span
@@ -582,13 +682,46 @@ function PaginaPerfil() {
             400px<-x->1000px?padding: 0 [10px, 30px];
         `)}
         style={{
+          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
         }}
       >
+        <br />
+        <br />
         <Fila1 />
         <Fila2 />
+        <br />
+        <br />
+        {(() => {
+          if (windowWidth < 950) {
+            return;
+          }
+          return (
+            <div
+              className={CSScmds(`
+                1000px<x<1100px?opacity: (0.2,0.5,1);
+              `)}
+            >
+              <img
+                src="src/imgs/jeff-profile.png"
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                  transform: "scale(-1,1)",
+                  zIndex: -1,
+                  height: "100%",
+                  aspectRatio: "1/1",
+                  objectFit: "cover",
+                  objectPosition: "right",
+                  backgroundSize: "cover",
+                  opacity: "0.3",
+                }} />
+            </div>
+          );
+        })()}
       </div>
     );
 
@@ -596,7 +729,6 @@ function PaginaPerfil() {
       return (
         <div
           style={{
-            position: 'relative',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'start',
@@ -618,28 +750,6 @@ function PaginaPerfil() {
           </SeccionFila2>
 
           <TextoResumen x="x<950px" />
-
-
-          <img
-            src="src/imgs/jeff-profile.png"
-            style={{
-              position: "absolute",
-              top: "40%",
-              left: "20%",
-              transform: "translateY(-50%)",
-              zIndex: -1,
-              background: "black",
-              width: "max(40vw, 300px)",
-              aspectRatio: "1/1",
-              borderRadius: "50%",
-              objectFit: "cover",
-              objectPosition: "right",
-              backgroundImage: "url(src/imgs/back.gif)",
-              backgroundSize: "cover",
-              backgroundBlendMode: "hard-light",
-              opacity: 0.4,
-              border: "5px solid white",
-            }} />
         </div>
       );
 
@@ -692,7 +802,8 @@ function PaginaPerfil() {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'end',
+              alignItems: 'end',
               flexDirection: 'column',
             }}
           >
@@ -951,9 +1062,10 @@ function PaginaPerfil() {
       className={CSScmds(`
           400px<-x->1000px?font-size: [25px, 30px];
           x<900px?justify-content: (space-evenly, end);
+          x>950px?max-width: (500px,);
       `)}
       style={{
-        display: 'inline-flex',
+        display: 'flex',
         gap: '0 30px',
         flexWrap: 'wrap',
         alignItems: 'center',

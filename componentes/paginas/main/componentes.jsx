@@ -2,6 +2,20 @@ function Titulo({ texto, children }) {
     if (children && !texto) {
         texto = children;
     }
+    const [iz, der] = (() => {
+        const a = <i className="fa-solid fa-greater-than" />;
+        if (windowWidth < 700 && texto) {
+            return ["", ""];
+        }
+        if (windowWidth < 800 && texto) {
+            return [a, ""];
+        }
+        return [
+            a,
+            <i className="fa-solid fa-window-minimize titilar_anim" />,
+        ]
+    })();
+
     return <span
         className={CSScmds(`
                 700px<x<1000px?font-size: [80%,90%,100%];
@@ -9,17 +23,17 @@ function Titulo({ texto, children }) {
             "anim1s"
         )}
     >
-        <i class="fa-solid fa-greater-than" />
+        {iz}
         {(() => {
             if (texto) {
                 return <React.Fragment>
-                    &nbsp;
+                    {iz ? " " : ""}
                     {texto}
-                    &nbsp;
+                    {der ? " " : ""}
                 </React.Fragment>;
             }
         })()}
-        <i className="fa-solid fa-window-minimize titilar_anim" />
+        {der}
     </span>;
 }
 

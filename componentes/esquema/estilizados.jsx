@@ -57,7 +57,7 @@ const Drawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })(
 
         function closedMixin(theme) {
             return {
-                width: `${drawerWidthClosed}`,
+                width: drawerWidthClosed,
                 backgroundColor,
                 transition: theme.transitions.create('width', {
                     easing: theme.transitions.easing.sharp,

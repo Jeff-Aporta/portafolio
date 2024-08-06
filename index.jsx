@@ -64,31 +64,35 @@ function App() {
             "JFTP": {
                 componente: () => <PaginaLibreriaJFTP />,
                 titulo: "JFTP",
-                contenido: _JFTP_
+                contenido: _JFTP_,
+                type: "libreria-java",
             },
             "ASCIIMapLoader": {
                 rel: "https://jeff-aporta.github.io/ASCIIMapLoader",
                 componente: function () {
                     return esquemaGeneralLibreria(this.contenido);
                 },
-                titulo: "ASCII Map Loader",
-                contenido: _ASCIIMapLoader_
+                titulo: _ASCIIMapLoader_.nombre,
+                contenido: _ASCIIMapLoader_,
+                type: "libreria-js",
             },
             "GeometryRectsNCircles": {
                 rel: "https://jeff-aporta.github.io/Geometry-rects-n-circles-JS",
                 componente: function () {
                     return esquemaGeneralLibreria(this.contenido);
                 },
-                titulo: "Geometry Rects n Circles JS",
-                contenido: _GEOMETRY_RECTS_N_CIRCLES_
+                titulo: _GEOMETRY_RECTS_N_CIRCLES_.nombre,
+                contenido: _GEOMETRY_RECTS_N_CIRCLES_,
+                type: "libreria-js",
             },
             "OrigenTel": {
                 rel: "https://jeff-aporta.github.io/OrigenTel",
                 componente: function () {
                     return esquemaGeneralLibreria(this.contenido);
                 },
-                titulo: "OrigenTel JS",
-                contenido: _ORIGEN_TEL_
+                titulo: _ORIGEN_TEL_.nombre,
+                contenido: _ORIGEN_TEL_,
+                type: "libreria-js",
             },
         },
         navegadorIzquierda: ["Perfil", 0, "Proyectos", "Librerías", 0, "Configuración"],

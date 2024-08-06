@@ -26,7 +26,7 @@ window.navigation.addEventListener("navigate", (e) => {
     }
 });
 
-const tiempoTransicionPagina = 500;
+const tiempoTransicionPagina = 250;
 
 function miniDrawer({ estados, navegadorIzquierda }) {
     const idR = Math.random().toString().replace("0.", "idR-");
@@ -38,11 +38,11 @@ function miniDrawer({ estados, navegadorIzquierda }) {
     let [effectFadeState, setEffectFadeState] = React.useState("in");
 
     React.useEffect(() => {
-      const handleResize = () => {
-        update()
-      };
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+        const handleResize = () => {
+            update(windowWidth = window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     if (menuOpen) {
@@ -54,6 +54,58 @@ function miniDrawer({ estados, navegadorIzquierda }) {
     }
 
     navegadorIzquierda = navegadorIzquierda.map((pagina) => estados[pagina] ?? { divisor: true });
+
+    const botonMenu = (() => {
+        if (menuOpen) {
+            return;
+        }
+        return (
+            <Button
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => setMenuOpen(true)}
+                edge="start"
+                sx={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+
+                    minWidth: 0,
+                    fontSize: "150%",
+                    width: "var(--drawer-close-w)",
+                    height: "var(--drawer-h)",
+                    padding: "20px",
+                    zIndex: 2000,
+                }}
+            >
+                <i className="fa-solid fa-bars"></i>
+            </Button>
+        );
+    })();
+
+    const botonMenuEspacio = (() => {
+        return (
+            <Button
+                color="inherit"
+                aria-label="open drawer"
+                disabled
+                edge="start"
+                sx={{
+                    minWidth: 0,
+                    fontSize: "150%",
+                    width: "var(--drawer-close-w)",
+                    height: "var(--drawer-h)",
+                    padding: "20px",
+                    marginRight: 4,
+                    opacity: 0,
+                }}
+            >
+                <i className="fa-solid fa-bars"></i>
+            </Button>
+        );
+    })();
+
+
 
     const cambioPaginaGenerico = function () {
         if (estados[Pagina] == this) {
@@ -131,6 +183,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
             className="esquema-principal"
             id={idR}
         >
+            {botonMenu}
             {mensajeSimple.SnackBar}
             <MenuSuperior />
             <MenuIzquierda />
@@ -176,7 +229,8 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                     },
                 }}
             >
-                <Zoom
+                <Slide
+                    direction="right"
                     in={effectGrowState == "in"}
                     timeout={tiempoTransicionPagina}
                     style={{
@@ -196,7 +250,34 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                             </div>
                         </Fade>
                     </div>
-                </Zoom>
+                </Slide>
+            </div>
+            <div className="capa-1">
+                {(() => {
+                    if (!menuOpen || windowWidth < 850) {
+                        return;
+                    }
+                    return (
+                        <div
+                            style={{
+                                textAlign: "center",
+                                opacity: 0.2,
+                            }}
+                        >
+                            <img
+                                src="src/imgs/logo-dev.png"
+                                style={{
+                                    maxWidth: "90%",
+                                    filter: "sepia(100%) hue-rotate(190deg) saturate(300%)",
+                                }}
+                            />
+                            <br />
+                            <b>
+                                Jeffrey Agudelo.
+                            </b>
+                        </div>
+                    );
+                })()}
             </div>
         </div>
     );
@@ -271,11 +352,34 @@ function miniDrawer({ estados, navegadorIzquierda }) {
                     borderBottom: menuOpen ? '1px solid rgba(255, 255, 255, 0.5)' : '',
                 }}
             >
-                <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'rtl' ?
-                        <i class="fa-solid fa-chevron-right"></i>
-                        : <i class="fa-solid fa-close"></i>}
-                </IconButton>
+                <div
+                    style={{
+                        textAlign: 'right',
+                    }}
+                >
+                    {(() => {
+                        if (!menuOpen) {
+                            return;
+                        }
+                        return (
+                            <Button
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={() => handleDrawerClose()}
+                                edge="start"
+                                sx={{
+                                    minWidth: 0,
+                                    fontSize: "150%",
+                                    width: "var(--drawer-close-w)",
+                                    height: "var(--drawer-h)",
+                                    padding: "20px",
+                                }}
+                            >
+                                <i className="fa-solid fa-close"></i>
+                            </Button>
+                        );
+                    })()}
+                </div>
             </DrawerHeader>
             <Divider />
             <List
@@ -389,7 +493,7 @@ function miniDrawer({ estados, navegadorIzquierda }) {
             className={CSScmds(`
                     x<700px?background-color: [hsl(240, 100%, 5%),hsl(240, 100%, 10%)],
                 `,
-                "app-bar"
+                "app-bar menu-arriba"
             )}
             open={menuOpen}
             style={{
@@ -398,21 +502,18 @@ function miniDrawer({ estados, navegadorIzquierda }) {
         >
             <Toolbar
                 style={{
+                    paddingLeft: "0px",
                     height: "var(--drawer-h)",
                 }}
             >
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={() => setMenuOpen(true)}
-                    edge="start"
-                    sx={{
-                        marginRight: 5,
-                        display: menuOpen ? 'none' : "",
-                    }}
-                >
-                    <i class="fa-solid fa-bars"></i>
-                </IconButton>
+                {(() => {
+                    if (menuOpen) {
+                        return (
+                            <div style={{ padding: "7px" }} />
+                        );
+                    }
+                    return botonMenuEspacio;
+                })()}
 
                 <div
                     style={{
