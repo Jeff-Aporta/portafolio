@@ -21,7 +21,6 @@
 
   .code-container {
     display: block;
-    position: sticky;
     width: 100% !important;
     max-width: 100% !important;
     overflow: auto !important;

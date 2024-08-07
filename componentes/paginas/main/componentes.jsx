@@ -84,6 +84,7 @@ function Code({
     style = {},
     esCopiable = true,
     scroll = true,
+    height,
     onCopy = () => 0,
 }) {
     let idR = Math.random().toString().replace("0.", "idR-");
@@ -122,7 +123,12 @@ function Code({
 
     return (
         <div className="code-component">
-            <div className={`code-container ${className}`}>
+            <div 
+                className={`code-container ${className}`} 
+                style={{
+                    height: height || "auto",
+                }}
+            >
                 {precode}
             </div>
             {esCopiable ? <BotonCopiar /> : ""}
