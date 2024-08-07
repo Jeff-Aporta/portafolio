@@ -556,7 +556,6 @@ function FormatoDoc({ children }) {
                         const condicion = caracter == agrupadorActual.close;
                         if (condicion) {
                             if (acumulado) {
-                                //caso especial
                                 retorno.push(
                                     <span className="agrupacion">
                                         <span className={agrupadorActual.claseContenido}>

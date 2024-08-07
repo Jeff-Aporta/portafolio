@@ -21,8 +21,11 @@
 
   .code-container {
     display: block;
-    width: 100% !important;
-    max-width: 100% !important;
     overflow: auto !important;
+
+    .fullW{
+      width: 100%;
+      max-width: 100%;
+    }
   }
 }

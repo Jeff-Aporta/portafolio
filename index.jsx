@@ -62,7 +62,9 @@ function App() {
                 categoria: "principal",
             },
             "JFTP": {
-                componente: () => <PaginaLibreriaJFTP />,
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
                 titulo: "JFTP",
                 contenido: _JFTP_,
                 type: "libreria-java",

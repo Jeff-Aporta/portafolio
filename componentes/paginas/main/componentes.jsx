@@ -85,6 +85,7 @@ function Code({
     esCopiable = true,
     scroll = true,
     height,
+    fullW = true,
     onCopy = () => 0,
 }) {
     let idR = Math.random().toString().replace("0.", "idR-");
@@ -124,7 +125,11 @@ function Code({
     return (
         <div className="code-component">
             <div
-                className={`code-container ${className}`}
+                className={`
+                    code-container 
+                    ${className}
+                    ${fullW ? "fullW" : ""}
+                `}
                 style={{
                     height: height || "auto",
                 }}
@@ -369,7 +374,7 @@ function BotonLinkPortafolio() {
     }
 }
 
-function CodigoConRepresentacion({ children, url, p5js = true, titulo, desc }) {
+function CodigoConRepresentacion({ children, url, p5js = true, titulo, desc, fullW = true }) {
     return (
         <Paper
             elevation={0}
