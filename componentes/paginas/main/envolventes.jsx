@@ -127,8 +127,17 @@ const _agrupadores_ = [
     {
         open: "(",
         close: ")",
+        prevOpen: " ",
+        nextClose: " ",
         clase: "agrupador",
         claseContenido: "contenido-agrupado",
+    },
+    {
+        open: "(",
+        close: ")",
+        nextClose: " ",
+        clase: "agrupadorF",
+        claseContenido: "contenido-agrupadoF",
     },
     {
         open: '"',
@@ -393,7 +402,7 @@ function FormatoDoc({ children }) {
                     }
                 },
                 {
-                    condicion: mayusculas.length == 1 && mayusculas[0].index != 0,
+                    condicion: mayusculas.length == 1 && mayusculas[0].index != 0 && element.endsWith(")") && element.includes("("),
                     nombre: "funcion",
                     accion: () => {
                         retorno.push(
@@ -543,6 +552,7 @@ function FormatoDoc({ children }) {
                         const condicion = caracter == agrupadorActual.close;
                         if (condicion) {
                             if (acumulado) {
+                                //caso especial
                                 retorno.push(
                                     <span className="agrupacion">
                                         <span className={agrupadorActual.claseContenido}>
@@ -572,12 +582,12 @@ function FormatoDoc({ children }) {
                         if (condicion) {
                             if (agrupadorActual) {
                                 retorno.push(
-                                    <React.Fragment>
+                                    <span className="agrupacion-sin-cierre">
                                         {agrupadorActual.open}
                                         <RefString>
                                             {acumulado}
                                         </RefString>
-                                    </React.Fragment>
+                                    </span>
                                 );
                             } else {
                                 retorno.push(acumulado);
@@ -596,11 +606,25 @@ function FormatoDoc({ children }) {
                         const prevOpen = agrupador.prevOpen && prev ? prev == agrupador.prevOpen : true;
                         return caracter == agrupador.open && prevOpen;
                     });
+
                     if (agrupadorActual) {
                         const nextClose = agrupadorActual.nextClose && next ? next == agrupadorActual.nextClose : true;
                         if (next == agrupadorActual.close && nextClose) {
                             agrupadorActual = undefined;
                         } else {
+                            const palabras = acumulado.split(" ");
+                            const funcion = palabras.pop();
+                            if (agrupadorActual && agrupadorActual.clase == "agrupadorF") {
+                                retorno.push(
+                                    <React.Fragment>
+                                        {palabras.join(" ")}
+                                        &nbsp;
+                                        <Funcion>
+                                            {funcion}
+                                        </Funcion>
+                                    </React.Fragment>
+                                );
+                            }
                             retorno.push(acumulado);
                             acumulado = "";
                         }
