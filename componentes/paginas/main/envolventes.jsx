@@ -327,7 +327,7 @@ function FormatoDoc({ children }) {
                     }
                 },
                 {
-                    condicion: element.includes("()"),
+                    condicion: element.endsWith("()"),
                     nombre: "funcion",
                     accion: () => {
                         retorno.push(
