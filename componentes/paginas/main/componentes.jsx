@@ -169,6 +169,43 @@ function Code({
     }
 }
 
+function CodigoConRepresentación({ children, url }) {
+    return <div
+        className={CSScmds(`
+            x<1100px{
+                grid-template-columns: [
+                    repeat(1, 1fr),
+                    repeat(auto-fill, minmax(50%, 1fr))
+                ];
+            }
+        `)}
+        style={{
+            display: 'inline-grid',
+            justifyContent: 'center',
+            alignItems: 'center',
+            maxWidth: '100%',
+        }}
+    >
+        <Code
+            style={{
+                margin: 0,
+                width: '100%',
+            }}
+            height="60vh"
+        >
+            {children}
+        </Code>
+        <iframe
+            src={url}
+            style={{
+                height: "60vh",
+                margin: 0,
+                width: "100%",
+            }}
+        />
+    </div>
+}
+
 function removerTabulacionesDeCodigo(str) {
     let multiLinea = false;
     if (typeof str == "string") {
