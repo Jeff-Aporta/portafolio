@@ -420,7 +420,11 @@ function FormatoDoc({ children }) {
                 <span className="elemento-funcion">
                     <span className="funcion">
                         {children.replaceAll("()", "")}
-                    </span><span className="puntuacion">()</span>
+                    </span>{(() => {
+                        if (children.includes("()")) {
+                            return <span className="puntuacion">()</span>
+                        }
+                    })()}
                 </span>
             );
         }
@@ -556,6 +560,15 @@ function FormatoDoc({ children }) {
                                 retorno.push(
                                     <span className="agrupacion">
                                         <span className={agrupadorActual.claseContenido}>
+                                            {(() => {
+                                                if (agrupadorActual.funcion) {
+                                                    return (
+                                                        <Funcion>
+                                                            {agrupadorActual.funcion}
+                                                        </Funcion>
+                                                    );
+                                                }
+                                            })()}
                                             <RefString>
                                                 <span className={agrupadorActual.clase}>
                                                     {agrupadorActual.open}
@@ -612,20 +625,19 @@ function FormatoDoc({ children }) {
                         if (next == agrupadorActual.close && nextClose) {
                             agrupadorActual = undefined;
                         } else {
-                            const palabras = acumulado.split(" ");
-                            const funcion = palabras.pop();
                             if (agrupadorActual && agrupadorActual.clase == "agrupadorF") {
+                                const palabras = acumulado.split(" ");
+                                const funcion = palabras.pop();
+                                agrupadorActual.funcion = funcion;
                                 retorno.push(
                                     <React.Fragment>
                                         {palabras.join(" ")}
-                                        &nbsp;
-                                        <Funcion>
-                                            {funcion}
-                                        </Funcion>
                                     </React.Fragment>
                                 );
+                            } else {
+                                retorno.push(acumulado);
                             }
-                            retorno.push(acumulado);
+
                             acumulado = "";
                         }
                     } else {

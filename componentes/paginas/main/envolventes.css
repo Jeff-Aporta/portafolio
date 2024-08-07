@@ -33,7 +33,7 @@
 
 /*---------------------------------*/
 
-.iluminar-hover{
+.iluminar-hover {
   transition: filter 0.3s;
   cursor: pointer;
   &:hover {
@@ -92,13 +92,18 @@
   color: lemonchiffon;
 }
 
-.puntuacion {
+.puntuacion,
+.agrupadorF {
   font-weight: bold;
   color: mediumaquamarine;
 
   &.times {
     color: darkmagenta;
   }
+}
+
+.contenido-agrupadoF{
+  color: lightgreen;
 }
 
 .agrupacion {
