@@ -389,9 +389,10 @@ function CodigoConRepresentacion({ children, url, p5js = true, titulo, desc }) {
             >
                 {titulo}
             </Typography>
+            <br />
             <span
                 style={{
-                    fontWeight: 'light',
+                    fontWeight: 'lighter',
                 }}
             >
                 {desc}
