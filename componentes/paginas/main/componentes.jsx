@@ -189,7 +189,7 @@ function CodigoConRepresentación({ children, url }) {
         <Code
             style={{
                 margin: 0,
-                width: '100%',
+                minWidth: '100%',
             }}
             height="60vh"
         >
