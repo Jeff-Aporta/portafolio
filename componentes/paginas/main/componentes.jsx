@@ -369,7 +369,7 @@ function BotonLinkPortafolio() {
     }
 }
 
-function CodigoConRepresentacion({ children, url, p5js = true, titulo }) {
+function CodigoConRepresentacion({ children, url, p5js = true, titulo, desc }) {
     return (
         <Paper
             elevation={0}
@@ -389,6 +389,13 @@ function CodigoConRepresentacion({ children, url, p5js = true, titulo }) {
             >
                 {titulo}
             </Typography>
+            <span
+                style={{
+                    fontWeight: 'light',
+                }}
+            >
+                {desc}
+            </span>
             <div
                 className={CSScmds(`
                     x<1100px{
