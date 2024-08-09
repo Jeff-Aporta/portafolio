@@ -209,8 +209,8 @@ function BotonLinkPortafolio() {
     return (
         <ThemeProvider theme={themeSelected}>
             <Paper
+                elevation={0}
                 style={{
-                    textAlign: "center",
                     padding: "40px",
 
                     display: "flex",
@@ -219,6 +219,7 @@ function BotonLinkPortafolio() {
                     alignItems: "stretch",
                     gap: "20px",
 
+                    background: "linear-gradient(to bottom, transparent, black)",
                 }}
             >
                 <Portafolio />
@@ -245,7 +246,7 @@ function BotonLinkPortafolio() {
                 <IconoSocial
                     icono="fa-brands fa-whatsapp"
                     tooltip="WhatsApp"
-                    outlineColor="green"
+                    outlineColor="LimeGreen"
                     url="https://wa.link/1tmqmt"
                 />
 
@@ -314,34 +315,18 @@ function BotonLinkPortafolio() {
                 style={{
                     display: "inline-block",
                     padding: "20px",
-                    border: "10px solid #333",
                     borderRadius: "25px",
                 }}
             >
+                <hr />
+                <EspacioVertical height="20px" />
                 <div
                     style={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center",
                         gap: "20px",
                     }}
                 >
-                    <img
-                        src="https://jeff-aporta.github.io/portafolio/src/imgs/jeff-profile.png"
-                        style={{
-                            background: "black",
-                            width: "100px",
-                            aspectRatio: "1/1",
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                            objectPosition: "right",
-                            backgroundImage: "url(https://jeff-aporta.github.io/portafolio/src/imgs/back.gif)",
-                            backgroundSize: "cover",
-                            backgroundBlendMode: "hard-light",
-                            border: "2px solid white",
-                        }}
-                    />
                     <Social />
                 </div>
                 <EspacioVertical height="10px" />
@@ -349,26 +334,23 @@ function BotonLinkPortafolio() {
                     Puedes ver más de mi trabajo en mi
                 </Typography>
                 <EspacioVertical height="10px" />
-                <Button
-                    variant="outlined"
+                <Link
+                    href="https://jeff-aporta.github.io/portafolio/"
+                    target="_blank"
+                    underline="none"
                 >
-                    <Link
-                        href="https://jeff-aporta.github.io/portafolio/"
-                        target="_blank"
-                        underline="none"
-                    >
-                        <Typography variant="h4">
-                            <b>
-                                Portafolio
-                            </b>
-                        </Typography>
-                        <Typography variant="h6">
-                            <small>
-                                (Jeffrey Agudelo)
-                            </small>
-                        </Typography>
-                    </Link>
-                </Button>
+                    <Typography variant="h4">
+                        <b>
+                            Portafolio
+                        </b>
+                    </Typography>
+                    <Typography variant="h6">
+                        <small>
+                            (Jeffrey Agudelo)
+                        </small>
+                    </Typography>
+                    https://jeff-aporta.github.io/portafolio/
+                </Link>
             </div>
         );
     }

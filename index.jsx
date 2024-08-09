@@ -108,6 +108,7 @@ ReactDOM.render(
     <ThemeProvider theme={themeSelected}>
         <CssBaseline />
         <App />
+        <BotonLinkPortafolio />
     </ThemeProvider >,
     document.querySelector('body .app')
 );
