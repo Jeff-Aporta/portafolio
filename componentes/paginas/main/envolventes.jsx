@@ -581,7 +581,15 @@ function FormatoDoc({ children }) {
                                     </span>
                                 );
                             } else {
-                                retorno.push(`${agrupadorActual.open}${agrupadorActual.close}`);
+                                if (agrupadorActual.funcion) {
+                                    retorno.push(
+                                        <Funcion>
+                                            {agrupadorActual.funcion+"()"}
+                                        </Funcion>
+                                    );
+                                } else {
+                                    retorno.push(`${agrupadorActual.open}${agrupadorActual.close}`);
+                                }
                             }
                             acumulado = "";
                             agrupadorActual = undefined;
