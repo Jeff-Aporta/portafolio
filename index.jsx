@@ -78,6 +78,15 @@ function App() {
                 contenido: _ASCIIMapLoader_,
                 type: "libreria-js",
             },
+            "CSScmds": {
+                rel: "https://jeff-aporta.github.io/OrigenTel",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: _CSScmds_.nombre,
+                contenido: _CSScmds_,
+                type: "libreria-js",
+            },
             "GeometryRectsNCircles": {
                 rel: "https://jeff-aporta.github.io/Geometry-rects-n-circles-JS",
                 componente: function () {
@@ -94,6 +103,15 @@ function App() {
                 },
                 titulo: _ORIGEN_TEL_.nombre,
                 contenido: _ORIGEN_TEL_,
+                type: "libreria-js",
+            },
+            "GeoZonasNombre": {
+                rel: "https://jeff-aporta.github.io/GeoZonasNombreJS",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: _GeoZonasNombre_.nombre,
+                contenido: _GeoZonasNombre_,
                 type: "libreria-js",
             },
         },
@@ -113,7 +131,7 @@ ReactDOM.render(
     document.querySelector('body .app')
 );
 
-(()=>{
+(() => {
     const cls = CSScmds(`
         500px<-x->1000px?font-size: [14px,18px];
         x<700px?padding-left:(0px,);
