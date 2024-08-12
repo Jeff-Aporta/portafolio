@@ -21,9 +21,7 @@ function PaginaLibrerias() {
                   }
                 },
                 idFilter: "javascript",
-                idsProyecto: [
-                  "ASCIIMapLoader", "OrigenTel", "GeometryRectsNCircles"
-                ]
+                idsProyecto: Object.entries(MiniDrawerDriver.estados).filter(([k, e]) => e.type == "libreria-js").map(([k, e]) => k)
               }),
               Seccion({
                 lenguaje: "Java",
@@ -31,9 +29,7 @@ function PaginaLibrerias() {
                   className: "fa-brands fa-java",
                 },
                 idFilter: "java",
-                idsProyecto: [
-                  "JFTP",
-                ]
+                idsProyecto: Object.entries(MiniDrawerDriver.estados).filter(([k, e]) => e.type == "libreria-java").map(([k, e]) => k)
               }),
             ].filter(e => e)
               .reduce((acumulador, elemento, indice, array) => {
