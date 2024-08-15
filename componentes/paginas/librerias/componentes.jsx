@@ -83,7 +83,12 @@ function esquemaGeneralLibreria(objLib) {
                                 return <CodeInline scroll={false}>{objLib.nombre}</CodeInline>;
                             case "CodeInlineParcial":
                                 const [code, sub] = objLib.nombre.split(":");
-                                return <CodeInline scroll={false}>{code}</CodeInline> + sub;
+                                return (
+                                    <FormatoDoc>
+                                        <CodeInline scroll={false}>{code}</CodeInline>
+                                        {sub}
+                                    </FormatoDoc>
+                                );
                             default:
                                 return objLib.nombre;
                         }
@@ -187,7 +192,12 @@ function esquemaGeneralLibreria(objLib) {
                                         return <CodeInline scroll={false}>{nombre}</CodeInline>;
                                     case "CodeInlineParcial":
                                         const [code, sub] = nombre.split(":");
-                                        return <CodeInline scroll={false}>{code}</CodeInline> + sub;
+                                        return (
+                                            <FormatoDoc>
+                                                <CodeInline scroll={false}>{code}</CodeInline>
+                                                {sub}
+                                            </FormatoDoc>
+                                        );
                                     default:
                                         return nombre;
                                 }
