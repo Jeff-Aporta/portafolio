@@ -17,6 +17,24 @@ function GenerarContenidoLibreria(props) {
   this.resumen.img = this.img;
 }
 
+function TooltipTheme(props) {
+  return <Tooltip
+      {...props}
+      componentsProps={{
+          tooltip: {
+              sx: {
+                  bgcolor: themeSelected.palette.grey[800],
+                  color: themeSelected.palette.text.primary,
+                  padding: "10px",
+                  '& .MuiTooltip-arrow': {
+                      color: themeSelected.palette.grey[800],
+                  },
+              },
+          },
+      }}
+  />;
+}
+
 function asignarPropiedades(t, props) {
   Object.entries(props).forEach(([k, v]) => {
     if (typeof v === "function") {
