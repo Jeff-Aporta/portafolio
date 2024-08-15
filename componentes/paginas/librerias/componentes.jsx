@@ -85,7 +85,7 @@ function esquemaGeneralLibreria(objLib) {
                                 const [code, sub] = objLib.nombre.split(":");
                                 return (
                                     <React.Fragment>
-                                        <CodeInline scroll={false}>{code}</CodeInline>
+                                        <CodeInline scroll={false}>{code}:</CodeInline>
                                         {sub}
                                     </React.Fragment>
                                 );
@@ -194,7 +194,7 @@ function esquemaGeneralLibreria(objLib) {
                                         const [code, sub] = nombre.split(":");
                                         return (
                                             <React.Fragment>
-                                                <CodeInline scroll={false}>{code}</CodeInline>
+                                                <CodeInline scroll={false}>{code}:</CodeInline>
                                                 {sub}
                                             </React.Fragment>
                                         );
