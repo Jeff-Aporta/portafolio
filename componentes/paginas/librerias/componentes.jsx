@@ -84,10 +84,10 @@ function esquemaGeneralLibreria(objLib) {
                             case "CodeInlineParcial":
                                 const [code, sub] = objLib.nombre.split(":");
                                 return (
-                                    <FormatoDoc>
+                                    <React.Fragment>
                                         <CodeInline scroll={false}>{code}</CodeInline>
                                         {sub}
-                                    </FormatoDoc>
+                                    </React.Fragment>
                                 );
                             default:
                                 return objLib.nombre;
@@ -193,10 +193,10 @@ function esquemaGeneralLibreria(objLib) {
                                     case "CodeInlineParcial":
                                         const [code, sub] = nombre.split(":");
                                         return (
-                                            <FormatoDoc>
+                                            <React.Fragment>
                                                 <CodeInline scroll={false}>{code}</CodeInline>
                                                 {sub}
-                                            </FormatoDoc>
+                                            </React.Fragment>
                                         );
                                     default:
                                         return nombre;
