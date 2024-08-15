@@ -77,15 +77,17 @@ function esquemaGeneralLibreria(objLib) {
                 variant="h2"
             >
                 <Titulo
-                    texto={
-                        objLib.nombre_render_as == "CodeInline" ?
-                            (
-                                <CodeInline scroll={false}>
-                                    {objLib.nombre}
-                                </CodeInline>
-                            ) :
-                            objLib.nombre
-                    }
+                    texto={(() => {
+                        switch (objLib.nombre_render_as) {
+                            case "CodeInline":
+                                return <CodeInline scroll={false}>{objLib.nombre}</CodeInline>;
+                            case "CodeInlineParcial":
+                                const [code, sub] = objLib.nombre.split(":");
+                                return <CodeInline scroll={false}>{code}</CodeInline> + sub;
+                            default:
+                                return objLib.nombre;
+                        }
+                    })()}
                 />
                 <EspacioVertical heigth="30px" />
             </Typography>
