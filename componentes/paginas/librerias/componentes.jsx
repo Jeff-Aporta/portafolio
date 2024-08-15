@@ -181,15 +181,17 @@ function esquemaGeneralLibreria(objLib) {
                 <div id={id}>
                     <h1>
                         <Titulo>
-                            {
-                                nombre_render_as == "CodeInline" ?
-                                    (
-                                        <CodeInline scroll={false}>
-                                            {nombre}
-                                        </CodeInline>
-                                    ) :
-                                    nombre
-                            }
+                            {(() => {
+                                switch (nombre_render_as) {
+                                    case "CodeInline":
+                                        return <CodeInline scroll={false}>{nombre}</CodeInline>;
+                                    case "CodeInlineParcial":
+                                        const [code, sub] = nombre.split(":");
+                                        return <CodeInline scroll={false}>{code}</CodeInline> + sub;
+                                    default:
+                                        return nombre;
+                                }
+                            })()}
                         </Titulo>
                     </h1>
                     <EnvolventeSeccion>
