@@ -500,6 +500,9 @@ function PaginaPerfil() {
           <SubColeccion titulo="Librerías">
             <FiltrarEstado type="libreria-js" />
           </SubColeccion>
+          <SubColeccion titulo="React (JSX)">
+            <FiltrarEstado type="libreria-jsx" />
+          </SubColeccion>
         </Coleccion>
         <br />
         <Coleccion titulo="Java" icono="fa-brands fa-java">
@@ -600,10 +603,13 @@ function PaginaPerfil() {
                   elevation={5}
                   className="iluminar-hover"
                   style={{
-                    display: "inline-block",
-                    padding: "20px",
+                    display: "inline-flex",
+                    padding: "10px",
                     textAlign: "center",
                     borderRadius: "20px",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                   onClick={() => {
                     estado.seleccionar();
@@ -616,18 +622,18 @@ function PaginaPerfil() {
                   >
                     {contenido.nombre}
                   </h3>
-                  <br />
                   <img
                     src={[contenido.githubPage, contenido.img].filter(e => e).join("/")}
                     className={CSScmds(`
                         500px<-x->900px{
-                            width: [200px,250px];
-                            height: [200px,250px];
+                            width: [150px,200px];
+                            height: [150px,200px];
                         }
                     `)}
                     style={{
                       objectFit: 'cover',
                       borderRadius: '20px',
+                      verticalAlign: 'bottom',
                     }}
                   />
                 </Paper>

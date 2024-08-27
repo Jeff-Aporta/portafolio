@@ -10,12 +10,6 @@
     <script src="https://jeff-aporta.github.io/ASCIIMapLoader/src/mapeos-personales.js"></script>
 
     <script>
-      runASCIIMapLoader_inLine(`
-          ➤📁 src
-          ├──📄 JS2CSS.js
-          └──📄 theme.jsx
-      `)
-      
       delete ASCII_MAPS.PORTAFOLIO;
 
       Object.values(ASCII_MAPS).forEach((map) => {
@@ -23,7 +17,15 @@
       });
 
       runASCIIMapLoader_inLine(`
+          🔗 https://unpkg.com/@mui/material@5.16.7/umd/material-ui.production.min.js
+          
+          ➤📁 src
+          └──📄 theme.jsx
+      `)
+
+      runASCIIMapLoader_inLine(`
           🔗 https://jeff-aporta.github.io/OrigenTel/index.js
+          🔗 https://jeff-aporta.github.io/JS2CSS/index.js
 
           🤖 REACT (JSX)
 
@@ -74,6 +76,8 @@
               "Geometry-rects-n-circles-JS",
               "CSScmds",
               "GeoZonasNombreJS",
+              "JS2CSS",
+              "VentanaFlotanteJSX",
             ].map((lib) => `${lib}/src`),
 
             ...["JFTP"].map((lib) => `${lib}/src-web`),

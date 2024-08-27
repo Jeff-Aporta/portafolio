@@ -87,6 +87,15 @@ function App() {
                 contenido: _CSScmds_,
                 type: "libreria-js",
             },
+            "JS2CSS": {
+                rel: "https://github.com/Jeff-Aporta/JS2CSS",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: _CONTENIDO_JS2CSS_.nombre,
+                contenido: _CONTENIDO_JS2CSS_,
+                type: "libreria-js",
+            },
             "GeometryRectsNCircles": {
                 rel: "https://jeff-aporta.github.io/Geometry-rects-n-circles-JS",
                 componente: function () {
@@ -113,6 +122,15 @@ function App() {
                 titulo: _GeoZonasNombre_.nombre,
                 contenido: _GeoZonasNombre_,
                 type: "libreria-js",
+            },
+            "ventanaFlotante": {
+                rel: "https://github.com/Jeff-Aporta/VentanaFlotanteJSX",
+                componente: function () {
+                    return esquemaGeneralLibreria(this.contenido);
+                },
+                titulo: _CONTENIDO_VENTANA_FLOTANTE_.nombre,
+                contenido: _CONTENIDO_VENTANA_FLOTANTE_,
+                type: "libreria-jsx",
             },
         },
         navegadorIzquierda: ["Perfil", 0, "Proyectos", "Librerías", 0, "Configuración"],
