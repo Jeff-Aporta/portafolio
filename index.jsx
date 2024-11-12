@@ -87,15 +87,6 @@ function App() {
                 contenido: _CSScmds_,
                 type: "libreria-js",
             },
-            "JS2CSS": {
-                rel: "https://github.com/Jeff-Aporta/JS2CSS",
-                componente: function () {
-                    return esquemaGeneralLibreria(this.contenido);
-                },
-                titulo: _CONTENIDO_JS2CSS_.nombre,
-                contenido: _CONTENIDO_JS2CSS_,
-                type: "libreria-js",
-            },
             "GeometryRectsNCircles": {
                 rel: "https://jeff-aporta.github.io/Geometry-rects-n-circles-JS",
                 componente: function () {
